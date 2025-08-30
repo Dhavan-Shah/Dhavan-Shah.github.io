@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Blog - Dhavan Shah</title>
+  <meta content="" name="descriptison">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/favicon.png" rel="apple-touch-icon">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="assets/vendor/ionicons/css/ionicons.min.css" rel="stylesheet">
+  <link href="assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
+  <link href="assets/vendor/venobox/venobox.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="assets/css/style.css" rel="stylesheet">
+
+  <style>
+    .blog-index-item {
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 1px solid #e9ecef;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 15px;
+    }
+    
+    .blog-index-item:hover {
+      background-color: #f8f9fa;
+      border-color: #000;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    
+    .blog-index-item.active {
+      background-color: #000;
+      color: white;
+      border-color: #000;
+    }
+    
+    .blog-index-item.active h5,
+    .blog-index-item.active p,
+    .blog-index-item.active small {
+      color: white !important;
+    }
+    
+    .blog-content {
+      min-height: 500px;
+      padding: 30px;
+      border: 1px solid #e9ecef;
+      border-radius: 8px;
+      background-color: #fff;
+    }
+    
+    .blog-content h2 {
+      color: #000;
+      margin-bottom: 20px;
+    }
+    
+    .blog-meta {
+      color: #9ca3af;
+      font-size: 0.9em;
+      margin-bottom: 20px;
+    }
+    
+    .blog-text {
+      line-height: 1.8;
+      font-size: 1.1em;
+    }
+    
+    .back-to-home {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 1000;
+    }
+  </style>
+</head>
+
+<body id="page-top">
+
+  <!-- Back to Home Button -->
+  <a href="index.html" class="btn btn-primary back-to-home">
+    <i class="fa fa-arrow-left"></i> Back to Home
+  </a>
+
+  <!-- ======= Header/ Navbar ======= -->
+  <nav class="navbar navbar-b navbar-trans navbar-expand-md fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand js-scroll" href="index.html">Portfolio</a>
+      <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarDefault" aria-controls="navbarDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <div class="navbar-collapse collapse justify-content-end" id="navbarDefault">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link js-scroll" href="index.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll" href="index.html#about">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll" href="index.html#work">Work</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll active" href="blog.html">Blog</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="intro intro-single route bg-image" style="background-image: url(assets/img/Data_Science.jpeg)">
+    <div class="overlay-mf"></div>
+    <div class="intro-content display-table">
+      <div class="table-cell">
+        <div class="container">
+          <h2 class="intro-title mb-4">Blogs</h2>
+          <ol class="breadcrumb d-flex justify-content-center">
+            <li class="breadcrumb-item">
+              <a href="index.html">Home</a>
+            </li>
+            <li class="breadcrumb-item active">Blogs</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <main id="main">
+
+  <!-- ======= Blog Section ======= -->
+  <section class="blog-mf sect-pt4 route" style="margin-top: 80px;">
+    <div class="container">
+
+      
+      <div class="row">
+        <!-- Left Column - Blog Index -->
+        <div class="col-md-4">
+          <div class="blog-index">
+            <div class="blog-index-item active" data-blog="1">
+              <h5>Machine Learning Fundamentals</h5>
+              <p class="text-muted">Data Science</p>
+              <small class="text-muted">15 Jan 2025</small>
+            </div>
+            
+            <div class="blog-index-item" data-blog="2">
+              <h5 >Deep Learning Applications</h5>
+              <p class="text-muted">Deep Learning</p>
+              <small class="text-muted">10 Jan 2025</small>
+            </div>
+            
+            <div class="blog-index-item" data-blog="3">
+              <h5>Kaggle Competition Tips</h5>
+              <p class="text-muted">Competitions</p>
+              <small class="text-muted">5 Jan 2025</small>
+            </div>
+            
+            <div class="blog-index-item" data-blog="4">
+              <h5>Feature Engineering Best Practices</h5>
+              <p class="text-muted">Data Science</p>
+              <small class="text-muted">1 Jan 2025</small>
+            </div>
+            
+            <div class="blog-index-item" data-blog="5">
+              <h5>Neural Network Architecture</h5>
+              <p class="text-muted">Deep Learning</p>
+              <small class="text-muted">28 Dec 2024</small>
+            </div>
+            
+            <div class="blog-index-item" data-blog="6">
+              <h5>Data Preprocessing Techniques</h5>
+              <p class="text-muted">Data Science</p>
+              <small class="text-muted">25 Dec 2024</small>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Right Column - Blog Content -->
+        <div class="col-md-8">
+          <div class="blog-content" id="blog-content">
+            <!-- Default content for first blog -->
+            <h2>Machine Learning Fundamentals</h2>
+            <div class="blog-meta">
+              <span class="badge badge-primary">Data Science</span>
+              <span class="ml-3">15 Jan 2025</span>
+            </div>
+            <div class="blog-text">
+              <p>Machine learning is a subset of artificial intelligence that enables computers to learn and make decisions without being explicitly programmed. In this comprehensive guide, we'll explore the fundamental concepts that form the backbone of modern machine learning.</p>
+              
+              <h4>Types of Machine Learning</h4>
+              <p>There are three main types of machine learning:</p>
+              <ul>
+                <li><strong>Supervised Learning:</strong> Learning from labeled data to make predictions on new, unseen data</li>
+                <li><strong>Unsupervised Learning:</strong> Finding patterns in data without predefined labels</li>
+                <li><strong>Reinforcement Learning:</strong> Learning through interaction with an environment to maximize rewards</li>
+              </ul>
+              
+              <h4>Key Concepts</h4>
+              <p>Understanding these fundamental concepts is crucial for anyone working in machine learning:</p>
+              <ul>
+                <li><strong>Features:</strong> The input variables used to make predictions</li>
+                <li><strong>Labels:</strong> The target variable we want to predict</li>
+                <li><strong>Training Data:</strong> The dataset used to train the model</li>
+                <li><strong>Validation Data:</strong> Data used to tune hyperparameters</li>
+                <li><strong>Test Data:</strong> Data used to evaluate final model performance</li>
+              </ul>
+              
+              <h4>Common Algorithms</h4>
+              <p>Some of the most widely used machine learning algorithms include:</p>
+              <ul>
+                <li>Linear Regression</li>
+                <li>Logistic Regression</li>
+                <li>Decision Trees</li>
+                <li>Random Forest</li>
+                <li>Support Vector Machines</li>
+                <li>K-Means Clustering</li>
+              </ul>
+              
+              <p>As we continue to explore machine learning, remember that the key to success lies in understanding the underlying mathematics, choosing the right algorithm for your problem, and properly preparing your data.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section><!-- End Blog Section -->
+
+  <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/jquery/jquery.min.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/jquery.easing/jquery.easing.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script src="assets/vendor/waypoints/jquery.waypoints.min.js"></script>
+  <script src="assets/vendor/counterup/jquery.counterup.min.js"></script>
+  <script src="assets/vendor/owl.carousel/owl.carousel.min.js"></script>
+  <script src="assets/vendor/typed.js/typed.min.js"></script>
+  <script src="assets/vendor/venobox/venobox.min.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="assets/js/main.js"></script>
+
+  <script>
+    // Blog content data
+    const blogData = {
+      1: {
+        title: "Machine Learning Fundamentals",
+        category: "Data Science",
+        date: "15 Jan 2025",
+        content: `
+          <p>Machine learning is a subset of artificial intelligence that enables computers to learn and make decisions without being explicitly programmed. In this comprehensive guide, we'll explore the fundamental concepts that form the backbone of modern machine learning.</p>
+          
+          <h4>Types of Machine Learning</h4>
+          <p>There are three main types of machine learning:</p>
+          <ul>
+            <li><strong>Supervised Learning:</strong> Learning from labeled data to make predictions on new, unseen data</li>
+            <li><strong>Unsupervised Learning:</strong> Finding patterns in data without predefined labels</li>
+            <li><strong>Reinforcement Learning:</strong> Learning through interaction with an environment to maximize rewards</li>
+          </ul>
+          
+          <h4>Key Concepts</h4>
+          <p>Understanding these fundamental concepts is crucial for anyone working in machine learning:</p>
+          <ul>
+            <li><strong>Features:</strong> The input variables used to make predictions</li>
+            <li><strong>Labels:</strong> The target variable we want to predict</li>
+            <li><strong>Training Data:</strong> The dataset used to train the model</li>
+            <li><strong>Validation Data:</strong> Data used to tune hyperparameters</li>
+            <li><strong>Test Data:</strong> Data used to evaluate final model performance</li>
+          </ul>
+          
+          <h4>Common Algorithms</h4>
+          <p>Some of the most widely used machine learning algorithms include:</p>
+          <ul>
+            <li>Linear Regression</li>
+            <li>Logistic Regression</li>
+            <li>Decision Trees</li>
+            <li>Random Forest</li>
+            <li>Support Vector Machines</li>
+            <li>K-Means Clustering</li>
+          </ul>
+          
+          <p>As we continue to explore machine learning, remember that the key to success lies in understanding the underlying mathematics, choosing the right algorithm for your problem, and properly preparing your data.</p>
+        `
+      },
+      2: {
+        title: "Deep Learning Applications",
+        category: "Deep Learning",
+        date: "10 Jan 2025",
+        content: `
+          <p>Deep learning has revolutionized the field of artificial intelligence, enabling breakthroughs in computer vision, natural language processing, and many other domains. Let's explore some of the most impactful applications of deep learning.</p>
+          
+          <h4>Computer Vision</h4>
+          <p>Deep learning has transformed computer vision with applications such as:</p>
+          <ul>
+            <li>Image classification and object detection</li>
+            <li>Facial recognition and biometrics</li>
+            <li>Medical image analysis</li>
+            <li>Autonomous vehicles</li>
+            <li>Augmented reality</li>
+          </ul>
+          
+          <h4>Natural Language Processing</h4>
+          <p>Recent advances in NLP have been driven by deep learning:</p>
+          <ul>
+            <li>Language translation</li>
+            <li>Sentiment analysis</li>
+            <li>Text generation and summarization</li>
+            <li>Question answering systems</li>
+            <li>Chatbots and virtual assistants</li>
+          </ul>
+          
+          <h4>Key Technologies</h4>
+          <p>Some of the most important deep learning architectures include:</p>
+          <ul>
+            <li>Convolutional Neural Networks (CNNs)</li>
+            <li>Recurrent Neural Networks (RNNs)</li>
+            <li>Long Short-Term Memory (LSTM)</li>
+            <li>Transformer models</li>
+            <li>Generative Adversarial Networks (GANs)</li>
+          </ul>
+          
+          <p>The future of deep learning looks promising, with ongoing research in areas like few-shot learning, explainable AI, and more efficient training methods.</p>
+        `
+      },
+      3: {
+        title: "Kaggle Competition Tips",
+        category: "Competitions",
+        date: "5 Jan 2025",
+        content: `
+          <p>Kaggle competitions are an excellent way to improve your data science skills and learn from the community. Here are some proven strategies to help you succeed in Kaggle competitions.</p>
+          
+          <h4>Getting Started</h4>
+          <p>Before diving into competitions, make sure you:</p>
+          <ul>
+            <li>Understand the competition rules and evaluation metrics</li>
+            <li>Explore the data thoroughly</li>
+            <li>Set up a proper development environment</li>
+            <li>Create a baseline model quickly</li>
+          </ul>
+          
+          <h4>Feature Engineering</h4>
+          <p>Feature engineering is often the key to winning competitions:</p>
+          <ul>
+            <li>Create domain-specific features</li>
+            <li>Handle missing values appropriately</li>
+            <li>Encode categorical variables effectively</li>
+            <li>Create interaction features</li>
+            <li>Use feature selection techniques</li>
+          </ul>
+          
+          <h4>Modeling Strategies</h4>
+          <p>Successful competition strategies include:</p>
+          <ul>
+            <li>Ensemble multiple models</li>
+            <li>Use cross-validation properly</li>
+            <li>Implement stacking and blending</li>
+            <li>Optimize hyperparameters</li>
+            <li>Monitor for overfitting</li>
+          </ul>
+          
+          <h4>Competition Tips</h4>
+          <p>Additional tips for success:</p>
+          <ul>
+            <li>Start with simple models and iterate</li>
+            <li>Learn from public kernels and discussions</li>
+            <li>Focus on the evaluation metric</li>
+            <li>Don't overfit to the leaderboard</li>
+            <li>Collaborate with other participants</li>
+          </ul>
+          
+          <p>Remember, the goal is not just to win, but to learn and improve your skills. Every competition is an opportunity to grow as a data scientist.</p>
+        `
+      },
+      4: {
+        title: "Feature Engineering Best Practices",
+        category: "Data Science",
+        date: "1 Jan 2025",
+        content: `
+          <p>Feature engineering is the process of creating new features from existing data to improve model performance. It's often said that feature engineering is more important than the choice of algorithm.</p>
+          
+          <h4>Understanding Your Data</h4>
+          <p>Before creating features, you need to understand your data:</p>
+          <ul>
+            <li>Analyze data distributions</li>
+            <li>Identify data types and relationships</li>
+            <li>Look for patterns and correlations</li>
+            <li>Understand the business context</li>
+          </ul>
+          
+          <h4>Common Feature Engineering Techniques</h4>
+          <p>Some widely used techniques include:</p>
+          <ul>
+            <li><strong>Binning:</strong> Converting continuous variables to categorical</li>
+            <li><strong>Polynomial Features:</strong> Creating interaction terms</li>
+            <li><strong>Time-based Features:</strong> Extracting temporal patterns</li>
+            <li><strong>Aggregation Features:</strong> Creating summary statistics</li>
+            <li><strong>Encoding:</strong> Converting categorical to numerical</li>
+          </ul>
+          
+          <h4>Best Practices</h4>
+          <p>Follow these guidelines for effective feature engineering:</p>
+          <ul>
+            <li>Always validate features on holdout data</li>
+            <li>Use domain knowledge to guide feature creation</li>
+            <li>Handle missing values appropriately</li>
+            <li>Scale features when necessary</li>
+            <li>Remove highly correlated features</li>
+          </ul>
+          
+          <p>Feature engineering is both an art and a science. The best features often come from deep understanding of the problem domain and creative thinking.</p>
+        `
+      },
+      5: {
+        title: "Neural Network Architecture",
+        category: "Deep Learning",
+        date: "28 Dec 2024",
+        content: `
+          <p>Neural network architecture design is crucial for the success of deep learning models. Understanding different architectures and when to use them is essential for any deep learning practitioner.</p>
+          
+          <h4>Basic Components</h4>
+          <p>Every neural network consists of these fundamental components:</p>
+          <ul>
+            <li><strong>Input Layer:</strong> Receives the input data</li>
+            <li><strong>Hidden Layers:</strong> Process the information</li>
+            <li><strong>Output Layer:</strong> Produces the final prediction</li>
+            <li><strong>Activation Functions:</strong> Introduce non-linearity</li>
+            <li><strong>Weights and Biases:</strong> Learnable parameters</li>
+          </ul>
+          
+          <h4>Popular Architectures</h4>
+          <p>Some of the most successful neural network architectures:</p>
+          <ul>
+            <li><strong>Feedforward Networks:</strong> Basic multi-layer perceptrons</li>
+            <li><strong>Convolutional Networks:</strong> Specialized for spatial data</li>
+            <li><strong>Recurrent Networks:</strong> Handle sequential data</li>
+            <li><strong>Transformer Networks:</strong> Attention-based architectures</li>
+            <li><strong>Autoencoders:</strong> Unsupervised learning</li>
+          </ul>
+          
+          <h4>Design Principles</h4>
+          <p>Key principles for designing effective architectures:</p>
+          <ul>
+            <li>Start simple and gradually increase complexity</li>
+            <li>Use appropriate activation functions</li>
+            <li>Implement regularization techniques</li>
+            <li>Consider the problem type and data characteristics</li>
+            <li>Balance model capacity with available data</li>
+          </ul>
+          
+          <p>Architecture design is an iterative process. Experimentation and understanding of the underlying principles are key to success.</p>
+        `
+      },
+      6: {
+        title: "Data Preprocessing Techniques",
+        category: "Data Science",
+        date: "25 Dec 2024",
+        content: `
+          <p>Data preprocessing is a critical step in any machine learning pipeline. Proper preprocessing can significantly improve model performance and reduce training time.</p>
+          
+          <h4>Data Cleaning</h4>
+          <p>The first step is cleaning your data:</p>
+          <ul>
+            <li>Handle missing values (imputation or removal)</li>
+            <li>Remove duplicates</li>
+            <li>Fix inconsistent data formats</li>
+            <li>Identify and handle outliers</li>
+            <li>Validate data quality</li>
+          </ul>
+          
+          <h4>Data Transformation</h4>
+          <p>Transform data to make it suitable for modeling:</p>
+          <ul>
+            <li><strong>Scaling:</strong> Normalize or standardize numerical features</li>
+            <li><strong>Encoding:</strong> Convert categorical variables</li>
+            <li><strong>Feature Selection:</strong> Remove irrelevant features</li>
+            <li><strong>Dimensionality Reduction:</strong> PCA, t-SNE, etc.</li>
+            <li><strong>Binning:</strong> Group continuous variables</li>
+          </ul>
+          
+          <h4>Best Practices</h4>
+          <p>Follow these guidelines for effective preprocessing:</p>
+          <ul>
+            <li>Always split data before preprocessing</li>
+            <li>Apply the same transformations to train and test sets</li>
+            <li>Document all preprocessing steps</li>
+            <li>Validate the impact of preprocessing</li>
+            <li>Consider the computational cost</li>
+          </ul>
+          
+          <h4>Common Pitfalls</h4>
+          <p>Avoid these common mistakes:</p>
+          <ul>
+            <li>Data leakage from test set</li>
+            <li>Over-processing the data</li>
+            <li>Ignoring the business context</li>
+            <li>Not validating preprocessing steps</li>
+            <li>Applying transformations without understanding their impact</li>
+          </ul>
+          
+          <p>Remember, the goal of preprocessing is to make the data more suitable for your model while preserving important information.</p>
+        `
+      }
+    };
+
+    // Handle blog item clicks
+    $(document).ready(function() {
+      // Function to load blog content
+      function loadBlog(blogId) {
+        const blog = blogData[blogId];
+        if (!blog) return;
+        
+        // Update active state
+        $('.blog-index-item').removeClass('active');
+        $(`.blog-index-item[data-blog="${blogId}"]`).addClass('active');
+        
+        // Update content
+        $('#blog-content').html(`
+          <h2>${blog.title}</h2>
+          <div class="blog-meta">
+            <span class="badge badge-dark">${blog.category}</span>
+            <span class="ml-3">${blog.date}</span>
+          </div>
+          <div class="blog-text">
+            ${blog.content}
+          </div>
+        `);
+        
+        // Update URL with blog title
+        const blogTitle = blog.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+        const newUrl = window.location.pathname + '#' + blogTitle;
+        window.history.pushState({blogId: blogId}, blog.title, newUrl);
+      }
+      
+      // Handle blog item clicks
+      $('.blog-index-item').click(function() {
+        const blogId = $(this).data('blog');
+        loadBlog(blogId);
+      });
+      
+      // Handle direct navigation from URL hash
+      function handleHashNavigation() {
+        const hash = window.location.hash.substring(1);
+        if (hash) {
+          // Find blog by title in hash
+          for (let blogId in blogData) {
+            const blog = blogData[blogId];
+            const blogTitle = blog.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+            if (blogTitle === hash) {
+              loadBlog(blogId);
+              return;
+            }
+          }
+        }
+      }
+      
+      // Handle browser back/forward buttons
+      window.addEventListener('popstate', function(event) {
+        if (event.state && event.state.blogId) {
+          loadBlog(event.state.blogId);
+        } else {
+          handleHashNavigation();
+        }
+      });
+      
+      // Check for hash on page load
+      handleHashNavigation();
+    });
+  </script>
+
+</body>
+
+</html>
