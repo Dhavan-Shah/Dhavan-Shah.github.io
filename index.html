@@ -23,6 +23,110 @@
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
 
+  <style>
+    .search-container {
+      position: relative;
+      width: 250px;
+      margin-left: 20px;
+    }
+    
+    .navbar-search {
+      display: flex;
+      align-items: center;
+    }
+    
+    .search-results {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      max-height: 400px;
+      overflow-y: auto;
+      display: none;
+    }
+    
+    .search-result-item {
+      padding: 10px 15px;
+      border-bottom: 1px solid #eee;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    
+    .search-result-item:hover {
+      background-color: #f8f9fa;
+    }
+    
+    .search-result-item:last-child {
+      border-bottom: none;
+    }
+    
+    .search-result-title {
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 2px;
+    }
+    
+    .search-result-category {
+      font-size: 0.8em;
+      color: #666;
+    }
+    
+    .search-result-type {
+      font-size: 0.7em;
+      color: #007bff;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+    
+    .work-box.hidden,
+    .blog-box.hidden {
+      display: none;
+    }
+    
+    .search-highlight {
+      background-color: #fff3cd;
+      padding: 2px 4px;
+      border-radius: 3px;
+    }
+    
+    .no-results {
+      padding: 15px;
+      text-align: center;
+      color: #666;
+      font-style: italic;
+    }
+    
+    .work-box.highlight {
+      animation: highlight-pulse 2s ease-in-out;
+    }
+    
+    @keyframes highlight-pulse {
+      0%, 100% { 
+        box-shadow: 0 0 0 0 rgba(0, 123, 255, 0.7);
+        transform: scale(1);
+      }
+      50% { 
+        box-shadow: 0 0 0 10px rgba(0, 123, 255, 0.3);
+        transform: scale(1.02);
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .search-container {
+        width: 100%;
+        margin: 10px 0;
+      }
+      
+      .navbar-search {
+        flex-direction: column;
+        align-items: stretch;
+      }
+    }
+  </style>
+
   <!-- =======================================================
   * Template Name: DevFolio - v2.3.0
   * Template URL: https://bootstrapmade.com/devfolio-bootstrap-portfolio-html-template/
@@ -57,6 +161,21 @@
             <a class="nav-link js-scroll" href="#blog">Blog</a>
           </li>
         </ul>
+        
+        <!-- Search Bar in Navbar -->
+        <div class="navbar-search">
+          <div class="search-container">
+            <div class="input-group">
+              <input type="text" id="global-search" class="form-control" placeholder="Search..." aria-label="Search projects and blogs">
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button" id="search-btn">
+                  <i class="fa fa-search"></i>
+                </button>
+              </div>
+            </div>
+            <div class="search-results" id="search-results"></div>
+          </div>
+        </div>
       </div>
     </div>
   </nav>
@@ -152,7 +271,7 @@
         </div>
         <div class="row">
           <div class="col-md-4">
-            <div class="work-box">
+            <div class="work-box" data-title="Master's Project" data-category="Deep Learning, Outlier Detection">
               <a href="assets/img/work-1.jpg" data-gall="portfolioGallery" class="venobox">
                 <div class="work-img">
                   <img src="assets/img/work-1.jpg" alt="" class="img-fluid">
@@ -176,7 +295,7 @@
             </div>
           </div>
           <div class="col-md-4">
-            <div class="work-box">
+            <div class="work-box" data-title="Loreda Cuno Nere" data-category="Web Design">
               <a href="assets/img/work-2.jpg" data-gall="portfolioGallery" class="venobox">
                 <div class="work-img">
                   <img src="assets/img/work-2.jpg" alt="" class="img-fluid">
@@ -200,7 +319,7 @@
             </div>
           </div>
           <div class="col-md-4">
-            <div class="work-box">
+            <div class="work-box" data-title="Mavrito Lana Dere" data-category="Web Design">
               <a href="assets/img/work-3.jpg" data-gall="portfolioGallery" class="venobox">
                 <div class="work-img">
                   <img src="assets/img/work-3.jpg" alt="" class="img-fluid">
@@ -224,7 +343,7 @@
             </div>
           </div>
           <div class="col-md-4">
-            <div class="work-box">
+            <div class="work-box" data-title="Bindo Laro Cado" data-category="Web Design">
               <a href="assets/img/work-4.jpg" data-gall="portfolioGallery" class="venobox">
                 <div class="work-img">
                   <img src="assets/img/work-4.jpg" alt="" class="img-fluid">
@@ -248,7 +367,7 @@
             </div>
           </div>
           <div class="col-md-4">
-            <div class="work-box">
+            <div class="work-box" data-title="Studio Lena Mado" data-category="Web Design">
               <a href="assets/img/work-5.jpg" data-gall="portfolioGallery" class="venobox">
                 <div class="work-img">
                   <img src="assets/img/work-5.jpg" alt="" class="img-fluid">
@@ -272,7 +391,7 @@
             </div>
           </div>
           <div class="col-md-4">
-            <div class="work-box">
+            <div class="work-box" data-title="Studio Big Bang" data-category="Web Design">
               <a href="assets/img/work-6.jpg" data-gall="portfolioGallery" class="venobox">
                 <div class="work-img">
                   <img src="assets/img/work-6.jpg" alt="" class="img-fluid">
@@ -316,9 +435,11 @@
             </div>
           </div>
         </div>
+        
+
         <div class="row">
           <div class="col-md-4">
-            <div class="work-box">
+            <div class="work-box blog-box" data-title="Machine Learning Fundamentals" data-category="Data Science" data-type="blog">
               <a href="blog.html#machine-learning-fundamentals">
                 <div class="work-img">
                   <img src="assets/img/Data_Science.jpeg" alt="" class="img-fluid">
@@ -342,7 +463,7 @@
             </div>
           </div>
           <div class="col-md-4">
-            <div class="work-box">
+            <div class="work-box blog-box" data-title="Deep Learning Applications" data-category="Deep Learning" data-type="blog">
               <a href="blog.html#deep-learning-applications">
                 <div class="work-img">
                   <img src="assets/img/Data_Science.jpeg" alt="" class="img-fluid">
@@ -366,7 +487,7 @@
             </div>
           </div>
           <div class="col-md-4">
-            <div class="work-box">
+            <div class="work-box blog-box" data-title="Kaggle Competition Tips" data-category="Competitions" data-type="blog">
               <a href="blog.html#kaggle-competition-tips">
                 <div class="work-img">
                   <img src="assets/img/Data_Science.jpeg" alt="" class="img-fluid">
@@ -440,6 +561,219 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+
+  <script>
+    $(document).ready(function() {
+      // Blog data from blog.html
+      const allBlogData = {
+        1: {
+          title: "Machine Learning Fundamentals",
+          category: "Data Science",
+          date: "15 Jan 2025",
+          url: "blog.html#machine-learning-fundamentals"
+        },
+        2: {
+          title: "Deep Learning Applications",
+          category: "Deep Learning",
+          date: "10 Jan 2025",
+          url: "blog.html#deep-learning-applications"
+        },
+        3: {
+          title: "Kaggle Competition Tips",
+          category: "Competitions",
+          date: "5 Jan 2025",
+          url: "blog.html#kaggle-competition-tips"
+        },
+        4: {
+          title: "Feature Engineering Best Practices",
+          category: "Data Science",
+          date: "1 Jan 2025",
+          url: "blog.html#feature-engineering-best-practices"
+        },
+        5: {
+          title: "Neural Network Architecture",
+          category: "Deep Learning",
+          date: "28 Dec 2024",
+          url: "blog.html#neural-network-architecture"
+        },
+        6: {
+          title: "Data Preprocessing Techniques",
+          category: "Data Science",
+          date: "25 Dec 2024",
+          url: "blog.html#data-preprocessing-techniques"
+        }
+      };
+      
+      // Global search functionality
+      function performGlobalSearch() {
+        const searchTerm = $('#global-search').val().toLowerCase().trim();
+        const $searchResults = $('#search-results');
+        
+        if (searchTerm === '') {
+          $searchResults.hide();
+          $('.work-box').removeClass('hidden');
+          return;
+        }
+        
+        const results = [];
+        
+        // Search through projects
+        $('.work-box:not(.blog-box)').each(function() {
+          const $item = $(this);
+          const title = $item.data('title').toLowerCase();
+          const category = $item.data('category').toLowerCase();
+          
+          if (title.includes(searchTerm) || category.includes(searchTerm)) {
+            results.push({
+              title: $item.data('title'),
+              category: $item.data('category'),
+              type: 'Project',
+              element: $item,
+              url: null
+            });
+          }
+        });
+        
+        // Search through visible blogs on this page
+        $('.blog-box').each(function() {
+          const $item = $(this);
+          const title = $item.data('title').toLowerCase();
+          const category = $item.data('category').toLowerCase();
+          
+          if (title.includes(searchTerm) || category.includes(searchTerm)) {
+            results.push({
+              title: $item.data('title'),
+              category: $item.data('category'),
+              type: 'Blog',
+              element: $item,
+              url: null
+            });
+          }
+        });
+        
+        // Search through all blog data (including those not on this page)
+        Object.keys(allBlogData).forEach(blogId => {
+          const blog = allBlogData[blogId];
+          const title = blog.title.toLowerCase();
+          const category = blog.category.toLowerCase();
+          const date = blog.date.toLowerCase();
+          
+          if (title.includes(searchTerm) || category.includes(searchTerm) || date.includes(searchTerm)) {
+            // Check if this blog is already in results (from visible items)
+            const alreadyExists = results.some(result => 
+              result.title === blog.title && result.type === 'Blog'
+            );
+            
+            if (!alreadyExists) {
+              results.push({
+                title: blog.title,
+                category: blog.category,
+                type: 'Blog',
+                element: null, // Not on this page
+                url: blog.url
+              });
+            }
+          }
+        });
+        
+        // Display results
+        displaySearchResults(results, searchTerm);
+        
+        // Filter visible items
+        $('.work-box').addClass('hidden');
+        results.forEach(result => {
+          if (result.element) {
+            result.element.removeClass('hidden');
+          }
+        });
+      }
+      
+      function displaySearchResults(results, searchTerm) {
+        const $searchResults = $('#search-results');
+        $searchResults.empty();
+        
+        if (results.length === 0) {
+          $searchResults.html('<div class="no-results">No results found for "' + searchTerm + '"</div>');
+        } else {
+          results.forEach((result, index) => {
+            const elementIndex = result.element ? result.element.index() : 'external';
+            const resultItem = `
+              <div class="search-result-item" data-element="${elementIndex}" data-title="${result.title}" data-url="${result.url || ''}">
+                <div class="search-result-title">${result.title}</div>
+                <div class="search-result-category">${result.category}</div>
+                <div class="search-result-type">${result.type}</div>
+              </div>
+            `;
+            $searchResults.append(resultItem);
+          });
+        }
+        
+        $searchResults.show();
+      }
+      
+      // Search event handlers
+      $('#global-search').on('input', function() {
+        performGlobalSearch();
+      });
+      
+      $('#search-btn').on('click', function() {
+        performGlobalSearch();
+      });
+      
+      // Search on Enter key
+      $('#global-search').on('keypress', function(e) {
+        if (e.which === 13) {
+          performGlobalSearch();
+        }
+      });
+      
+      // Handle search result clicks
+      $(document).on('click', '.search-result-item', function() {
+        const elementIndex = $(this).data('element');
+        const title = $(this).data('title');
+        const url = $(this).data('url');
+        
+        // Check if this is an external blog (not on this page)
+        if (elementIndex === 'external' && url) {
+          // Navigate to the blog page
+          window.location.href = url;
+          return;
+        }
+        
+        // This is an item on the current page
+        const $targetElement = $('.work-box').eq(elementIndex);
+        
+        if ($targetElement.length > 0) {
+          // Scroll to the element
+          $('html, body').animate({
+            scrollTop: $targetElement.offset().top - 100
+          }, 500);
+          
+          // Highlight the element briefly
+          $targetElement.addClass('highlight');
+          setTimeout(() => {
+            $targetElement.removeClass('highlight');
+          }, 2000);
+        }
+        
+        // Hide search results
+        $('#search-results').hide();
+      });
+      
+      // Hide search results when clicking outside
+      $(document).on('click', function(e) {
+        if (!$(e.target).closest('.search-container').length) {
+          $('#search-results').hide();
+        }
+      });
+      
+      // Clear search when clicking on a work box
+      $('.work-box').on('click', function() {
+        $('#global-search').val('');
+        performGlobalSearch();
+      });
+    });
+  </script>
 
 </body>
 
