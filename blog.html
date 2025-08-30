@@ -82,15 +82,31 @@
       left: 20px;
       z-index: 1000;
     }
+    
+    .search-container {
+      position: relative;
+    }
+    
+    .blog-index-item.hidden {
+      display: none;
+    }
+    
+    .no-results {
+      text-align: center;
+      padding: 20px;
+      color: #6c757d;
+      font-style: italic;
+    }
+    
+    .search-highlight {
+      background-color: #fff3cd;
+      padding: 2px 4px;
+      border-radius: 3px;
+    }
   </style>
 </head>
 
 <body id="page-top">
-
-  <!-- Back to Home Button -->
-  <a href="index.html" class="btn btn-primary back-to-home">
-    <i class="fa fa-arrow-left"></i> Back to Home
-  </a>
 
   <!-- ======= Header/ Navbar ======= -->
   <nav class="navbar navbar-b navbar-trans navbar-expand-md fixed-top" id="mainNav">
@@ -147,6 +163,18 @@
       <div class="row">
         <!-- Left Column - Blog Index -->
         <div class="col-md-4">
+          <!-- Search Bar -->
+          <div class="search-container mb-4">
+            <div class="input-group">
+              <input type="text" id="blog-search" class="form-control" placeholder="Search blogs..." aria-label="Search blogs">
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button" id="search-btn">
+                  <i class="fa fa-search"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          
           <div class="blog-index">
             <div class="blog-index-item active" data-blog="1">
               <h5>Machine Learning Fundamentals</h5>
@@ -576,6 +604,65 @@
       
       // Check for hash on page load
       handleHashNavigation();
+      
+      // Search functionality
+      function performSearch() {
+        const searchTerm = $('#blog-search').val().toLowerCase().trim();
+        const blogItems = $('.blog-index-item');
+        let visibleCount = 0;
+        
+        blogItems.each(function() {
+          const $item = $(this);
+          const title = $item.find('h5').text().toLowerCase();
+          const category = $item.find('p').text().toLowerCase();
+          const date = $item.find('small').text().toLowerCase();
+          
+          const matches = title.includes(searchTerm) || 
+                         category.includes(searchTerm) || 
+                         date.includes(searchTerm);
+          
+          if (matches || searchTerm === '') {
+            $item.removeClass('hidden');
+            visibleCount++;
+          } else {
+            $item.addClass('hidden');
+          }
+        });
+        
+        // Show/hide no results message
+        const $noResults = $('.no-results');
+        if (visibleCount === 0 && searchTerm !== '') {
+          if ($noResults.length === 0) {
+            $('.blog-index').append('<div class="no-results">No blogs found matching your search.</div>');
+          }
+        } else {
+          $noResults.remove();
+        }
+        
+
+      }
+      
+      // Search event handlers
+      $('#blog-search').on('input', function() {
+        performSearch();
+      });
+      
+      $('#search-btn').on('click', function() {
+        performSearch();
+      });
+      
+      // Search on Enter key
+      $('#blog-search').on('keypress', function(e) {
+        if (e.which === 13) {
+          performSearch();
+        }
+      });
+      
+      // Clear search when clicking on a blog item
+      $('.blog-index').on('click', '.blog-index-item', function() {
+        $('#blog-search').val('');
+        performSearch();
+      });
     });
   </script>
 
