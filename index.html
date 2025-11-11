@@ -3,11 +3,14 @@
 
 <head>
   <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
 
   <title>Dhavan Shah</title>
-  <meta content="" name="descriptison">
-  <meta content="" name="keywords">
+  <meta content="Data Scientist Portfolio - Dhavan Shah" name="description">
+  <meta content="Data Science, Machine Learning, AI, Portfolio, Dhavan Shah" name="keywords">
+  <meta name="theme-color" content="#007bff">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
   <!-- Favicons -->
   <link href="assets/img/favicon.png" rel="icon">
@@ -24,6 +27,157 @@
   <link href="assets/css/style.css" rel="stylesheet">
 
   <style>
+    /* Mobile Responsive Styles */
+
+    /* Blog section mobile improvements */
+    @media (max-width: 768px) {
+      .blog-mf .title-box {
+        margin-bottom: 30px;
+      }
+      
+      .blog-mf .title-a {
+        font-size: 1.5rem;
+      }
+      
+      .blog-mf .subtitle-a {
+        font-size: 0.9rem;
+      }
+    }
+    
+    /* Testimonials mobile improvements */
+    @media (max-width: 768px) {
+      .testimonial-box {
+        padding: 20px;
+      }
+      
+      .author-test img {
+        width: 60px;
+        height: 60px;
+      }
+      
+      .author {
+        font-size: 0.9rem;
+      }
+      
+      .description {
+        font-size: 0.9rem;
+        line-height: 1.6;
+      }
+    }
+    
+    /* Navigation mobile improvements */
+    @media (max-width: 768px) {
+      .navbar-brand {
+        font-size: 1.2rem;
+      }
+      
+      .navbar-nav .nav-link {
+        padding: 10px 15px;
+        font-size: 0.9rem;
+      }
+      
+      .navbar-collapse {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 8px;
+        margin-top: 10px;
+        padding: 10px;
+      }
+    }
+    
+    /* Intro section mobile improvements */
+    @media (max-width: 768px) {
+      .intro {
+        min-height: 60vh;
+      }
+      
+      .intro-content {
+        padding: 20px 0;
+      }
+      
+      .display-6 {
+        font-size: 1.5rem;
+      }
+    }
+    
+    /* Section spacing mobile improvements */
+    @media (max-width: 768px) {
+      .sect-pt4 {
+        padding-top: 40px;
+        padding-bottom: 40px;
+      }
+      
+      .box-shadow-full {
+        padding: 20px;
+        margin: 20px 0;
+      }
+      
+      /* Improve touch targets */
+      .btn {
+        min-height: 44px;
+        padding: 12px 20px;
+        font-size: 1rem;
+      }
+      
+      /* Better spacing for mobile */
+      .row {
+        margin-left: -10px;
+        margin-right: -10px;
+      }
+      
+      .col-md-4, .col-md-6, .col-sm-6, .col-sm-12 {
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+      
+      /* Improve image responsiveness */
+      .work-img img, .about-img img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+      }
+      
+      /* Better text readability on mobile */
+      p {
+        line-height: 1.6;
+        margin-bottom: 1rem;
+      }
+      
+      /* Improve form elements */
+      input, textarea, select {
+        font-size: 16px; /* Prevents zoom on iOS */
+        padding: 12px;
+      }
+    }
+    
+    /* Extra small devices (phones, 576px and down) */
+    @media (max-width: 576px) {
+      .container {
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+      
+      .work-box {
+        margin-bottom: 20px;
+      }
+      
+      .about-img img {
+        max-width: 150px;
+      }
+      
+      .navbar-brand {
+        font-size: 1rem;
+      }
+      
+      .title-a {
+        font-size: 1.3rem !important;
+      }
+      
+      .subtitle-a {
+        font-size: 0.8rem !important;
+      }
+    }
+    
+    /* Search functionality mobile improvements */
     .search-container {
       position: relative;
       width: 250px;
@@ -211,7 +365,7 @@
                     </div>
                     <div class="col-sm-6 col-md-7">
                       <div class="about-info">
-                        <p><span class="title-s">Name: </span> <span>Dhava Shah</span></p>
+                        <p><span class="title-s">Name: </span> <span>Dhavan Shah</span></p>
                         <p><span class="title-s">Profile: </span> <span>Data Scientist</span></p>
                         <p><span class="title-s">Email: </span> <span>shah.dhavan09@gmail.com</span></p>
                         <p><span class="title-s">Phone: </span> <span>+91 7045526979</span></p>
@@ -263,7 +417,7 @@
                 Portfolio
               </h3>
               <p class="subtitle-a">
-                Master's Project, Master's Thesis, and other projects.
+                Projects.
               </p>
               <div class="line-mf"></div>
             </div>
@@ -280,7 +434,7 @@
               <div class="work-content">
                 <div class="row">
                   <div class="col-sm-8">
-                    <h2 class="w-title">Master's Project</h2>
+                    <h2 class="w-title">Visualizing Outlier Detection using Deep Isolation Forest</h2>
                     <div class="w-more">
                       <span class="w-ctegory">Deep Learning, Outlier Detection</span> / <span class="w-date">20 March 2025</span>
                     </div>
@@ -342,82 +496,16 @@
               </div>
             </div>
           </div>
-          <div class="col-md-4">
-            <div class="work-box" data-title="Bindo Laro Cado" data-category="Web Design">
-              <a href="assets/img/work-4.jpg" data-gall="portfolioGallery" class="venobox">
-                <div class="work-img">
-                  <img src="assets/img/work-4.jpg" alt="" class="img-fluid">
-                </div>
-              </a>
-              <div class="work-content">
-                <div class="row">
-                  <div class="col-sm-8">
-                    <h2 class="w-title">Bindo Laro Cado</h2>
-                    <div class="w-more">
-                      <span class="w-ctegory">Web Design</span> / <span class="w-date">18 Sep. 2018</span>
-                    </div>
-                  </div>
-                  <div class="col-sm-4">
-                    <div class="w-like">
-                      <a href="portfolio-details.html"> <span class="ion-ios-plus-outline"></span></a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="work-box" data-title="Studio Lena Mado" data-category="Web Design">
-              <a href="assets/img/work-5.jpg" data-gall="portfolioGallery" class="venobox">
-                <div class="work-img">
-                  <img src="assets/img/work-5.jpg" alt="" class="img-fluid">
-                </div>
-              </a>
-              <div class="work-content">
-                <div class="row">
-                  <div class="col-sm-8">
-                    <h2 class="w-title">Studio Lena Mado</h2>
-                    <div class="w-more">
-                      <span class="w-ctegory">Web Design</span> / <span class="w-date">18 Sep. 2018</span>
-                    </div>
-                  </div>
-                  <div class="col-sm-4">
-                    <div class="w-like">
-                      <a href="portfolio-details.html"> <span class="ion-ios-plus-outline"></span></a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="work-box" data-title="Studio Big Bang" data-category="Web Design">
-              <a href="assets/img/work-6.jpg" data-gall="portfolioGallery" class="venobox">
-                <div class="work-img">
-                  <img src="assets/img/work-6.jpg" alt="" class="img-fluid">
-                </div>
-              </a>
-              <div class="work-content">
-                <div class="row">
-                  <div class="col-sm-8">
-                    <h2 class="w-title">Studio Big Bang</h2>
-                    <div class="w-more">
-                      <span class="w-ctegory">Web Design</span> / <span class="w-date">18 Sep. 2017</span>
-                    </div>
-                  </div>
-                  <div class="col-sm-4">
-                    <div class="w-like">
-                      <a href="portfolio-details.html"> <span class="ion-ios-plus-outline"></span></a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
         </div>
+        <div class="row mt-4">
+          <div class="col-12 text-center">
+            <a href="projects.html" class="btn btn-primary">See all projects</a>
+          </div>
+        </div>
+
       </div>
     </section><!-- End Portfolio Section -->
+    
 
     <!-- ======= Blog Section ======= -->
     <section id="blog" class="blog-mf sect-pt4 route">
@@ -528,7 +616,7 @@
                 </div>
                 <div class="content-test">
                   <p class="description lead">
-                    Data Scientist with a Master's Degree from the University of Zurich, Kaggle Competitions Expert, Machine Learning and AI Research Enthusiast.
+                    It only takes a smile to make a dark day seem bright.
                   </p>
                   <span class="comit"><i class="fa fa-quote-right"></i></span>
                 </div>
