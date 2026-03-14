@@ -28,21 +28,6 @@
 
   <style>
     /* Mobile Responsive Styles */
-
-    /* Blog section mobile improvements */
-    @media (max-width: 768px) {
-      .blog-mf .title-box {
-        margin-bottom: 30px;
-      }
-      
-      .blog-mf .title-a {
-        font-size: 1.5rem;
-      }
-      
-      .blog-mf .subtitle-a {
-        font-size: 0.9rem;
-      }
-    }
     
     /* Testimonials mobile improvements */
     @media (max-width: 768px) {
@@ -235,8 +220,8 @@
       font-weight: bold;
     }
     
-    .work-box.hidden,
-    .blog-box.hidden {
+    /* (Blog removed) Filter only project cards */
+    .work-box.hidden {
       display: none;
     }
     
@@ -279,6 +264,245 @@
         align-items: stretch;
       }
     }
+
+    /* ============================================================
+       Chatbot Overlay Panel
+       - Does NOT split the page into columns.
+       - Renders on top of the existing page content.
+       - Starts below the navbar/search bar (top offset is set in JS).
+       ============================================================ */
+    :root {
+      --chatbot-width: 360px;
+      --chatbot-top: 90px; /* fallback; updated dynamically in JS */
+      --chatbot-border: rgba(0, 0, 0, 0.08);
+      --chatbot-bg: #ffffff;
+      --chatbot-muted: #6c757d;
+    }
+
+    .chatbot-sidebar {
+      width: var(--chatbot-width);
+      background: var(--chatbot-bg);
+      border: 1px solid var(--chatbot-border);
+      border-radius: 10px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.14);
+      opacity: 0.8; /* 70% transparency */
+      /* Keep visible while scrolling; start below the navbar/search bar */
+      position: fixed;
+      top: var(--chatbot-top);
+      right: 16px;
+      height: calc(100vh - var(--chatbot-top) - 16px);
+      z-index: 1030;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    .chatbot-header {
+      padding: 12px 12px 10px;
+      border-bottom: 1px solid var(--chatbot-border);
+      background: #f8f9fa;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .chatbot-header-text {
+      min-width: 0;
+    }
+
+    .chatbot-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin: 0;
+      color: #212529;
+      letter-spacing: 0.2px;
+    }
+
+    .chatbot-subtitle {
+      margin: 4px 0 0;
+      font-size: 0.8rem;
+      color: var(--chatbot-muted);
+    }
+
+    .chatbot-toggle {
+      flex: 0 0 auto;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      background: #ffffff;
+      color: #212529;
+      border-radius: 8px;
+      line-height: 1;
+      padding: 8px 10px;
+      cursor: pointer;
+    }
+
+    .chatbot-toggle:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(31, 204, 247, 0.25);
+    }
+
+    .chatbot-min-label {
+      display: none;
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin: 0;
+      color: #212529;
+      white-space: nowrap;
+    }
+
+    /* Minimized state: collapse to a small "Message me" bar with a caret */
+    .chatbot-sidebar.is-minimized {
+      width: 220px;
+      height: auto;
+      border-radius: 12px;
+      overflow: hidden;
+      /* Dock near the bottom when minimized */
+      top: auto;
+      bottom: 16px;
+    }
+
+    .chatbot-sidebar.is-minimized .chatbot-messages,
+    .chatbot-sidebar.is-minimized .chatbot-input,
+    .chatbot-sidebar.is-minimized .chatbot-subtitle {
+      display: none;
+    }
+
+    .chatbot-sidebar.is-minimized .chatbot-title {
+      display: none;
+    }
+
+    .chatbot-sidebar.is-minimized .chatbot-min-label {
+      display: block;
+    }
+
+    .chatbot-messages {
+      flex: 1 1 auto;
+      overflow-y: auto;
+      padding: 12px;
+      background: linear-gradient(180deg, #ffffff 0%, #fbfbfd 100%);
+    }
+
+    .chatbot-msg {
+      display: flex;
+      margin: 8px 0;
+    }
+
+    .chatbot-msg.user {
+      justify-content: flex-end;
+    }
+
+    .chatbot-msg.assistant {
+      justify-content: flex-start;
+    }
+
+    .chatbot-msg.status {
+      justify-content: center;
+    }
+
+    .chatbot-bubble {
+      max-width: 92%;
+      padding: 10px 12px;
+      border-radius: 14px;
+      line-height: 1.4;
+      font-size: 0.92rem;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .chatbot-bubble.user {
+      background: #67e2f2;
+      color: #212529;
+      border-bottom-right-radius: 6px;
+    }
+
+    .chatbot-bubble.assistant {
+      background: #f1f3f5;
+      color: #212529;
+      border-bottom-left-radius: 6px;
+    }
+
+    .chatbot-bubble.status {
+      background: transparent;
+      color: var(--chatbot-muted);
+      padding: 0;
+      font-size: 0.82rem;
+      font-style: italic;
+      text-align: center;
+    }
+
+    .chatbot-bubble.error {
+      background: #fff5f5;
+      color: #b02a37;
+      border: 1px solid rgba(176, 42, 55, 0.18);
+    }
+
+    .chatbot-input {
+      flex: 0 0 auto;
+      padding: 10px;
+      border-top: 1px solid var(--chatbot-border);
+      background: #ffffff;
+    }
+
+    .chatbot-form {
+      display: flex;
+      gap: 8px;
+      align-items: flex-end;
+    }
+
+    .chatbot-textarea {
+      flex: 1 1 auto;
+      resize: none;
+      min-height: 44px;
+      max-height: 140px;
+      font-size: 16px; /* prevents iOS zoom */
+    }
+
+    .chatbot-send {
+      flex: 0 0 auto;
+      min-height: 44px;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Loading indicator shown while waiting for SSE stream */
+    .chatbot-dots {
+      display: inline-flex;
+      gap: 3px;
+      align-items: center;
+    }
+
+    .chatbot-dots span {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.85);
+      display: inline-block;
+      animation: chatbot-bounce 1.2s infinite ease-in-out;
+    }
+
+    .chatbot-dots span:nth-child(2) { animation-delay: 0.15s; }
+    .chatbot-dots span:nth-child(3) { animation-delay: 0.3s; }
+
+    @keyframes chatbot-bounce {
+      0%, 80%, 100% { transform: translateY(0); opacity: 0.7; }
+      40% { transform: translateY(-4px); opacity: 1; }
+    }
+
+    @media (max-width: 992px) {
+      .chatbot-sidebar {
+        left: 10px;
+        right: 10px;
+        width: auto;
+        height: 55vh;
+      }
+
+      .chatbot-sidebar.is-minimized {
+        width: auto;
+        bottom: 10px;
+      }
+    }
   </style>
 
   <!-- =======================================================
@@ -311,16 +535,13 @@
           <li class="nav-item">
             <a class="nav-link js-scroll" href="#work">Work</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link js-scroll" href="#blog">Blog</a>
-          </li>
         </ul>
         
         <!-- Search Bar in Navbar -->
         <div class="navbar-search">
           <div class="search-container">
             <div class="input-group">
-              <input type="text" id="global-search" class="form-control" placeholder="Search..." aria-label="Search projects and blogs">
+              <input type="text" id="global-search" class="form-control" placeholder="Search..." aria-label="Search projects and pages">
               <div class="input-group-append">
                 <button class="btn btn-outline-secondary" type="button" id="search-btn">
                   <i class="fa fa-search"></i>
@@ -333,6 +554,47 @@
       </div>
     </div>
   </nav>
+
+  <!-- ==========================
+       Chatbot Panel (Overlay)
+       - Sits on top of the original page content (no 2-column split)
+       - Starts below the navbar/search bar (top offset is set in JS)
+       ========================== -->
+  <aside class="chatbot-sidebar" aria-label="AI Chatbot">
+    <div class="chatbot-header">
+      <!-- Chatbox header + minimize/expand control -->
+      <div class="chatbot-header-text">
+        <p class="chatbot-title">Chat With My Assistant</p>
+        <p class="chatbot-min-label">Message me</p>
+        <p class="chatbot-subtitle">Ask about projects, skills, and experience.</p>
+      </div>
+
+      <!-- When expanded: shows a down arrow to minimize. When minimized: shows "^" to expand. -->
+      <button id="chatbot-toggle" class="chatbot-toggle" type="button" aria-label="Minimize chat" aria-expanded="true">
+        <span id="chatbot-toggle-icon" aria-hidden="true">▾</span>
+      </button>
+    </div>
+
+    <div id="chatbot-messages" class="chatbot-messages" role="log" aria-live="polite" aria-relevant="additions text">
+      <!-- Messages injected by JavaScript -->
+      <div class="chatbot-msg assistant">
+        <div class="chatbot-bubble assistant">Hi! Would you like to see if Dhavan's profile matches with the requirements of your job posting? Or Would you like to ask something specific to Dhavan's profile or projects?</div>
+      </div>
+    </div>
+
+    <div class="chatbot-input">
+      <form id="chatbot-form" class="chatbot-form" autocomplete="off">
+        <label for="chatbot-text" class="sr-only">Message</label>
+        <textarea id="chatbot-text" class="form-control chatbot-textarea" placeholder="Type a message..." rows="1"></textarea>
+        <button id="chatbot-send" type="submit" class="btn btn-primary chatbot-send">
+          <span class="chatbot-send-label">Send</span>
+          <span class="chatbot-dots" id="chatbot-loading" style="display:none" aria-hidden="true">
+            <span></span><span></span><span></span>
+          </span>
+        </button>
+      </form>
+    </div>
+  </aside>
 
   <!-- ======= Intro Section ======= -->
   <div id="home" class="intro route bg-image">
@@ -501,110 +763,9 @@
             </div>
           </div>
         </div>
-        <div class="row mt-4">
-          <div class="col-12 text-center">
-            <a href="projects.html" class="btn btn-primary">See all projects</a>
-          </div>
-        </div>
-
       </div>
     </section><!-- End Portfolio Section -->
     
-
-    <!-- ======= Blog Section ======= -->
-    <section id="blog" class="blog-mf sect-pt4 route">
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-12">
-            <div class="title-box text-center">
-              <h3 class="title-a">
-                Blog
-              </h3>
-              <p class="subtitle-a">
-                Data Science, Machine Learning, and AI insights
-              </p>
-              <div class="line-mf"></div>
-            </div>
-          </div>
-        </div>
-        
-
-        <div class="row">
-          <div class="col-md-4">
-            <div class="work-box blog-box" data-title="Machine Learning Fundamentals" data-category="Data Science" data-type="blog">
-              <a href="blog.html#machine-learning-fundamentals">
-                <div class="work-img">
-                  <img src="assets/img/Data_Science.jpeg" alt="" class="img-fluid">
-                </div>
-              </a>
-              <div class="work-content">
-                <div class="row">
-                  <div class="col-sm-8">
-                    <h2 class="w-title">Machine Learning Fundamentals</h2>
-                    <div class="w-more">
-                      <span class="w-ctegory">Data Science</span> / <span class="w-date">15 Jan 2025</span>
-                    </div>
-                  </div>
-                  <div class="col-sm-4">
-                    <div class="w-like">
-                      <a href="blog.html#machine-learning-fundamentals"> <span class="ion-ios-plus-outline"></span></a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="work-box blog-box" data-title="Deep Learning Applications" data-category="Deep Learning" data-type="blog">
-              <a href="blog.html#deep-learning-applications">
-                <div class="work-img">
-                  <img src="assets/img/Data_Science.jpeg" alt="" class="img-fluid">
-                </div>
-              </a>
-              <div class="work-content">
-                <div class="row">
-                  <div class="col-sm-8">
-                    <h2 class="w-title">Deep Learning Applications</h2>
-                    <div class="w-more">
-                      <span class="w-ctegory">Deep Learning</span> / <span class="w-date">10 Jan 2025</span>
-                    </div>
-                  </div>
-                  <div class="col-sm-4">
-                    <div class="w-like">
-                      <a href="blog.html#deep-learning-applications"> <span class="ion-ios-plus-outline"></span></a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="work-box blog-box" data-title="Kaggle Competition Tips" data-category="Competitions" data-type="blog">
-              <a href="blog.html#kaggle-competition-tips">
-                <div class="work-img">
-                  <img src="assets/img/Data_Science.jpeg" alt="" class="img-fluid">
-                </div>
-              </a>
-              <div class="work-content">
-                <div class="row">
-                  <div class="col-sm-8">
-                    <h2 class="w-title">Kaggle Competition Tips</h2>
-                    <div class="w-more">
-                      <span class="w-ctegory">Competitions</span> / <span class="w-date">5 Jan 2025</span>
-                    </div>
-                  </div>
-                  <div class="col-sm-4">
-                    <div class="w-like">
-                      <a href="blog.html#kaggle-competition-tips"> <span class="ion-ios-plus-outline"></span></a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section><!-- End Blog Section -->
 
     <!-- ======= Testimonials Section ======= -->
     <div class="testimonials paralax-mf bg-image" style="background-image: url(assets/img/Background.jpeg)">
@@ -656,47 +817,27 @@
 
   <script>
     $(document).ready(function() {
-      // Blog data from blog.html
-      const allBlogData = {
-        1: {
-          title: "Machine Learning Fundamentals",
-          category: "Data Science",
-          date: "15 Jan 2025",
-          url: "blog.html#machine-learning-fundamentals"
-        },
-        2: {
-          title: "Deep Learning Applications",
-          category: "Deep Learning",
-          date: "10 Jan 2025",
-          url: "blog.html#deep-learning-applications"
-        },
-        3: {
-          title: "Kaggle Competition Tips",
-          category: "Competitions",
-          date: "5 Jan 2025",
-          url: "blog.html#kaggle-competition-tips"
-        },
-        4: {
-          title: "Feature Engineering Best Practices",
-          category: "Data Science",
-          date: "1 Jan 2025",
-          url: "blog.html#feature-engineering-best-practices"
-        },
-        5: {
-          title: "Neural Network Architecture",
-          category: "Deep Learning",
-          date: "28 Dec 2024",
-          url: "blog.html#neural-network-architecture"
-        },
-        6: {
-          title: "Data Preprocessing Techniques",
-          category: "Data Science",
-          date: "25 Dec 2024",
-          url: "blog.html#data-preprocessing-techniques"
+      /* ============================================================
+         Search Modification (Blog Removed)
+         - Search now returns only relevant pages + visible project cards
+         - No blog posts, no blog sections, no blog links
+         ============================================================ */
+      const sitePages = [
+        { title: "Home", category: "Section", url: "index.html#page-top", type: "Page" },
+        { title: "About", category: "Section", url: "index.html#about", type: "Page" },
+        { title: "Work", category: "Section", url: "index.html#work", type: "Page" },
+        { title: "Projects", category: "Page", url: "projects.html", type: "Page" },
+        { title: "Portfolio Details", category: "Page", url: "portfolio-details.html", type: "Page" }
+      ];
+
+      // Give each project card a stable DOM id so search results can scroll to it.
+      $('.work-box').each(function(i) {
+        const $item = $(this);
+        if (!$item.attr('id')) {
+          $item.attr('id', 'project-card-' + i);
         }
-      };
-      
-      // Global search functionality
+      });
+
       function performGlobalSearch() {
         const searchTerm = $('#global-search').val().toLowerCase().trim();
         const $searchResults = $('#search-results');
@@ -709,75 +850,51 @@
         
         const results = [];
         
-        // Search through projects
-        $('.work-box:not(.blog-box)').each(function() {
+        // Search through project cards on this page
+        const projectResults = [];
+        $('.work-box').each(function() {
           const $item = $(this);
           const title = $item.data('title').toLowerCase();
           const category = $item.data('category').toLowerCase();
           
           if (title.includes(searchTerm) || category.includes(searchTerm)) {
-            results.push({
+            projectResults.push({
               title: $item.data('title'),
               category: $item.data('category'),
               type: 'Project',
               element: $item,
+              targetId: $item.attr('id'),
               url: null
             });
           }
         });
-        
-        // Search through visible blogs on this page
-        $('.blog-box').each(function() {
-          const $item = $(this);
-          const title = $item.data('title').toLowerCase();
-          const category = $item.data('category').toLowerCase();
-          
-          if (title.includes(searchTerm) || category.includes(searchTerm)) {
-            results.push({
-              title: $item.data('title'),
-              category: $item.data('category'),
-              type: 'Blog',
-              element: $item,
-              url: null
-            });
-          }
-        });
-        
-        // Search through all blog data (including those not on this page)
-        Object.keys(allBlogData).forEach(blogId => {
-          const blog = allBlogData[blogId];
-          const title = blog.title.toLowerCase();
-          const category = blog.category.toLowerCase();
-          const date = blog.date.toLowerCase();
-          
-          if (title.includes(searchTerm) || category.includes(searchTerm) || date.includes(searchTerm)) {
-            // Check if this blog is already in results (from visible items)
-            const alreadyExists = results.some(result => 
-              result.title === blog.title && result.type === 'Blog'
-            );
-            
-            if (!alreadyExists) {
-              results.push({
-                title: blog.title,
-                category: blog.category,
-                type: 'Blog',
-                element: null, // Not on this page
-                url: blog.url
-              });
-            }
-          }
-        });
+
+        // Search through site pages (non-blog)
+        const pageResults = sitePages.filter(page => {
+          const t = page.title.toLowerCase();
+          const c = page.category.toLowerCase();
+          return t.includes(searchTerm) || c.includes(searchTerm);
+        }).map(page => ({
+          title: page.title,
+          category: page.category,
+          type: page.type,
+          element: null,
+          url: page.url
+        }));
+
+        // Merge + prefer projects first (more specific)
+        results.push(...projectResults, ...pageResults);
         
         // Display results
         displaySearchResults(results, searchTerm);
         
-        // Filter visible items
-        $('.work-box').addClass('hidden');
-        results.forEach(result => {
-          if (result.element) {
-            result.element.removeClass('hidden');
-          }
-        });
+        // Filter visible project cards only if there are project matches.
+        if (projectResults.length > 0) {
+          $('.work-box').addClass('hidden');
+          projectResults.forEach(result => result.element.removeClass('hidden'));
+        } else {
+          $('.work-box').removeClass('hidden');
+        }
       }
       
       function displaySearchResults(results, searchTerm) {
@@ -788,9 +905,8 @@
           $searchResults.html('<div class="no-results">No results found for "' + searchTerm + '"</div>');
         } else {
           results.forEach((result, index) => {
-            const elementIndex = result.element ? result.element.index() : 'external';
             const resultItem = `
-              <div class="search-result-item" data-element="${elementIndex}" data-title="${result.title}" data-url="${result.url || ''}">
+              <div class="search-result-item" data-url="${result.url || ''}" data-target-id="${result.targetId || ''}" data-title="${result.title}">
                 <div class="search-result-title">${result.title}</div>
                 <div class="search-result-category">${result.category}</div>
                 <div class="search-result-type">${result.type}</div>
@@ -821,31 +937,42 @@
       
       // Handle search result clicks
       $(document).on('click', '.search-result-item', function() {
-        const elementIndex = $(this).data('element');
-        const title = $(this).data('title');
         const url = $(this).data('url');
-        
-        // Check if this is an external blog (not on this page)
-        if (elementIndex === 'external' && url) {
-          // Navigate to the blog page
-          window.location.href = url;
+        const targetId = $(this).data('target-id');
+
+        // Project result on this page: smooth scroll + brief highlight.
+        if (targetId) {
+          const $targetElement = $('#' + targetId);
+          if ($targetElement.length > 0) {
+            $('html, body').animate({ scrollTop: $targetElement.offset().top - 100 }, 500);
+            $targetElement.addClass('highlight');
+            setTimeout(() => {
+              $targetElement.removeClass('highlight');
+            }, 2000);
+          }
+          $('#search-results').hide();
           return;
         }
-        
-        // This is an item on the current page
-        const $targetElement = $('.work-box').eq(elementIndex);
-        
-        if ($targetElement.length > 0) {
-          // Scroll to the element
-          $('html, body').animate({
-            scrollTop: $targetElement.offset().top - 100
-          }, 500);
-          
-          // Highlight the element briefly
-          $targetElement.addClass('highlight');
-          setTimeout(() => {
-            $targetElement.removeClass('highlight');
-          }, 2000);
+
+        if (url) {
+          // Navigate to another page or an on-page anchor.
+          if (typeof url === 'string' && url.includes('#')) {
+            const parts = url.split('#');
+            const anchor = parts[1];
+            // Same-page anchor: smooth scroll
+            if ((parts[0] === '' || parts[0].endsWith('index.html')) && anchor) {
+              const $target = $('#' + anchor);
+              if ($target.length > 0) {
+                $('html, body').animate({ scrollTop: $target.offset().top - 100 }, 500);
+              } else {
+                window.location.href = url;
+              }
+            } else {
+              window.location.href = url;
+            }
+          } else {
+            window.location.href = url;
+          }
         }
         
         // Hide search results
@@ -865,6 +992,304 @@
         performGlobalSearch();
       });
     });
+  </script>
+
+  <script>
+    /* ============================================================
+       Chatbot (Vanilla JS)
+       - Layout: overlay panel on top of the existing page (see CSS above)
+         Starts below the navbar/search bar (top offset is computed below)
+       - API (SSE): POST https://api.kazenai.com/personal/query-stream
+         payload: { "message": "<user_message>", "session_id": "sess-01" }
+       - Streaming: Server Sent Events (SSE) parsed from fetch() response
+         Supports event types: searching, thinking, final, error
+       - UI: progressively appends tokens to the assistant message + auto-scroll
+       ============================================================ */
+    (function() {
+      // Matches the provided curl example (SSE stream)
+      const API_URL = 'https://api.kazenai.com/personal/query-stream';
+      const SESSION_ID = 'sess-01';
+
+      const els = {
+        form: document.getElementById('chatbot-form'),
+        text: document.getElementById('chatbot-text'),
+        send: document.getElementById('chatbot-send'),
+        loading: document.getElementById('chatbot-loading'),
+        sendLabel: document.querySelector('.chatbot-send-label'),
+        messages: document.getElementById('chatbot-messages'),
+        panel: document.querySelector('.chatbot-sidebar'),
+        toggle: document.getElementById('chatbot-toggle'),
+        toggleIcon: document.getElementById('chatbot-toggle-icon')
+      };
+
+      /* Chat panel positioning: keep it below the navbar/search bar */
+      function updateChatTopOffset() {
+        const nav = document.getElementById('mainNav');
+        if (!nav) return;
+        const rect = nav.getBoundingClientRect();
+        const topPx = Math.max(0, Math.ceil(rect.bottom) + 10);
+        document.documentElement.style.setProperty('--chatbot-top', topPx + 'px');
+      }
+
+      updateChatTopOffset();
+      window.addEventListener('resize', updateChatTopOffset);
+      window.addEventListener('load', updateChatTopOffset);
+
+      // If the navbar collapses/expands (mobile), its height changes—update the offset.
+      if (window.jQuery) {
+        window.jQuery('#navbarDefault').on('shown.bs.collapse hidden.bs.collapse', updateChatTopOffset);
+      }
+
+      /* Minimize / Expand behavior */
+      function setMinimized(isMinimized) {
+        if (!els.panel || !els.toggle || !els.toggleIcon) return;
+        els.panel.classList.toggle('is-minimized', isMinimized);
+
+        // Expanded: down arrow. Minimized: caret up ("^" requested).
+        els.toggleIcon.textContent = isMinimized ? '^' : '▾';
+        els.toggle.setAttribute('aria-label', isMinimized ? 'Expand chat' : 'Minimize chat');
+        els.toggle.setAttribute('aria-expanded', isMinimized ? 'false' : 'true');
+
+        // Keep the panel below the navbar even after layout changes.
+        updateChatTopOffset();
+
+        // Restore focus to the input when expanding for faster chatting.
+        if (!isMinimized && els.text) {
+          els.text.focus();
+        }
+      }
+
+      // Optional: remember state across refreshes.
+      const savedMin = window.localStorage ? window.localStorage.getItem('chatbot:minimized') : null;
+      if (savedMin === '1') setMinimized(true);
+
+      if (els.toggle) {
+        els.toggle.addEventListener('click', function() {
+          const next = !els.panel.classList.contains('is-minimized');
+          setMinimized(next);
+          if (window.localStorage) window.localStorage.setItem('chatbot:minimized', next ? '1' : '0');
+        });
+      }
+
+      let activeAbortController = null;
+      let statusBubbleEl = null;
+
+      function scrollToBottom() {
+        els.messages.scrollTop = els.messages.scrollHeight;
+      }
+
+      function setLoading(isLoading) {
+        els.send.disabled = isLoading;
+        els.text.disabled = isLoading;
+        els.loading.style.display = isLoading ? 'inline-flex' : 'none';
+        els.sendLabel.textContent = isLoading ? 'Sending' : 'Send';
+      }
+
+      function addMessage(role, text, opts) {
+        const options = opts || {};
+        const row = document.createElement('div');
+        row.className = 'chatbot-msg ' + role;
+
+        const bubble = document.createElement('div');
+        bubble.className = 'chatbot-bubble ' + role + (options.error ? ' error' : '');
+        bubble.textContent = text || '';
+
+        row.appendChild(bubble);
+        els.messages.appendChild(row);
+        scrollToBottom();
+        return bubble;
+      }
+
+      function ensureStatusBubble() {
+        if (statusBubbleEl) return statusBubbleEl;
+        statusBubbleEl = addMessage('status', '');
+        return statusBubbleEl;
+      }
+
+      function setStatus(text) {
+        const bubble = ensureStatusBubble();
+        bubble.textContent = text || '';
+      }
+
+      function clearStatus() {
+        if (!statusBubbleEl) return;
+        statusBubbleEl.textContent = '';
+      }
+
+      function coerceEventText(data) {
+        const raw = (data || '').toString();
+        const trimmed = raw.trim();
+        if (!trimmed || trimmed === '[DONE]') return '';
+
+        // Be liberal in what we accept: SSE data is often JSON.
+        try {
+          const obj = JSON.parse(trimmed);
+          return (
+            obj.token ??
+            obj.text ??
+            obj.message ??
+            obj.content ??
+            obj.data ??
+            trimmed
+          ).toString();
+        } catch (_) {
+          return raw;
+        }
+      }
+
+      function parseSSEBlock(block) {
+        // Minimal SSE parser: blocks separated by blank lines.
+        const lines = block.split(/\r?\n/);
+        let eventName = 'message';
+        const dataLines = [];
+
+        for (const line of lines) {
+          if (!line) continue;
+          if (line.startsWith('event:')) {
+            eventName = line.slice('event:'.length).trim() || 'message';
+          } else if (line.startsWith('data:')) {
+            dataLines.push(line.slice('data:'.length));
+          }
+        }
+
+        return { event: eventName, data: dataLines.join('\n') };
+      }
+
+      async function streamSSE(response, onEvent) {
+        if (!response.body) throw new Error('This browser does not support streaming responses.');
+
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder('utf-8');
+        let buffer = '';
+
+        while (true) {
+          const { value, done } = await reader.read();
+          if (done) break;
+          buffer += decoder.decode(value, { stream: true });
+
+          let idx;
+          while ((idx = buffer.indexOf('\n\n')) !== -1) {
+            const rawBlock = buffer.slice(0, idx).trim();
+            buffer = buffer.slice(idx + 2);
+            if (!rawBlock) continue;
+            onEvent(parseSSEBlock(rawBlock));
+          }
+        }
+
+        const trailing = buffer.trim();
+        if (trailing) onEvent(parseSSEBlock(trailing));
+      }
+
+      async function sendMessage(userMessage) {
+        const clean = (userMessage || '').trim();
+        if (!clean) return;
+
+        addMessage('user', clean);
+        const assistantBubble = addMessage('assistant', '');
+        setStatus('Connecting...');
+        setLoading(true);
+
+        // Cancel any previous in-flight request.
+        if (activeAbortController) activeAbortController.abort();
+        activeAbortController = new AbortController();
+
+        let hadErrorEvent = false;
+
+        try {
+          const res = await fetch(API_URL, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'text/event-stream'
+            },
+            body: JSON.stringify({ message: clean, session_id: SESSION_ID }),
+            signal: activeAbortController.signal
+          });
+
+          if (!res.ok) {
+            throw new Error('Request failed (HTTP ' + res.status + ').');
+          }
+
+          clearStatus();
+
+          await streamSSE(res, (evt) => {
+            const type = (evt.event || 'message').toLowerCase();
+            const text = coerceEventText(evt.data);
+
+            if (type === 'searching') {
+              setStatus(text ? ('Searching: ' + text) : 'Searching...');
+              return;
+            }
+
+            if (type === 'thinking') {
+              setStatus(text ? ('Thinking: ' + text) : 'Thinking...');
+              return;
+            }
+
+            if (type === 'error') {
+              hadErrorEvent = true;
+              clearStatus();
+              assistantBubble.textContent = '';
+              addMessage('assistant', text || 'Sorry — something went wrong.', { error: true });
+              if (activeAbortController) activeAbortController.abort();
+              return;
+            }
+
+            if (type === 'final') {
+              clearStatus();
+              if (text) assistantBubble.textContent += text;
+              scrollToBottom();
+              return;
+            }
+
+            // Default: streamed token/data chunk
+            if (text) {
+              assistantBubble.textContent += text;
+              scrollToBottom();
+            }
+          });
+
+          clearStatus();
+          if (!hadErrorEvent && !assistantBubble.textContent.trim()) {
+            assistantBubble.textContent = 'No response received.';
+          }
+        } catch (err) {
+          if (err && err.name === 'AbortError') return;
+          clearStatus();
+          assistantBubble.textContent = '';
+          addMessage('assistant', (err && err.message) ? err.message : 'Request failed.', { error: true });
+        } finally {
+          setLoading(false);
+          els.text.focus();
+          scrollToBottom();
+        }
+      }
+
+      // Form submit handler
+      els.form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const msg = els.text.value;
+        els.text.value = '';
+        autoResize();
+        sendMessage(msg);
+      });
+
+      // Enter to send, Shift+Enter for newline
+      els.text.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' && !e.shiftKey) {
+          e.preventDefault();
+          els.form.requestSubmit();
+        }
+      });
+
+      // Input UX: auto-resize the textarea (small + contained)
+      function autoResize() {
+        els.text.style.height = 'auto';
+        els.text.style.height = Math.min(140, els.text.scrollHeight) + 'px';
+      }
+      els.text.addEventListener('input', autoResize);
+      autoResize();
+    })();
   </script>
 
 </body>
