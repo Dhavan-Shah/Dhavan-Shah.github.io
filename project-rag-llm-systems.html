@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>RAG LLM Systems: Dhavan’s Personal Assistant (Streaming, Retrieval, AWS) — Dhavan Shah</title>
+
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="assets/css/style.css" rel="stylesheet">
+</head>
+
+<body id="page-top">
+
+  <nav class="navbar navbar-b navbar-trans navbar-expand-md fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand js-scroll" href="index.html">Portfolio</a>
+      <div class="navbar-collapse justify-content-end" id="navbarDefault">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link js-scroll" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link js-scroll" href="projects.html">Projects</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="intro intro-single route bg-image" style="background-image: url(assets/img/RAG_LLM_Systems.png)">
+    <div class="overlay-mf"></div>
+    <div class="intro-content display-table">
+      <div class="table-cell">
+        <div class="container">
+          <h2 class="intro-title mb-4">RAG LLM Systems: Dhavan’s Personal Assistant</h2>
+          <ol class="breadcrumb d-flex justify-content-center">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item"><a href="projects.html">Projects</a></li>
+            <li class="breadcrumb-item active">RAG Assistant (AWS + SSE)</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <main id="main">
+    <section class="portfolio-details" style="margin-top:80px;">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-7">
+            <img src="assets/img/RAG_LLM_Systems.png" class="img-fluid" alt="RAG LLM Systems Project">
+            <p class="mt-3 mb-0 small text-muted">
+              Production-style RAG assistant: retrieval, streaming SSE responses, rate limiting, cost guardrails, and cloud deployment.
+            </p>
+          </div>
+          <div class="col-md-5">
+            <h3>Project information</h3>
+            <ul>
+              <li><strong>Category</strong>: LLM Systems Engineering · Retrieval Augmented Generation (RAG)</li>
+              <li><strong>Frontend</strong>: GitHub Pages (single-page chat UI)</li>
+              <li><strong>Backend</strong>: FastAPI + Mangum (AWS Lambda)</li>
+              <li><strong>Cloud</strong>: API Gateway, Lambda, S3, CloudWatch, CDK</li>
+              <li><strong>Core features</strong>: Vector retrieval, SSE streaming, rate limiting, cost guardrails, observability, CI/CD</li>
+            </ul>
+
+            <h4>Overview</h4>
+            <p>
+              This project is a <strong>production-style Retrieval Augmented Generation (RAG)</strong> system that answers questions about
+              <strong>Dhavan Shah</strong> (portfolio, experience, Kaggle achievements, and projects). The focus is not just model output quality,
+              but <strong>end-to-end AI systems engineering</strong>: retrieval, streaming responses, deployment architecture, cost controls, and operational maturity.
+            </p>
+
+            <p class="mb-2"><strong>Live demo:</strong> you can test the personal assistant at:</p>
+            <p class="mb-3">
+              <a class="btn btn-success" href="https://dhavan-shah.github.io/" target="_blank" rel="noopener">
+                Try The Assistant
+              </a>
+            </p>
+
+            <p><a class="btn btn-primary" href="projects.html">Back to Projects</a></p>
+          </div>
+        </div>
+
+        <div class="row mt-4">
+          <div class="col-12">
+            <h4>Project Goal</h4>
+            <p>
+              Build a public, portfolio-grade AI assistant that demonstrates real-world engineering around LLM applications:
+              <strong>LLM pipelines</strong>, <strong>vector retrieval</strong>, <strong>streaming SSE</strong>, <strong>cloud deployment</strong>,
+              <strong>rate limiting</strong>, <strong>cost-aware guardrails</strong>, <strong>API design</strong>, and <strong>CI/CD + infrastructure-as-code</strong>.
+            </p>
+
+            <h4>High-Level Architecture</h4>
+            <p class="mb-2">Request/response flow:</p>
+            <ul>
+              <li><strong>Frontend (GitHub Pages)</strong> → chat UI sends a user message</li>
+              <li><strong>API Gateway</strong> → routes requests</li>
+              <li><strong>AWS Lambda</strong> → runs the application</li>
+              <li><strong>FastAPI app</strong> → orchestrates retrieval + generation</li>
+              <li><strong>Retrieval service</strong> → top-k chunk selection + reranking</li>
+              <li><strong>Vector index in S3</strong> → downloaded on cold start and loaded into memory</li>
+              <li><strong>LLM</strong> → generates a grounded answer</li>
+              <li><strong>SSE stream</strong> → tokens are streamed back progressively</li>
+            </ul>
+
+            <h4>Backend API Design</h4>
+            <ul>
+              <li><code>POST API for query</code>: primary endpoint returning <strong>Server Sent Events (SSE)</strong> for streaming responses.</li>
+              <li><code>GET API for health</code>: health checks for deployment/monitoring.</li>
+              <li><code>GET API to read metrics</code>: lightweight service metrics.</li>
+              <li><code>POST API to Reindex documents</code>: rebuilds the vector index from source documents.</li>
+            </ul>
+
+            <h4>RAG Pipeline (How Answers Are Grounded)</h4>
+            <p class="mb-2">
+              The system follows the standard RAG pattern: retrieve relevant knowledge first, then generate an answer using that context.
+              This is specifically intended to reduce hallucinations compared to an LLM-only approach.
+            </p>
+            <ul>
+              <li><strong>Ingestion</strong>: CV, project descriptions, Kaggle achievements, publications, GitHub content, and profile text are cleaned and chunked.</li>
+              <li><strong>Embedding</strong>: each chunk becomes a vector embedding.</li>
+              <li><strong>Index</strong>: the vector index is persisted to cloud storage and loaded into memory on cold start.</li>
+              <li><strong>Retrieval</strong>: query → embedding → vector similarity search → top-k chunks → context assembly.</li>
+              <li><strong>Generation</strong>: system prompt + retrieved chunks + user query → LLM answer.</li>
+            </ul>
+
+            <h4>Streaming Responses (SSE)</h4>
+            <p>
+              Responses are streamed back to the browser as SSE, so the user sees tokens as they are generated. This improves perceived latency and makes the assistant feel responsive.
+              Typical SSE events include incremental chunks and a completion event (e.g., <code>event: chunk</code>, <code>event: done</code>).
+            </p>
+
+            <h4>Cost & Abuse Controls</h4>
+            <ul>
+              <li><strong>Rate limiting</strong>: request caps (e.g., per-minute/per-hour) prevent abuse and keep costs predictable.</li>
+              <li><strong>Spend guardrails</strong>: daily/monthly budget controls (e.g., DynamoDB-backed in production, in-memory locally) protect against runaway costs.</li>
+              <li><strong>Rate limit headers</strong>: the API can return standard limit/remaining/reset headers for transparency.</li>
+            </ul>
+
+            <h4>Observability</h4>
+            <p>
+              The system emits operational signals (e.g., rate-limit decisions and streaming handler errors) to <strong>Amazon CloudWatch</strong> to support debugging and production monitoring.
+            </p>
+
+            <h4>Deployment & CI/CD</h4>
+            <ul>
+              <li><strong>Infrastructure-as-Code</strong>: AWS resources are provisioned via <strong>AWS CDK</strong> (Lambda, API Gateway, S3, permissions).</li>
+              <li><strong>GitHub Actions</strong>: automated lint/security/tests + CDK synth + deploy pipelines.</li>
+              <li><strong>Cold start strategy</strong>: vector index stored in S3 and loaded into memory on startup avoids recomputing embeddings on each deploy.</li>
+            </ul>
+
+            <h4>System Metrics</h4>
+            <ul>
+              <li><strong>Retrieval latency</strong>: typically ~100-300ms depending on index size and cold starts.</li>
+              <li><strong>Generation latency</strong>: depends on the LLM and response length, typically ~700-950ms.</li>
+              <li><strong>Streaming chunk size</strong>: tokens are sent in small batches (e.g., 20-50 tokens) for responsiveness.</li>
+              <li><strong>Rate limits</strong>: e.g., 5 requests/minute, 20 requests/hour (configurable).</li>
+              <li><strong>Cost per request</strong>: varies based on LLM usage and retrieval, but guardrails keep it within a predictable range.</li>
+            </ul>
+
+            <h4>Why This Project Is Valuable</h4>
+            <p class="mb-0">
+              This is an AI systems engineering project, not just a model demo. It demonstrates the practical building blocks needed for modern LLM products:
+              grounded retrieval, streaming UX, cost controls, cloud-native deployment, and operational readiness.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Extra bottom space for better scroll/overlay comfort -->
+    <div style="height: 90px;"></div>
+  </main>
+
+  <script src="assets/vendor/jquery/jquery.min.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

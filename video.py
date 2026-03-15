@@ -21,7 +21,7 @@ PARROT_GREEN = rgb_to_color([22/255, 219/255, 85/255])
 class DhavanShowcase(Scene):
     def construct(self):
         # ------------- Title (Foreground) -------------
-        title = Text("Dhavan Atul Shah – Data Scientist",
+        title = Text("Dhavan Atul Shah - AI System Engineer",
                      font="Montserrat",
                      color=BLUE_C).scale(0.9)
         self.play(FadeIn(title), run_time=1)
@@ -53,7 +53,8 @@ class DhavanShowcase(Scene):
             "Kaggle Competition Expert (Top 0.5% Worldwide)",
             "Master’s Project – Deep Isolation Forest (Outlier Detection)",
             "Master’s Thesis – DeepGLO (Time-Series Forecasting)",
-            "Experienced in Time-Series Data, GANs and Generative AI"
+            "Experienced in Time-Series Data, GANs and Generative AI",
+            "RAG LLM Deployed on AWS with context guardrails and cost optimization"
         ]
 
         lines = VGroup(*[
