@@ -168,6 +168,26 @@
       width: 250px;
       margin-left: 20px;
     }
+
+    /* About section: make the profile details (name/email/links) more readable */
+    .about-info p,
+    .about-info span,
+    .about-info a {
+      font-size: clamp(1.02rem, 0.95rem + 0.35vw, 1.18rem);
+      line-height: 1.6;
+    }
+
+    .about-info p {
+      margin-bottom: 0.6rem;
+    }
+
+    /* About section: reduce profile image size and keep it rounded */
+    .about-profile-img {
+      width: 210px;
+      max-width: 90%;
+      height: auto;
+      display: inline-block;
+    }
     
     .navbar-search {
       display: flex;
@@ -623,20 +643,19 @@
             <div class="box-shadow-full">
               <div class="row">
                 <div class="col-md-6">
-                  <div class="row">
-                    <div class="col-sm-6 col-md-5">
-                      <div class="about-img">
-                        <img src="assets/img/Dhavan.jpeg" class="img-fluid rounded b-shadow-a" alt="">
-                      </div>
-                    </div>
-                    <div class="col-sm-6 col-md-7">
-                      <div class="about-info">
-                        <p><span class="title-s">Name: </span> <span>Dhavan Shah</span></p>
-                        <p><span class="title-s">Profile: </span> <span>Data Scientist</span></p>
-                        <p><span class="title-s">Email: </span> <span>shah.dhavan09@gmail.com</span></p>
-                        <p><span class="title-s">Phone: </span> <span>+91 7045526979</span></p>
-                      </div>
-                    </div>
+                  <!-- About card layout tweak: details moved below the profile image -->
+                  <div class="about-img text-center mb-4">
+                    <img src="assets/img/Dhavan.jpeg" class="img-fluid rounded-circle b-shadow-a about-profile-img" alt="Dhavan Shah">
+                  </div>
+                  
+                  <div class="about-info">
+                    <p><span class="title-s">Name: </span> <span>Dhavan Shah</span></p>
+                    <p><span class="title-s">Profile: </span> <span>AI/ML Systems Engineer</span></p>
+                    <p><span class="title-s">Email: </span> <span>shah.dhavan09@gmail.com</span></p>
+                    <p><span class="title-s">Phone: </span> <span>+91 7045526979</span></p>
+                    <p><span class="title-s">LinkedIn: </span> <span><a href="https://www.linkedin.com/in/dhavan-shah/" target="_blank" rel="noopener noreferrer">linkedin.com/in/dhavan-shah</a></span></p>
+                    <p><span class="title-s">GitHub: </span> <span><a href="https://github.com/Dhavan-Shah" target="_blank" rel="noopener noreferrer">github.com/Dhavan-Shah</a></span></p>
+                    <p><span class="title-s">Kaggle: </span> <span><a href="https://www.kaggle.com/dhavanshah99" target="_blank" rel="noopener noreferrer">kaggle.com/dhavanshah99</a></span></p>
                   </div>
                   
                 </div>
@@ -648,20 +667,50 @@
                       </h5>
                     </div>
                     <p class="lead">
-                      As a Data Scientist with a Master's Degree from the University of Zurich, 
-                      I specialize in leveraging machine learning and data science techniques to 
-                      solve complex, real-world challenges. My experience has been further validated 
-                      through my achievement as a Kaggle Competition Expert, currently ranking in 
-                      the top 0.5% of over 200,000 data science professionals globally, underscoring 
-                      my expertise in applied machine learning.
-
+                    I am an AI Systems Engineer specializing in the design and deployment of production 
+                    machine learning and large language model systems.
                     </p>
+
                     <p class="lead">
-                      With a strong foundation in data science, machine learning, and software 
-                      development, I am now seeking opportunities in Data Science or Quantitative 
-                      Research roles where I can apply my expertise to drive innovation, improve 
-                      processes, and solve data-driven challenges.
-                    
+                    My work focuses on building the infrastructure that powers modern AI applications, 
+                    including retrieval-augmented generation (RAG) pipelines, vector search systems, and 
+                    scalable inference services. 
+                    </p>
+
+                    <p class="lead">
+                    I hold a Master's degree in Data Science from the University of Zurich and am a Kaggle 
+                    Competition Expert, ranked in the top 0.5% of over 200,000 machine learning 
+                    practitioners worldwide.
+                    </p>
+
+                    <p class="lead">
+                    My research background includes deep learning methods for high-dimensional time-series 
+                    forecasting and anomaly detection. During my studies, I worked with models such as 
+                    DeepGLO and Deep Isolation Forest to analyze complex multivariate datasets.
+                    </p>
+
+                    <p class="lead">
+                    Beyond research, I enjoy building end-to-end AI platforms. Recent projects include a 
+                    production-grade serverless RAG system with streaming LLM responses, vector indexing, 
+                    cost guardrails, and cloud-native deployment on modern infrastructure.
+                    </p>
+
+                    <p class="lead">
+                    My technical interests include:
+                      <ul>
+                        <li>AI systems architecture</li>
+                        <li>large language model infrastructure</li>
+                        <li>vector search and retrieval systems</li>
+                        <li>scalable ML deployment</li>
+                        <li>cloud-native AI platforms</li>
+                      </ul>
+                    </p>
+
+                    <p class="lead">
+                    I am particularly interested in working on systems that transform advanced machine 
+                    learning models into reliable, scalable products used in real-world applications.
+                    </p>
+
                     </p>
                   </div>
                 </div>
