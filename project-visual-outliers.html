@@ -18,20 +18,16 @@
   <nav class="navbar navbar-b navbar-trans navbar-expand-md fixed-top" id="mainNav">
     <div class="container">
       <a class="navbar-brand js-scroll" href="index.html">Portfolio</a>
-      <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarDefault">
-        <span></span><span></span><span></span>
-      </button>
-      <div class="navbar-collapse collapse justify-content-end" id="navbarDefault">
+      <div class="navbar-collapse justify-content-end" id="navbarDefault">
         <ul class="navbar-nav">
           <li class="nav-item"><a class="nav-link js-scroll" href="index.html">Home</a></li>
           <li class="nav-item"><a class="nav-link js-scroll" href="projects.html">Projects</a></li>
-          <li class="nav-item"><a class="nav-link js-scroll" href="blog.html">Blog</a></li>
         </ul>
       </div>
     </div>
   </nav>
 
-  <div class="intro intro-single route bg-image" style="background-image: url(assets/img/work-1.jpg)">
+  <div class="intro intro-single route bg-image" style="background-image: url(assets/img/Visual_Outlier_Detection.png)">
     <div class="overlay-mf"></div>
     <div class="intro-content display-table">
       <div class="table-cell">
@@ -52,41 +48,98 @@
       <div class="container">
         <div class="row">
           <div class="col-md-7">
-            <img src="assets/img/work-1.jpg" class="img-fluid" alt="">
+            <img src="assets/img/Visual_Outlier_Detection.png" class="img-fluid" alt="Interactive Streaming Outlier Detection with Deep Isolation Forest (DIF)">
+            <p class="mt-3 mb-0 small text-muted">
+              Master Project: interactive, web-based monitoring of outliers in streaming data with Deep Isolation Forest (DIF) and human-in-the-loop refinement.
+            </p>
           </div>
           <div class="col-md-5">
             <h3>Project information</h3>
             <ul>
               <li><strong>Category</strong>: Deep Learning, Outlier Detection</li>
               <li><strong>Project date</strong>: 20 March 2025</li>
+              <li><strong>System</strong>: Streaming outlier detection + monitoring + human feedback (semi-supervised DIF)</li>
+              <li><strong>Backend API</strong>: Flask (CORS)
+              <li><strong>Datasets</strong>: HR diagram (binary); arXiv UMAP (categorical); generated variants</li>
             </ul>
 
             <h4>Overview</h4>
-            <p>This project demonstrates an approach to outlier detection using a Deep Isolation Forest architecture with visualization tools to inspect decision paths and anomalous regions in high-dimensional data.</p>
+            <p>
+              This Master Project implements an <strong>interactive, web-based system</strong> to <strong>detect and monitor outliers in streaming data</strong>
+              using <strong>Deep Isolation Forest (DIF)</strong>, and to improve the quality of outlier decisions over time via
+              <strong>human-in-the-loop feedback</strong> (a semi-supervised DIF workflow).
+            </p>
+            <p class="mb-0">
+              The core idea is to run DIF continuously on a stream represented as <strong>moving windows (“frames”)</strong>, visualize inliers/outliers in the UI,
+              and allow analysts to adjust parameters and correct labels (add/delete/relabel points). Those edits are fed back into subsequent runs, so the
+              system becomes progressively better aligned with the user’s definition of “outlier”.
+            </p>
 
             <h4>Frontend</h4>
-            <p>The frontend includes interactive visualizations built with D3.js and React, allowing users to explore outlier detection results in real-time. The application provides interactive controls for dataset selection, batch processing, and threshold adjustment.</p>
+            <p class="mb-2">
+              The frontend is an interactive dashboard built with <strong>React + D3</strong> designed specifically for
+              streaming workflows and iterative inspection. It supports:
+            </p>
+            <ul>
+              <li><strong>Dataset selection</strong> (e.g., HR diagram; arXiv UMAP with categories; generated variants).</li>
+              <li><strong>Streaming controls</strong> (frames/windowing, batch size, history/process controls).</li>
+              <li><strong>Parameter tuning</strong> (thresholding modes and sensitivity controls).</li>
+              <li><strong>Human feedback</strong>: select points and flip labels, delete points, add new points; filter views by inlier/outlier state.</li>
+              <li><strong>Exploration UX</strong>: selection workflows (including lasso/area selection in relevant views) to support rapid triage.</li>
+            </ul>
 
             <h4>Technologies</h4>
             <ul>
-              <li><strong>Frontend:</strong> React, D3.js, Ant Design</li>
+              <li><strong>Frontend:</strong> React, D3.js</li>
               <li><strong>Backend:</strong> Flask, Python</li>
               <li><strong>Algorithm:</strong> Deep Isolation Forest (DIF)</li>
             </ul>
 
             <p>
-              <a class="btn btn-primary" href="https://Dhavan-Shah.github.io/visualizing-outlier-detection-dif/" target="_blank" style="margin-right: 10px;">
-                <i class="fa fa-external-link"></i> Launch Live Demo
-              </a>
               <a class="btn btn-outline-primary" href="https://github.com/Dhavan-Shah/visualizing-outlier-detection-dif" target="_blank" style="margin-right: 10px;">
                 <i class="fa fa-github"></i> View Source Code
               </a>
-              <a class="btn btn-secondary" href="projects.html">Back to Projects</a>
+              <a class="btn btn-primary" href="projects.html">Back to Projects</a>
+            </p>
+          </div>
+        </div>
+
+        <div class="row mt-4">
+          <div class="col-12">
+            <h4>How It Works (End-to-End)</h4>
+            <p class="mb-2">
+              The system is implemented as a React client and a Flask backend centered around a backend API endpoint used to retrieve streaming results and submit user feedback.
+              The backend maintains a rolling notion of <strong>stream state</strong> (batch size, number of batches/frames, and a last-index pointer),
+              trains DIF on a recent window, scores a subsequent window, and returns predictions and labels for visualization.
+            </p>
+            <ul>
+              <li><strong>Streaming windows (“frames”)</strong>: the backend runs DIF on a moving training window and scores a test window to emulate streaming arrival.</li>
+              <li><strong>Outlier labeling</strong>: the system supports fixed thresholding and a relative rule (e.g., <code>max(score) - score &lt; 0.06</code>) derived from the current score distribution.</li>
+              <li><strong>Semi-supervised DIF feedback</strong>: the frontend can send edits (relabel, delete, add points); the backend incorporates these edits so later iterations improve.</li>
+              <li><strong>Categorical streams</strong>: for the arXiv UMAP dataset, the backend can maintain one DIF model per category and merge results back into the unified stream.</li>
+            </ul>
+
+            <h4>Engineering Notes</h4>
+            <ul>
+              <li><strong>Backend variants</strong>: multiple milestones exist; the most complete backend consolidates streaming state + edit handling + category-aware modeling.</li>
+              <li><strong>DIF dependency</strong>: the DIF algorithm itself is imported from an external module (this codebase integrates DIF, but does not implement DIF from scratch).</li>
+              <li><strong>Iterative product design</strong>: earlier prototypes explore different streaming/control-panel patterns, culminating in a “process/history” interaction model.</li>
+              <li><strong>Evaluation</strong>: additional experiments compare DIF against classical detectors (e.g., EIF, iForest, LOF, KNN) using static evaluation workflows.</li>
+            </ul>
+
+            <h4>Why This Project Matters</h4>
+            <p class="mb-0">
+              Outlier detection in real environments is rarely a one-shot batch job: thresholds drift, definitions vary by operator, and feedback matters.
+              This project demonstrates a practical approach to <strong>operational outlier monitoring</strong>—combining a strong detector (DIF),
+              streaming-oriented UX, and feedback loops to continuously align the system with human judgment.
             </p>
           </div>
         </div>
       </div>
     </section>
+
+    <!-- Extra bottom space for better scroll/overlay comfort -->
+    <div style="height: 90px;"></div>
   </main>
 
   <script src="assets/vendor/jquery/jquery.min.js"></script>

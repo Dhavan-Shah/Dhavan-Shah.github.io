@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Visual Understanding on RNN-Based High-Dimensional Time-Series Forecasting — Dhavan Shah</title>
+
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="assets/css/style.css" rel="stylesheet">
+</head>
+
+<body id="page-top">
+
+  <nav class="navbar navbar-b navbar-trans navbar-expand-md fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand js-scroll" href="index.html">Portfolio</a>
+      <div class="navbar-collapse justify-content-end" id="navbarDefault">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link js-scroll" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link js-scroll" href="projects.html">Projects</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="intro intro-single route bg-image" style="background-image: url(assets/img/Visual_Understanding_on_RNN.png)">
+    <div class="overlay-mf"></div>
+    <div class="intro-content display-table">
+      <div class="table-cell">
+        <div class="container">
+          <h2 class="intro-title mb-4">Visual Understanding on RNN-Based High-Dimensional Time-Series Forecasting</h2>
+          <ol class="breadcrumb d-flex justify-content-center">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item"><a href="projects.html">Projects</a></li>
+            <li class="breadcrumb-item active">DeepGLO Forecast Explorer</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <main id="main">
+    <section class="portfolio-details" style="margin-top:80px;">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-7">
+            <img src="assets/img/Visual_Understanding_on_RNN.png" class="img-fluid" alt="DeepGLO Forecast Explorer">
+            <p class="mt-3 mb-0 small text-muted">
+              Interactive exploration of high-dimensional forecasting and inter-series similarity (React + D3 frontend, Flask backend).
+            </p>
+
+            <!-- Optional: Demo video embed (add the MP4 into this repo under assets/video/ and uncomment)
+            <div class="mt-3">
+              <video controls playsinline style="width:100%; border-radius:8px;">
+                <source src="assets/video/Visual_Understanding_on_RNN_based_High_Dimensional_Times_Series_Forecast.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+            -->
+          </div>
+          <div class="col-md-5">
+            <h3>Project information</h3>
+            <ul>
+              <li><strong>Category</strong>: Time-Series Forecasting · Data Visualization · Applied ML</li>
+              <li><strong>Stack</strong>: React, D3.js, Flask (Python), NumPy</li>
+              <li><strong>Models</strong>: DeepGLO, DeepGLOLite, ACDeepGLO (covariates), WeightedDeepGLO</li>
+              <li><strong>Datasets</strong>: Traffic, Electricity, PEMS, Wiki (pre-packaged)</li>
+              <li><strong>Forecasting</strong>: Rolling validation (τ=14, n=4) → 56-step horizon</li>
+            </ul>
+
+            <h4>Overview</h4>
+            <p>
+              This project is a <strong>React + Flask</strong> web application built to help users <strong>visually compare</strong>
+              four variants of <strong>RNN-based, high-dimensional time-series forecasting</strong> inspired by the
+              <strong>DeepGLO</strong> line of methods. It is designed for interactive, model-to-model analysis: instead of only
+              reporting aggregate metrics, the tool makes it easy to inspect <strong>where</strong> and <strong>why</strong>
+              a given model wins (or fails) across time and across related series.
+            </p>
+
+            <p class="mb-0">
+              The core idea is to combine: (1) forecasting overlays (per model), (2) an explicit view of
+              <strong>inter-series dependence</strong> (similarity) over time, and (3) rapid iteration on dataset / settings
+              through a single backend endpoint that trains/validates and returns predictions for visualization.
+            </p>
+
+            <p><a class="btn btn-primary" href="projects.html">Back to Projects</a></p>
+          </div>
+        </div>
+
+        <div class="row mt-4">
+          <div class="col-12">
+            <h4>What The App Enables</h4>
+            <ul>
+              <li><strong>Interactive comparison</strong> of DeepGLO, DeepGLOLite, ACDeepGLO (additional covariates), and WeightedDeepGLO on the same series and time window.</li>
+              <li><strong>Exploration of dependence structure</strong>: the backend computes similarity (via covariance) and surfaces “most similar” series as covariates and as context plots.</li>
+              <li><strong>Model diagnostics by inspection</strong>: hover and click interactions make it easy to see how forecasts behave around regime changes, peaks, and discontinuities.</li>
+              <li><strong>Operational workflow</strong>: dataset/settings changes trigger backend recomputation so the UI always reflects the chosen modeling configuration.</li>
+            </ul>
+
+            <h4>End-to-End Architecture</h4>
+            <p>
+              The system is organized as a thin, interactive client with a single backend entrypoint.
+              Pre-packaged datasets such as traffic, electricity, PEMS, wiki are used for experimentation. The Flask server
+              slices the data to a manageable subset of series and time window by default to keep the interaction loop responsive.
+            </p>
+
+            <ul>
+              <li><strong>Backend (Flask)</strong>: a single backend endpoint that trains/validates models, computes similarity/covariates, and returns predictions for visualization.</li>
+              <li><strong>Similarity</strong>: covariance-based similarity is used to select “most similar” series indices, which are displayed as covariates and as supporting plots.</li>
+              <li><strong>Validation</strong>: rolling validation producing a multi-step forecast horizon is used.</li>
+              <li><strong>Frontend (React + D3)</strong>: a control panel posts configuration changes; hover updates context; click triggers backend training/prediction and then renders overlays and covariate grids.</li>
+              <li><strong>Experimentation</strong>: Experiments were conducted on high-dimensional benchmark datasets containing hundreds of correlated time series, allowing evaluation of how different model variants capture inter-series dependencies. ACDeepGLO and WeightedDeepGLO algorithms were evaluated against the original DeepGLO and DeepGLOLite models.</li>
+            </ul>
+
+            <h4>Models Compared</h4>
+            <p class="mb-2">
+              The app compares four forecasting variants that share the same general goal—accurate forecasts for many related series—while differing
+              in how they handle global structure, efficiency, and covariate usage:
+            </p>
+            <ul>
+              <li><strong>DeepGLO</strong>: baseline global-local forecasting with explicit modeling of inter-series relationships.</li>
+              <li><strong>DeepGLOLite</strong>: a lighter-weight variant intended to reduce complexity while preserving competitive accuracy.</li>
+              <li><strong>ACDeepGLO</strong>: DeepGLO augmented with <strong>additional covariate series</strong> selected via similarity; designed to exploit dependence structure more directly.</li>
+              <li><strong>WeightedDeepGLO</strong>: introduces weighting mechanisms intended to emphasize more informative series relationships.</li>
+            </ul>
+
+            <h4>Key Findings</h4>
+            <ul>
+              <li><strong>ACDeepGLO</strong> (notably with ~10 covariates) tends to perform best on global/aggregate loss metrics when trained on the full dataset.</li>
+              <li><strong>WeightedDeepGLO</strong> underperformed relative to DeepGLO in the conducted experiments.</li>
+              <li>Under batch-wise training, <strong>ACDeepGLO and DeepGLO</strong> appear more similar in performance, highlighting the importance of training protocol in comparative studies.</li>
+            </ul>
+
+            <h4>Why This Matters</h4>
+            <p class="mb-0">
+              In high-dimensional forecasting, accuracy is only part of the story: practitioners also need to understand dependency, stability over time,
+              and failure modes. This tool turns that need into a concrete workflow—letting users inspect forecasts, compare variants, and connect errors back to
+              inter-series structure in an interactive, visual way.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Extra bottom space for better scroll/overlay comfort -->
+    <div style="height: 90px;"></div>
+  </main>
+
+  <script src="assets/vendor/jquery/jquery.min.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
