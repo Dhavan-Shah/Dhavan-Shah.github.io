@@ -435,11 +435,15 @@
       border-bottom-right-radius: 6px;
     }
 
-    .chatbot-bubble.assistant {
-      background: #f1f3f5;
-      color: #212529;
-      border-bottom-left-radius: 6px;
-    }
+	    .chatbot-bubble.assistant {
+	      background: #f1f3f5;
+	      color: #212529;
+	      border-bottom-left-radius: 6px;
+	    }
+	    
+	    .chatbot-bubble.assistant.has-metrics {
+	      cursor: help;
+	    }
 
     .chatbot-bubble.status {
       background: transparent;
@@ -1165,10 +1169,10 @@
         statusBubbleEl.textContent = '';
       }
 
-      function coerceEventText(data) {
-        const raw = (data || '').toString();
-        const trimmed = raw.trim();
-        if (!trimmed || trimmed === '[DONE]') return '';
+	      function coerceEventText(data) {
+	        const raw = (data || '').toString();
+	        const trimmed = raw.trim();
+	        if (!trimmed || trimmed === '[DONE]') return '';
 
         // Be liberal in what we accept: SSE data is often JSON.
         try {
@@ -1182,9 +1186,45 @@
             trimmed
           ).toString();
         } catch (_) {
-          return raw;
-        }
-      }
+	          return raw;
+	        }
+	      }
+	      
+	      function tryExtractJsonObject(text) {
+	        const raw = (text || '').toString();
+	        const trimmed = raw.trim();
+	        if (!trimmed) return null;
+	
+	        // Common SSE payload: clean JSON object.
+	        try {
+	          const obj = JSON.parse(trimmed);
+	          if (obj && typeof obj === 'object') return obj;
+	        } catch (_) {}
+	
+	        // Fallback: extract the first {...} block from noisy payloads.
+	        const first = trimmed.indexOf('{');
+	        const last = trimmed.lastIndexOf('}');
+	        if (first === -1 || last === -1 || last <= first) return null;
+	        const candidate = trimmed.slice(first, last + 1);
+	        try {
+	          const obj = JSON.parse(candidate);
+	          if (obj && typeof obj === 'object') return obj;
+	        } catch (_) {}
+	
+	        return null;
+	      }
+	
+	      function setMetricsHover(bubbleEl, metrics) {
+	        if (!bubbleEl || !metrics) return;
+	        try {
+	          const pretty = JSON.stringify(metrics, null, 2);
+	          bubbleEl.classList.add('has-metrics');
+	          bubbleEl.dataset.metrics = pretty;
+	          bubbleEl.title = 'metrics:\n' + pretty;
+	        } catch (_) {
+	          // Best-effort only; do nothing.
+	        }
+	      }
 
       function parseSSEBlock(block) {
         // Minimal SSE parser: blocks separated by blank lines.
@@ -1229,7 +1269,7 @@
         if (trailing) onEvent(parseSSEBlock(trailing));
       }
 
-      async function sendMessage(userMessage) {
+	      async function sendMessage(userMessage) {
         const clean = (userMessage || '').trim();
         if (!clean) return;
 
@@ -1242,7 +1282,8 @@
         if (activeAbortController) activeAbortController.abort();
         activeAbortController = new AbortController();
 
-        let hadErrorEvent = false;
+	        let hadErrorEvent = false;
+	        let lastMetrics = null;
 
         try {
           const res = await fetch(API_URL, {
@@ -1261,14 +1302,16 @@
 
           clearStatus();
 
-          await streamSSE(res, (evt) => {
-            const type = (evt.event || 'message').toLowerCase();
-            const text = coerceEventText(evt.data);
+	          await streamSSE(res, (evt) => {
+	            const type = (evt.event || 'message').toLowerCase();
+	            const structured = tryExtractJsonObject(evt.data);
+	            const text = coerceEventText(evt.data);
+	            if (structured && structured.metrics) lastMetrics = structured.metrics;
 
-            if (type === 'searching') {
-              setStatus(text ? ('Searching: ' + text) : 'Searching...');
-              return;
-            }
+	            if (type === 'searching') {
+	              setStatus(text ? ('Searching: ' + text) : 'Searching...');
+	              return;
+	            }
 
             if (type === 'thinking') {
               setStatus(text ? ('Thinking: ' + text) : 'Thinking...');
@@ -1284,25 +1327,40 @@
               return;
             }
 
-            if (type === 'final') {
-              clearStatus();
-              if (text) assistantBubble.textContent += text;
-              scrollToBottom();
-              return;
-            }
+	            if (type === 'final') {
+	              clearStatus();
+	              if (structured && structured.answer != null) {
+	                assistantBubble.textContent = structured.answer.toString();
+	                setMetricsHover(assistantBubble, structured.metrics || lastMetrics);
+	              } else {
+	                if (text) assistantBubble.textContent += text;
+	                setMetricsHover(assistantBubble, lastMetrics);
+	              }
+	              scrollToBottom();
+	              return;
+	            }
 
-            // Default: streamed token/data chunk
-            if (text) {
-              assistantBubble.textContent += text;
-              scrollToBottom();
-            }
-          });
+	            // Default: streamed token/data chunk
+	            if (structured && structured.answer != null && !structured.token && !structured.text) {
+	              // Some servers send the final JSON without an explicit `event: final`.
+	              assistantBubble.textContent = structured.answer.toString();
+	              setMetricsHover(assistantBubble, structured.metrics || lastMetrics);
+	              scrollToBottom();
+	              return;
+	            }
+	
+	            if (text) {
+	              assistantBubble.textContent += text;
+	              scrollToBottom();
+	            }
+	          });
 
-          clearStatus();
-          if (!hadErrorEvent && !assistantBubble.textContent.trim()) {
-            assistantBubble.textContent = 'No response received.';
-          }
-        } catch (err) {
+	          clearStatus();
+	          if (!hadErrorEvent) setMetricsHover(assistantBubble, lastMetrics);
+	          if (!hadErrorEvent && !assistantBubble.textContent.trim()) {
+	            assistantBubble.textContent = 'No response received.';
+	          }
+	        } catch (err) {
           if (err && err.name === 'AbortError') return;
           clearStatus();
           assistantBubble.textContent = '';
