@@ -312,33 +312,8 @@ a:hover {
 }
 
 /*------/ Back to top button /------*/
-.back-to-top {
-  position: fixed;
-  display: none;
-  background: #0078ff;
-  color: #fff;
-  width: 44px;
-  height: 44px;
-  text-align: center;
-  line-height: 1;
-  font-size: 16px;
-  border-radius: 50%;
-  right: 15px;
-  bottom: 15px;
-  transition: background 0.5s;
-  z-index: 11;
-}
-
-.back-to-top i {
-  padding-top: 12px;
-  color: #fff;
-}
-
-@media (max-width: 768px) {
-  .back-to-top {
-    bottom: 15px;
-  }
-}
+/* Remove back-to-top button */
+.back-to-top { display: none !important; }
 
 /*------/ Prelaoder /------*/
 #preloader {
@@ -1373,4 +1348,102 @@ footer .credits {
 
 footer .credits a {
   color: #fff;
+}
+/* === Portfolio Polish: Fonts, Colors, Spacing, Photo, Chatbot, RAG Card === */
+
+/* Fonts */
+body {
+  font-family: 'Inter', Arial, system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #1A1A1A;
+  background: #FAFAFA;
+}
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Inter', Arial, system-ui, sans-serif;
+  font-weight: bold;
+  letter-spacing: -0.01em;
+  color: #1A1A1A;
+}
+
+/* Links */
+a {
+  color: #534AB7;
+  text-decoration: underline;
+  transition: color 0.2s;
+}
+a:hover, a:focus {
+  color: #3d338a;
+}
+
+/* Borders */
+hr, .box-shadow-full, .card, .about-mf, .portfolio-details, .work-box, .contact-mf {
+  border-color: #E5E5E5 !important;
+}
+
+/* Section Spacing */
+h2 {
+  margin-top: 40px !important;
+}
+section, .section, .about-mf, .portfolio-mf, .contact-mf {
+  padding: 24px 0;
+}
+@media (max-width: 768px) {
+  section, .section, .about-mf, .portfolio-mf, .contact-mf {
+    padding: 16px 0;
+  }
+}
+
+/* Paragraph Readability */
+p, ul, ol {
+  max-width: 65ch;
+  margin-bottom: 1.5em;
+}
+
+/* Photo Styling */
+.about-profile-img, .about-img img {
+  max-width: 200px;
+  border-radius: 12px !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Chatbot Widget */
+.chatbot-sidebar {
+  opacity: 0.95 !important;
+  border: 1.5px solid #E5E5E5 !important;
+  background: #fff !important;
+}
+
+/* RAG Diagram Card */
+.rag-card, .work-box[data-title*=\"RAG\"], .work-box img[alt*=\"RAG\"] {
+  background: #F5F5F5 !important;
+  border-radius: 8px !important;
+  padding: 24px !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+.rag-card img, .work-box img[alt*=\"RAG\"] {
+  border-radius: 8px !important;
+  display: block;
+  margin: 0 auto;
+}
+.rag-caption, .rag-card-caption {
+  display: block;
+  text-align: center;
+  color: #5F5E5A;
+  font-size: 1rem;
+  margin-top: 8px;
+  margin-bottom: 0;
+}
+
+/* Responsive Padding */
+@media (max-width: 768px) {
+  .about-profile-img, .about-img img {
+    max-width: 100%;
+  }
+  .rag-card, .work-box[data-title*=\"RAG\"] {
+    padding: 16px !important;
+  }
 }
