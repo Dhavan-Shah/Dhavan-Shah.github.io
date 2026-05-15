@@ -152,6 +152,9 @@ a:hover {
 
 .subtitle-a {
   color: #4e4e4e;
+  text-align: center;
+  display: block;
+  width: 100%;
 }
 
 .line-mf {
