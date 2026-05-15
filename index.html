@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
 
-  <title>Dhavan Shah</title>
+  <title>Dhavan Shah — AI Agent Reliability Engineer · KazenAI Founder · UZH MSc</title>
   <meta content="Data Scientist Portfolio - Dhavan Shah" name="description">
   <meta content="Data Science, Machine Learning, AI, Portfolio, Dhavan Shah" name="keywords">
   <meta name="theme-color" content="#007bff">
@@ -537,6 +537,48 @@
       margin-right: auto;
     }
 
+    .about-stats {
+      border-top: 1px solid rgba(0,0,0,0.07);
+      padding-top: 1.5rem;
+      margin-top: 1.75rem;
+    }
+
+    .stat-card {
+      text-align: center;
+      padding: 0.75rem 0.5rem;
+    }
+
+    .stat-number {
+      display: block;
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: #0078ff;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+    }
+
+    .stat-label {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: #444;
+      margin-top: 4px;
+    }
+
+    .stat-sublabel {
+      display: block;
+      font-size: 0.65rem;
+      color: #999;
+      margin-top: 2px;
+    }
+
+    @media (max-width: 576px) {
+      .stat-card { padding: 0.5rem 0.25rem; }
+      .stat-number { font-size: 1.15rem; }
+    }
+
     .about-me code {
       background: rgba(31, 207, 247, 0.1);
       color: #0a9ab8;
@@ -754,99 +796,23 @@
     <!-- ======= Portfolio Section ======= -->
     <section id="work" class="portfolio-mf sect-pt4 route">
       <div class="container">
-		        <div class="row">
+        <div class="row">
           <div class="col-sm-12">
             <div class="title-box text-center">
-              <h3 class="title-a">
-                Portfolio
-              </h3>
+              <h3 class="title-a">Portfolio</h3>
               <div class="line-mf"></div>
             </div>
           </div>
         </div>
-		        <div class="row project-grid">
-		          <div class="col-md-4 d-flex align-items-stretch">
-		            <div class="work-box h-100 w-100 d-flex flex-column" data-title="Master's Project" data-category="Deep Learning, Outlier Detection">
-              <a href="assets/img/Visual_Outlier_Detection.png?v=20260516" data-gall="portfolioGallery" class="venobox">
+        <div class="row project-grid">
+
+          <div class="col-md-4 d-flex align-items-stretch">
+            <div class="work-box h-100 w-100 d-flex flex-column" data-title="AI Agent Orchestration Platform" data-category="Multi-Agent, Workflow Orchestration, AWS">
+              <a href="assets/img/KazenAI_Agent_Orchestration_Platform.png?v=20260516" data-gall="portfolioGallery" class="venobox">
                 <div class="work-img">
-                  <img src="assets/img/Visual_Outlier_Detection.png?v=20260516" alt="" class="img-fluid">
+                  <img src="assets/img/KazenAI_Agent_Orchestration_Platform.png?v=20260516" alt="" class="img-fluid">
                 </div>
               </a>
-              <div class="work-content">
-                <div class="row">
-                  <div class="col-sm-8">
-                    <h2 class="w-title">Visualizing Outlier Detection using Deep Isolation Forest</h2>
-                    <div class="w-more">
-                      <span class="w-ctegory">Deep Learning, Outlier Detection</span> / <span class="w-date">Mar 2023</span>
-                    </div>
-                  </div>
-                  <div class="col-sm-4">
-                    <div class="w-like">
-                      <a href="project-visual-outliers.html"> <span class="ion-ios-plus-outline"></span></a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-		          <div class="col-md-4 d-flex align-items-stretch">
-		            <div class="work-box h-100 w-100 d-flex flex-column" data-title="Visual Understanding on RNN-Based High-Dimensional Time-Series Forecasting" data-category="Deep Learning, Time-Series Forecasting, Visualization">
-              <a href="assets/img/Visual_Understanding_on_RNN.png?v=20260516" data-gall="portfolioGallery" class="venobox">
-                <div class="work-img">
-                  <img src="assets/img/Visual_Understanding_on_RNN.png?v=20260516" alt="" class="img-fluid">
-                </div>
-              </a>
-              <div class="work-content">
-                <div class="row">
-                  <div class="col-sm-8">
-                    <h2 class="w-title">DeepGLO for High-Dimensional Time-Series Forecasting</h2>
-                    <div class="w-more">
-                      <span class="w-ctegory">Deep Learning, Time-Series Forecasting</span> / <span class="w-date">May 2024</span>
-                    </div>
-                  </div>
-                  <div class="col-sm-4">
-                    <div class="w-like">
-                      <a href="project-visual-understanding-on-rnn-based-high-dimensional-time-series-forecasting.html"> <span class="ion-ios-plus-outline"></span></a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-		          <div class="col-md-4 d-flex align-items-stretch">
-		            <div class="work-box h-100 w-100 d-flex flex-column" data-title="RAG LLM Systems: Dhavan’s Personal Assistant" data-category="LLM, RAG, Systems Engineering, AWS">
-		              <a href="assets/img/RAG_LLM_Systems.png?v=20260516" data-gall="portfolioGallery" class="venobox">
-		                <div class="work-img">
-		                  <img src="assets/img/RAG_LLM_Systems.png?v=20260516" alt="" class="img-fluid">
-		                </div>
-		              </a>
-              <div class="work-content">
-                <div class="row">
-                  <div class="col-sm-8">
-                    <h2 class="w-title">RAG LLM Systems: Dhavan’s Personal Assistant</h2>
-                    <div class="w-more">
-                      <span class="w-ctegory">LLM, RAG, Systems Engineering, AWS</span> / <span class="w-date">Mar 2026</span>
-                    </div>
-                  </div>
-                  <div class="col-sm-4">
-                    <div class="w-like">
-                      <a href="project-rag-llm-systems.html"> <span class="ion-ios-plus-outline"></span></a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-		          <div class="col-md-4 d-flex align-items-stretch">
-		            <div class="work-box h-100 w-100 d-flex flex-column" data-title="AI Agent Orchestration Platform" data-category="Multi-Agent, Workflow Orchestration, AWS">
-		              <a href="assets/img/KazenAI_Agent_Orchestration_Platform.png?v=20260516" data-gall="portfolioGallery" class="venobox">
-		                <div class="work-img">
-		                  <img src="assets/img/KazenAI_Agent_Orchestration_Platform.png?v=20260516" alt="" class="img-fluid">
-		                </div>
-		              </a>
               <div class="work-content">
                 <div class="row">
                   <div class="col-sm-8">
@@ -857,7 +823,7 @@
                   </div>
                   <div class="col-sm-4">
                     <div class="w-like">
-                      <a href="project-kazenai-agent-orchestration-platform.html"> <span class="ion-ios-plus-outline"></span></a>
+                      <a href="project-kazenai-agent-orchestration-platform.html"><span class="ion-ios-plus-outline"></span></a>
                     </div>
                   </div>
                 </div>
@@ -865,8 +831,8 @@
             </div>
           </div>
 
-		          <div class="col-md-4 d-flex align-items-stretch">
-		            <div class="work-box h-100 w-100 d-flex flex-column" data-title="Agent Builder" data-category="AI Coding Agents, VS Code Extension, FinOps">
+          <div class="col-md-4 d-flex align-items-stretch">
+            <div class="work-box h-100 w-100 d-flex flex-column" data-title="Agent Builder" data-category="AI Coding Agents, VS Code Extension, FinOps">
               <a href="assets/img/KazenAI_Orchestrator_VSCode.png?v=20260516" data-gall="portfolioGallery" class="venobox">
                 <div class="work-img">
                   <img src="assets/img/KazenAI_Orchestrator_VSCode.png?v=20260516" alt="" class="img-fluid">
@@ -877,12 +843,12 @@
                   <div class="col-sm-8">
                     <h2 class="w-title">Agent Builder</h2>
                     <div class="w-more">
-                      <span class="w-ctegory">AI Coding Agents, VS Code Extension, FinOps</span> / <span class="w-date">May 2026</span>
+                      <span class="w-ctegory">AI Coding Agents, VS Code Extension, FinOps</span> / <span class="w-date">April 2026</span>
                     </div>
                   </div>
                   <div class="col-sm-4">
                     <div class="w-like">
-                      <a href="project-kazenai-orchestrator-vscode.html"> <span class="ion-ios-plus-outline"></span></a>
+                      <a href="project-kazenai-orchestrator-vscode.html"><span class="ion-ios-plus-outline"></span></a>
                     </div>
                   </div>
                 </div>
@@ -890,8 +856,8 @@
             </div>
           </div>
 
-		          <div class="col-md-4 d-flex align-items-stretch">
-		            <div class="work-box h-100 w-100 d-flex flex-column" data-title="Agentic Kaggle" data-category="MLOps, Reproducibility, SQLite, Kaggle">
+          <div class="col-md-4 d-flex align-items-stretch">
+            <div class="work-box h-100 w-100 d-flex flex-column" data-title="Agentic Kaggle" data-category="MLOps, Reproducibility, SQLite, Kaggle">
               <a href="assets/img/Agentic_Kaggle.png?v=20260516" data-gall="portfolioGallery" class="venobox">
                 <div class="work-img">
                   <img src="assets/img/Agentic_Kaggle.png?v=20260516" alt="" class="img-fluid">
@@ -907,13 +873,89 @@
                   </div>
                   <div class="col-sm-4">
                     <div class="w-like">
-                      <a href="project-agentic-kaggle.html"> <span class="ion-ios-plus-outline"></span></a>
+                      <a href="project-agentic-kaggle.html"><span class="ion-ios-plus-outline"></span></a>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+
+          <div class="col-md-4 d-flex align-items-stretch">
+            <div class="work-box h-100 w-100 d-flex flex-column" data-title="RAG LLM Systems: Dhavan's Personal Assistant" data-category="LLM, RAG, Systems Engineering, AWS">
+              <a href="assets/img/RAG_LLM_Systems.png?v=20260516" data-gall="portfolioGallery" class="venobox">
+                <div class="work-img">
+                  <img src="assets/img/RAG_LLM_Systems.png?v=20260516" alt="" class="img-fluid">
+                </div>
+              </a>
+              <div class="work-content">
+                <div class="row">
+                  <div class="col-sm-8">
+                    <h2 class="w-title">RAG LLM Systems: Dhavan's Personal Assistant</h2>
+                    <div class="w-more">
+                      <span class="w-ctegory">LLM, RAG, Systems Engineering, AWS</span> / <span class="w-date">Mar 2026</span>
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="w-like">
+                      <a href="project-rag-llm-systems.html"><span class="ion-ios-plus-outline"></span></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4 d-flex align-items-stretch">
+            <div class="work-box h-100 w-100 d-flex flex-column" data-title="Visual Understanding on RNN-Based High-Dimensional Time-Series Forecasting" data-category="Deep Learning, Time-Series Forecasting, Visualization">
+              <a href="assets/img/Visual_Understanding_on_RNN.png?v=20260516" data-gall="portfolioGallery" class="venobox">
+                <div class="work-img">
+                  <img src="assets/img/Visual_Understanding_on_RNN.png?v=20260516" alt="" class="img-fluid">
+                </div>
+              </a>
+              <div class="work-content">
+                <div class="row">
+                  <div class="col-sm-8">
+                    <h2 class="w-title">DeepGLO for High-Dimensional Time-Series Forecasting</h2>
+                    <div class="w-more">
+                      <span class="w-ctegory">Deep Learning, Time-Series Forecasting</span> / <span class="w-date">May 2024</span>
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="w-like">
+                      <a href="project-visual-understanding-on-rnn-based-high-dimensional-time-series-forecasting.html"><span class="ion-ios-plus-outline"></span></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4 d-flex align-items-stretch">
+            <div class="work-box h-100 w-100 d-flex flex-column" data-title="Master's Project" data-category="Deep Learning, Outlier Detection">
+              <a href="assets/img/Visual_Outlier_Detection.png?v=20260516" data-gall="portfolioGallery" class="venobox">
+                <div class="work-img">
+                  <img src="assets/img/Visual_Outlier_Detection.png?v=20260516" alt="" class="img-fluid">
+                </div>
+              </a>
+              <div class="work-content">
+                <div class="row">
+                  <div class="col-sm-8">
+                    <h2 class="w-title">Visualizing Outlier Detection using Deep Isolation Forest</h2>
+                    <div class="w-more">
+                      <span class="w-ctegory">Deep Learning, Outlier Detection</span> / <span class="w-date">Mar 2023</span>
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="w-like">
+                      <a href="project-visual-outliers.html"><span class="ion-ios-plus-outline"></span></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </section><!-- End Portfolio Section -->
@@ -940,6 +982,7 @@
                     <p><span class="title-s">LinkedIn: </span> <span><a href="https://www.linkedin.com/in/dhavan-shah/" target="_blank" rel="noopener noreferrer">linkedin.com/in/dhavan-shah</a></span></p>
                     <p><span class="title-s">GitHub: </span> <span><a href="https://github.com/Dhavan-Shah" target="_blank" rel="noopener noreferrer">github.com/Dhavan-Shah</a></span></p>
                     <p><span class="title-s">Kaggle: </span> <span><a href="https://www.kaggle.com/dhavanshah99" target="_blank" rel="noopener noreferrer">kaggle.com/dhavanshah99</a></span></p>
+                    <p><span class="title-s">Zurich: </span> <span>UZH MSc &middot; AXA XL &middot; Sulzer AG</span></p>
                   </div>
                   
                 </div>
@@ -976,6 +1019,31 @@
                   </div>
                 </div>
               </div>
+
+              <!-- Stat cards -->
+              <div class="row about-stats">
+                <div class="col-6 col-md-3 stat-card">
+                  <span class="stat-number">Top 0.5%</span>
+                  <span class="stat-label">Kaggle Expert</span>
+                  <span class="stat-sublabel">695 / 204,971 globally</span>
+                </div>
+                <div class="col-6 col-md-3 stat-card">
+                  <span class="stat-number">IMO Gold</span>
+                  <span class="stat-label">Math Olympiad</span>
+                  <span class="stat-sublabel">International</span>
+                </div>
+                <div class="col-6 col-md-3 stat-card">
+                  <span class="stat-number">5.0 / 6.0</span>
+                  <span class="stat-label">MSc GPA</span>
+                  <span class="stat-sublabel">University of Zurich</span>
+                </div>
+                <div class="col-6 col-md-3 stat-card">
+                  <span class="stat-number">100%</span>
+                  <span class="stat-label">Building KazenAI</span>
+                  <span class="stat-sublabel">Multi-Agent Reliability and Observability</span>
+                </div>
+              </div>
+
             </div>
           </div>
         </div>
@@ -1083,32 +1151,6 @@
         </div>
       </div>
     </section><!-- End Work With Me Section -->
-
-
-    <!-- ======= Testimonials Section ======= -->
-    <div class="testimonials paralax-mf bg-image" style="background-image: url(assets/img/Background.jpeg)">
-      <div class="overlay-mf"></div>
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <div id="testimonial-mf" class="owl-carousel owl-theme">
-              <div class="testimonial-box">
-                <div class="author-test">
-                  <img src="assets/img/Dhavan_01.jpeg" alt="" class="rounded-circle b-shadow-a">
-                  <span class="author">Dhavan Shah</span>
-                </div>
-                <div class="content-test">
-                  <p class="description lead">
-                    It only takes a smile to make a dark day seem bright.
-                  </p>
-                  <span class="comit"><i class="fa fa-quote-right"></i></span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div><!-- End Testimonials Section -->
 
 
   </main><!-- End #main -->
