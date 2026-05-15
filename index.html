@@ -24,7 +24,7 @@
   <link href="assets/vendor/venobox/venobox.css" rel="stylesheet">
 
   <!-- Template Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
+  <link href="assets/css/style.css?v=20260516" rel="stylesheet">
 
   <style>
     /* Mobile Responsive Styles */
@@ -527,6 +527,107 @@
         bottom: 10px;
       }
     }
+
+    /* ======= Work With Me Section ======= */
+    .about-me code {
+      background: rgba(31, 207, 247, 0.1);
+      color: #0a9ab8;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.85rem;
+    }
+
+    .hire-mf {
+      background: #fff;
+      padding-bottom: 4rem;
+    }
+
+    .hire-services {
+      margin-bottom: 2.5rem;
+    }
+
+    .service-card {
+      height: 100%;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      border-top: 3px solid #1fcff7;
+      border-radius: 4px;
+      background: #fff;
+      box-shadow: 0 13px 35px -12px rgba(35, 35, 35, 0.15);
+      margin-bottom: 1.5rem;
+    }
+
+    .service-icon {
+      font-size: 2rem;
+      color: #1fcff7;
+      margin-bottom: 0.75rem;
+    }
+
+    .service-badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 20px;
+      background: rgba(31, 207, 247, 0.1);
+      color: #0a9ab8;
+      margin-bottom: 0.75rem;
+    }
+
+    .service-card h4 {
+      font-weight: 700;
+      font-size: 1.05rem;
+      margin-bottom: 0.65rem;
+    }
+
+    .service-card p {
+      font-size: 0.9rem;
+      color: #666;
+      line-height: 1.65;
+      margin-bottom: 0;
+    }
+
+    .hire-form-section .form-label {
+      font-weight: 600;
+      font-size: 0.88rem;
+      color: #333;
+      margin-bottom: 0.3rem;
+      display: block;
+    }
+
+    .hire-form-section .form-control:focus {
+      border-color: #1fcff7;
+      box-shadow: 0 0 0 3px rgba(31, 207, 247, 0.2);
+    }
+
+    .hire-response-note {
+      font-size: 0.83rem;
+      color: #888;
+      margin-bottom: 1.25rem;
+    }
+
+    #hire-success {
+      display: none;
+      padding: 1.1rem 1.25rem;
+      background: #d4edda;
+      border: 1px solid #c3e6cb;
+      border-radius: 8px;
+      color: #155724;
+      text-align: center;
+      font-weight: 500;
+    }
+
+    #hire-error {
+      display: none;
+      padding: 1.1rem 1.25rem;
+      background: #f8d7da;
+      border: 1px solid #f5c6cb;
+      border-radius: 8px;
+      color: #721c24;
+      text-align: center;
+    }
   </style>
 
   <!-- =======================================================
@@ -554,10 +655,13 @@
             <a class="nav-link js-scroll active" href="index.html">Home</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link js-scroll" href="#work">Work</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link js-scroll" href="#about">About</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link js-scroll" href="#work">Work</a>
+            <a class="nav-link js-scroll" href="#hire">Work With Me</a>
           </li>
         </ul>
         
@@ -639,13 +743,181 @@
 
   <main id="main">
 
+    <!-- ======= Portfolio Section ======= -->
+    <section id="work" class="portfolio-mf sect-pt4 route">
+      <div class="container">
+		        <div class="row">
+          <div class="col-sm-12">
+            <div class="title-box text-center">
+              <h3 class="title-a">
+                Portfolio
+              </h3>
+              <div class="line-mf"></div>
+            </div>
+          </div>
+        </div>
+		        <div class="row project-grid">
+		          <div class="col-md-4 d-flex align-items-stretch">
+		            <div class="work-box h-100 w-100 d-flex flex-column" data-title="Master's Project" data-category="Deep Learning, Outlier Detection">
+              <a href="assets/img/Visual_Outlier_Detection.png?v=20260516" data-gall="portfolioGallery" class="venobox">
+                <div class="work-img">
+                  <img src="assets/img/Visual_Outlier_Detection.png?v=20260516" alt="" class="img-fluid">
+                </div>
+              </a>
+              <div class="work-content">
+                <div class="row">
+                  <div class="col-sm-8">
+                    <h2 class="w-title">Visualizing Outlier Detection using Deep Isolation Forest</h2>
+                    <div class="w-more">
+                      <span class="w-ctegory">Deep Learning, Outlier Detection</span> / <span class="w-date">Mar 2023</span>
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="w-like">
+                      <a href="project-visual-outliers.html"> <span class="ion-ios-plus-outline"></span></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+		          <div class="col-md-4 d-flex align-items-stretch">
+		            <div class="work-box h-100 w-100 d-flex flex-column" data-title="Visual Understanding on RNN-Based High-Dimensional Time-Series Forecasting" data-category="Deep Learning, Time-Series Forecasting, Visualization">
+              <a href="assets/img/Visual_Understanding_on_RNN.png?v=20260516" data-gall="portfolioGallery" class="venobox">
+                <div class="work-img">
+                  <img src="assets/img/Visual_Understanding_on_RNN.png?v=20260516" alt="" class="img-fluid">
+                </div>
+              </a>
+              <div class="work-content">
+                <div class="row">
+                  <div class="col-sm-8">
+                    <h2 class="w-title">DeepGLO for High-Dimensional Time-Series Forecasting</h2>
+                    <div class="w-more">
+                      <span class="w-ctegory">Deep Learning, Time-Series Forecasting</span> / <span class="w-date">May 2024</span>
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="w-like">
+                      <a href="project-visual-understanding-on-rnn-based-high-dimensional-time-series-forecasting.html"> <span class="ion-ios-plus-outline"></span></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+		          <div class="col-md-4 d-flex align-items-stretch">
+		            <div class="work-box h-100 w-100 d-flex flex-column" data-title="RAG LLM Systems: Dhavan’s Personal Assistant" data-category="LLM, RAG, Systems Engineering, AWS">
+		              <a href="assets/img/RAG_LLM_Systems.png?v=20260516" data-gall="portfolioGallery" class="venobox">
+		                <div class="work-img">
+		                  <img src="assets/img/RAG_LLM_Systems.png?v=20260516" alt="" class="img-fluid">
+		                </div>
+		              </a>
+              <div class="work-content">
+                <div class="row">
+                  <div class="col-sm-8">
+                    <h2 class="w-title">RAG LLM Systems: Dhavan’s Personal Assistant</h2>
+                    <div class="w-more">
+                      <span class="w-ctegory">LLM, RAG, Systems Engineering, AWS</span> / <span class="w-date">Mar 2026</span>
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="w-like">
+                      <a href="project-rag-llm-systems.html"> <span class="ion-ios-plus-outline"></span></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+		          <div class="col-md-4 d-flex align-items-stretch">
+		            <div class="work-box h-100 w-100 d-flex flex-column" data-title="AI Agent Orchestration Platform" data-category="Multi-Agent, Workflow Orchestration, AWS">
+		              <a href="assets/img/KazenAI_Agent_Orchestration_Platform.png?v=20260516" data-gall="portfolioGallery" class="venobox">
+		                <div class="work-img">
+		                  <img src="assets/img/KazenAI_Agent_Orchestration_Platform.png?v=20260516" alt="" class="img-fluid">
+		                </div>
+		              </a>
+              <div class="work-content">
+                <div class="row">
+                  <div class="col-sm-8">
+                    <h2 class="w-title">AI Agent Orchestration Platform</h2>
+                    <div class="w-more">
+                      <span class="w-ctegory">Multi-Agent, Workflow Orchestration, AWS</span> / <span class="w-date">May 2026</span>
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="w-like">
+                      <a href="project-kazenai-agent-orchestration-platform.html"> <span class="ion-ios-plus-outline"></span></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+		          <div class="col-md-4 d-flex align-items-stretch">
+		            <div class="work-box h-100 w-100 d-flex flex-column" data-title="Agent Builder" data-category="AI Coding Agents, VS Code Extension, FinOps">
+              <a href="assets/img/KazenAI_Orchestrator_VSCode.png?v=20260516" data-gall="portfolioGallery" class="venobox">
+                <div class="work-img">
+                  <img src="assets/img/KazenAI_Orchestrator_VSCode.png?v=20260516" alt="" class="img-fluid">
+                </div>
+              </a>
+              <div class="work-content">
+                <div class="row">
+                  <div class="col-sm-8">
+                    <h2 class="w-title">Agent Builder</h2>
+                    <div class="w-more">
+                      <span class="w-ctegory">AI Coding Agents, VS Code Extension, FinOps</span> / <span class="w-date">May 2026</span>
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="w-like">
+                      <a href="project-kazenai-orchestrator-vscode.html"> <span class="ion-ios-plus-outline"></span></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+		          <div class="col-md-4 d-flex align-items-stretch">
+		            <div class="work-box h-100 w-100 d-flex flex-column" data-title="Agentic Kaggle" data-category="MLOps, Reproducibility, SQLite, Kaggle">
+              <a href="assets/img/Agentic_Kaggle.png?v=20260516" data-gall="portfolioGallery" class="venobox">
+                <div class="work-img">
+                  <img src="assets/img/Agentic_Kaggle.png?v=20260516" alt="" class="img-fluid">
+                </div>
+              </a>
+              <div class="work-content">
+                <div class="row">
+                  <div class="col-sm-8">
+                    <h2 class="w-title">Agentic Kaggle</h2>
+                    <div class="w-more">
+                      <span class="w-ctegory">MLOps, Reproducibility, SQLite, Kaggle</span> / <span class="w-date">May 2026</span>
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="w-like">
+                      <a href="project-agentic-kaggle.html"> <span class="ion-ios-plus-outline"></span></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section><!-- End Portfolio Section -->
+    
+
     <!-- ======= About Section ======= -->
     <section id="about" class="about-mf sect-pt4 route">
-      <div class="container">
-        <div class="row">
+	      <div class="container">
+	        <div class="row">
           <div class="col-sm-12">
             <div class="box-shadow-full">
-              <div class="row">
+		        <div class="row">
                 <div class="col-md-6">
                   <!-- About card layout tweak: details moved below the profile image -->
                   <div class="about-img text-center mb-4">
@@ -671,50 +943,28 @@
                       </h5>
                     </div>
                     <p class="lead">
-                    I am an AI Systems Engineer specializing in the design and deployment of production 
-                    machine learning and large language model systems.
+                    I got into AI through mathematical olympiads and my passion for problem-solving.
                     </p>
 
                     <p class="lead">
-                    My work focuses on building the infrastructure that powers modern AI applications, 
-                    including retrieval-augmented generation (RAG) pipelines, vector search systems, and 
-                    scalable inference services. 
+                    IMO Gold Medalist. Kaggle Competition Expert, top&nbsp;0.5% globally (695&nbsp;/&nbsp;204,971).
+                    MSc Data Science, University of Zurich (GPA&nbsp;5.0/6.0). The thread running
+                    through all three: a compulsion to find where complex systems break before they do.
                     </p>
 
                     <p class="lead">
-                    I hold a Master's degree in Data Science from the University of Zurich and am a Kaggle 
-                    Competition Expert, ranked in the top 0.5% of over 200,000 machine learning 
-                    practitioners worldwide.
+                    That turned into KazenAI: reliability infrastructure for production AI agents.
+                    Pre-emptive FinOps circuit-breakers that intercept before the API budget breaks.
+                    FSM-validated multi-agent orchestration. A RAG stack running at sub-2s P95 latency
+                    with zero cost overruns. First platform: 16 specialised agents, architecture to production.
                     </p>
 
                     <p class="lead">
-                    My research background includes deep learning methods for high-dimensional time-series 
-                    forecasting and anomaly detection. During my studies, I worked with models such as 
-                    DeepGLO and Deep Isolation Forest to analyze complex multivariate datasets.
+                    Before that, Applied AI at DevRev: 40% response time reduction across
+                    20+ automated LLM workflows, 15% throughput gain on real-time ingestion pipelines.
                     </p>
 
-                    <p class="lead">
-                    Beyond research, I enjoy building end-to-end AI platforms. Recent projects include a 
-                    production-grade serverless RAG system with streaming LLM responses, vector indexing, 
-                    cost guardrails, and cloud-native deployment on modern infrastructure.
-                    </p>
-
-                    <p class="lead">
-                    My technical interests include:
-                      <ul>
-                        <li>AI systems architecture</li>
-                        <li>Multi-agent architecture</li>
-                        <li>Cost governance & optimization</li>
-                        <li>cloud-native AI platforms</li>
-                      </ul>
-                    </p>
-
-                    <p class="lead">
-                    I am particularly interested in working on systems that transform advanced machine 
-                    learning models into reliable, scalable products used in real-world applications.
-                    </p>
-
-                    </p>
+                    <p class="lead">Building reliable AI systems with KazenAI: <code>pip install kazenai-finops</code></p>
                   </div>
                 </div>
               </div>
@@ -725,99 +975,107 @@
     </section><!-- End About Section -->
     
 
-    <!-- ======= Portfolio Section ======= -->
-    <section id="work" class="portfolio-mf sect-pt4 route">
+    <!-- ======= Work With Me Section ======= -->
+    <section id="hire" class="hire-mf sect-pt4 route">
       <div class="container">
         <div class="row">
           <div class="col-sm-12">
             <div class="title-box text-center">
-              <h3 class="title-a">
-                Portfolio
-              </h3>
-              <p class="subtitle-a">
-                Projects.
-              </p>
+              <h3 class="title-a">Work With Me</h3>
+              <p class="subtitle-a">Helping Series A&ndash;C teams ship reliable, cost-efficient AI applications &mdash; from RAG pipelines to agent orchestration.</p>
               <div class="line-mf"></div>
             </div>
           </div>
         </div>
-        <div class="row">
+
+        <!-- Service Tiers -->
+        <div class="row hire-services">
           <div class="col-md-4">
-            <div class="work-box" data-title="Master's Project" data-category="Deep Learning, Outlier Detection">
-              <a href="assets/img/Visual_Outlier_Detection.png" data-gall="portfolioGallery" class="venobox">
-                <div class="work-img">
-                  <img src="assets/img/Visual_Outlier_Detection.png" alt="" class="img-fluid">
-                </div>
-              </a>
-              <div class="work-content">
-                <div class="row">
-                  <div class="col-sm-8">
-                    <h2 class="w-title">Visualizing Outlier Detection using Deep Isolation Forest</h2>
-                    <div class="w-more">
-                      <span class="w-ctegory">Deep Learning, Outlier Detection</span> / <span class="w-date">20 March 2023</span>
-                    </div>
-                  </div>
-                  <div class="col-sm-4">
-                    <div class="w-like">
-                      <a href="project-visual-outliers.html"> <span class="ion-ios-plus-outline"></span></a>
-                    </div>
-                  </div>
-                </div>
-              </div>
+            <div class="service-card">
+              <div class="service-icon"><i class="fa fa-search" aria-hidden="true"></i></div>
+              <span class="service-badge">Short Engagement</span>
+              <h4>AI Reliability Audit</h4>
+              <p>A focused deep-dive into your LLM stack. I audit failure modes, inference costs, and architecture &mdash; then deliver a prioritised action plan.</p>
             </div>
           </div>
           <div class="col-md-4">
-            <div class="work-box" data-title="Visual Understanding on RNN-Based High-Dimensional Time-Series Forecasting" data-category="Deep Learning, Time-Series Forecasting, Visualization">
-              <a href="assets/img/Visual_Understanding_on_RNN.png" data-gall="portfolioGallery" class="venobox">
-                <div class="work-img">
-                  <img src="assets/img/Visual_Understanding_on_RNN.png" alt="" class="img-fluid">
-                </div>
-              </a>
-              <div class="work-content">
-                <div class="row">
-                  <div class="col-sm-8">
-                    <h2 class="w-title">DeepGLO for High-Dimensional Time-Series Forecasting</h2>
-                    <div class="w-more">
-                      <span class="w-ctegory">Deep Learning, Time-Series Forecasting</span> / <span class="w-date">1 May. 2024</span>
-                    </div>
-                  </div>
-                  <div class="col-sm-4">
-                    <div class="w-like">
-                      <a href="project-visual-understanding-on-rnn-based-high-dimensional-time-series-forecasting.html"> <span class="ion-ios-plus-outline"></span></a>
-                    </div>
-                  </div>
-                </div>
-              </div>
+            <div class="service-card">
+              <div class="service-icon"><i class="fa fa-code" aria-hidden="true"></i></div>
+              <span class="service-badge">Project</span>
+              <h4>AI Implementation Build</h4>
+              <p>End-to-end build of RAG pipelines, agent orchestration systems, or LLM integrations. Scoped deliverables with milestone-based payments.</p>
             </div>
           </div>
           <div class="col-md-4">
-            <div class="work-box" data-title="RAG LLM Systems: Dhavan’s Personal Assistant" data-category="LLM, RAG, Systems Engineering, AWS">
-              <a href="assets/img/RAG_LLM_Systems.png" data-gall="portfolioGallery" class="venobox">
-                <div class="work-img">
-                  <img src="assets/img/RAG_LLM_Systems.png" alt="" class="img-fluid">
-                </div>
-              </a>
-              <div class="work-content">
-                <div class="row">
-                  <div class="col-sm-8">
-                    <h2 class="w-title">RAG LLM Systems: Dhavan’s Personal Assistant</h2>
-                    <div class="w-more">
-                      <span class="w-ctegory">LLM, RAG, Systems Engineering, AWS</span> / <span class="w-date">15 Mar. 2026</span>
-                    </div>
+            <div class="service-card">
+              <div class="service-icon"><i class="fa fa-line-chart" aria-hidden="true"></i></div>
+              <span class="service-badge">Ongoing</span>
+              <h4>AI Operations Retainer</h4>
+              <p>Ongoing monitoring, prompt tuning, model upgrades, and cost optimisation for your existing AI systems. Predictable monthly engagement.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="row justify-content-center hire-form-section">
+          <div class="col-md-8">
+            <div class="box-shadow-full">
+              <h4 class="text-center mb-1" style="font-weight:700;">Tell me about your project</h4>
+              <p class="text-center hire-response-note">Fill in a few details and I&rsquo;ll get back to you within 24 hours.</p>
+
+              <!--
+                TODO: Replace YOUR_FORM_ID with your Formspree form ID.
+                  1. Go to https://formspree.io and sign up with your email.
+                  2. Create a new form — Free tier supports 50 submissions/month.
+                  3. Copy the form ID (e.g. "xvgozwra") and replace YOUR_FORM_ID below.
+              -->
+              <form id="hire-form" action="https://formspree.io/f/xqenrlyk" method="POST" novalidate>
+                <input type="hidden" name="_subject" value="New project inquiry via portfolio">
+
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label class="form-label" for="hire-name">Name <span class="text-danger">*</span></label>
+                    <input type="text" id="hire-name" name="name" class="form-control" placeholder="Your name" required>
                   </div>
-                  <div class="col-sm-4">
-                    <div class="w-like">
-                      <a href="project-rag-llm-systems.html"> <span class="ion-ios-plus-outline"></span></a>
-                    </div>
+                  <div class="form-group col-md-6">
+                    <label class="form-label" for="hire-email">Email <span class="text-danger">*</span></label>
+                    <input type="email" id="hire-email" name="email" class="form-control" placeholder="your@email.com" required>
                   </div>
                 </div>
-              </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="hire-service">What are you looking for?</label>
+                  <select id="hire-service" name="service" class="form-control">
+                    <option value="">— Select a service —</option>
+                    <option value="AI Reliability Audit">AI Reliability Audit</option>
+                    <option value="AI Implementation Build">AI Implementation Build</option>
+                    <option value="AI Operations Retainer">AI Operations Retainer</option>
+                    <option value="Not sure yet">Not sure yet &mdash; happy to discuss</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="hire-message">Project brief <span class="text-danger">*</span></label>
+                  <textarea id="hire-message" name="message" class="form-control" rows="5" placeholder="Describe your project, current AI stack, and the main problem you're trying to solve." required></textarea>
+                </div>
+
+                <div class="text-center mt-3">
+                  <button type="submit" id="hire-submit" class="btn btn-primary btn-lg px-5">Start the conversation &rarr;</button>
+                </div>
+
+                <div id="hire-success" class="mt-3">
+                  Thanks for reaching out! I&rsquo;ll reply within 24 hours.
+                </div>
+                <div id="hire-error" class="mt-3">
+                  Something went wrong &mdash; please email me directly at <a href="mailto:shah.dhavan09@gmail.com">shah.dhavan09@gmail.com</a>
+                </div>
+              </form>
             </div>
           </div>
         </div>
       </div>
-    </section><!-- End Portfolio Section -->
-    
+    </section><!-- End Work With Me Section -->
+
 
     <!-- ======= Testimonials Section ======= -->
     <div class="testimonials paralax-mf bg-image" style="background-image: url(assets/img/Background.jpeg)">
@@ -844,7 +1102,6 @@
       </div>
     </div><!-- End Testimonials Section -->
 
-    
 
   </main><!-- End #main -->
 
@@ -878,6 +1135,7 @@
         { title: "Home", category: "Section", url: "index.html#page-top", type: "Page" },
         { title: "About", category: "Section", url: "index.html#about", type: "Page" },
         { title: "Work", category: "Section", url: "index.html#work", type: "Page" },
+        { title: "Work With Me", category: "Section", url: "index.html#hire", type: "Page" },
         { title: "Projects", category: "Page", url: "projects.html", type: "Page" },
         { title: "Portfolio Details", category: "Page", url: "portfolio-details.html", type: "Page" }
       ];
@@ -1395,6 +1653,63 @@
       }
       els.text.addEventListener('input', autoResize);
       autoResize();
+    })();
+  </script>
+
+  <script>
+    /* ============================================================
+       Work With Me — Formspree AJAX submission
+       ============================================================ */
+    (function () {
+      var form = document.getElementById('hire-form');
+      if (!form) return;
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        var btn = document.getElementById('hire-submit');
+        var successEl = document.getElementById('hire-success');
+        var errorEl = document.getElementById('hire-error');
+
+        // Basic client-side validation
+        var name = document.getElementById('hire-name').value.trim();
+        var email = document.getElementById('hire-email').value.trim();
+        var message = document.getElementById('hire-message').value.trim();
+        if (!name || !email || !message) {
+          errorEl.textContent = 'Please fill in your name, email, and project brief.';
+          errorEl.style.display = 'block';
+          return;
+        }
+
+        btn.disabled = true;
+        btn.textContent = 'Sending…';
+        successEl.style.display = 'none';
+        errorEl.style.display = 'none';
+
+        fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        })
+        .then(function (res) {
+          if (res.ok) {
+            successEl.style.display = 'block';
+            form.reset();
+          } else {
+            return res.json().then(function (data) {
+              throw new Error(data.error || 'Submission failed');
+            });
+          }
+        })
+        .catch(function () {
+          errorEl.textContent = 'Something went wrong — please email me directly at shah.dhavan09@gmail.com';
+          errorEl.style.display = 'block';
+        })
+        .finally(function () {
+          btn.disabled = false;
+          btn.innerHTML = 'Start the conversation &rarr;';
+        });
+      });
     })();
   </script>
 
