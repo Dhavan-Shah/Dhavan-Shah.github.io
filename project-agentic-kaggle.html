@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Agentic Kaggle (Local-first ML Workflow + Notebook Export) — Dhavan Shah</title>
+  <title>Agentic Kaggle (Reproducible Kaggle Workflow, SQLite Tracking, Offline Export) — Dhavan Shah</title>
 
   <link href="assets/img/favicon.png" rel="icon">
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -36,7 +36,7 @@
           <ol class="breadcrumb d-flex justify-content-center">
             <li class="breadcrumb-item"><a href="index.html">Home</a></li>
             <li class="breadcrumb-item"><a href="projects.html">Projects</a></li>
-            <li class="breadcrumb-item active">ML Workflow</li>
+            <li class="breadcrumb-item active">Kaggle Workflow</li>
           </ol>
         </div>
       </div>
@@ -50,27 +50,27 @@
           <div class="col-md-7">
             <img src="assets/img/Agentic_Kaggle.png?v=20260516" class="img-fluid" alt="Agentic Kaggle Project">
             <p class="mt-3 mb-0 small text-muted">
-              Local-first Kaggle workflow runner with SQLite tracking and offline notebook export.
+              Local-first Kaggle framework with structured workspaces, SQLite experiment tracking, safe notebook mining, and offline export.
             </p>
           </div>
           <div class="col-md-5">
             <h3>Project information</h3>
             <ul>
-              <li><strong>Category</strong>: ML Systems · Reproducibility · Experiment Tracking</li>
-              <li><strong>Core</strong>: CLI-driven Kaggle workflow (ingest → baseline → iterate → ensemble → export)</li>
-              <li><strong>Tracking</strong>: SQLite run/artifact timeline</li>
-              <li><strong>Export</strong>: Kaggle-offline notebook export for a given run</li>
+              <li><strong>Category</strong>: ML Systems · Kaggle Automation · Experiment Tracking</li>
+              <li><strong>Interface</strong>: CLI workflow with <code>run</code>, <code>ingest-notebook</code>, <code>ensemble</code>, <code>export</code>, and multi-phase helpers</li>
+              <li><strong>Persistence</strong>: SQLite timeline with optional MLflow mirroring</li>
+              <li><strong>Workspace model</strong>: <code>workspaces/&lt;slug&gt;/raw|derived|runs|exports</code></li>
+              <li><strong>Core features</strong>: baseline training, notebook analysis, ensemble blending, offline notebook export, compliance guardrails</li>
             </ul>
 
             <h4>Overview</h4>
             <p class="mb-2">
-              Agentic Kaggle is a reproducible, local-first framework for running Kaggle-style workflows with a
-              clear, auditable run history. It focuses on the engineering pieces that make iteration fast and reliable:
-              consistent workspace layout, artifact capture, metrics logging, and exportable notebooks.
+              Agentic Kaggle is a <strong>reproducible, local-first framework</strong> for running Kaggle competition workflows with clear artifact history.
+              The focus is on the systems layer around experimentation: workspace structure, run tracking, safe data acquisition, ensemble management, and exportability.
             </p>
             <p class="mb-3">
-              It supports a practical loop: ingest data → build baseline → track artifacts/metrics → iterate/ensemble → export a final notebook
-              that can run without internet access.
+              Rather than hiding work inside ad hoc notebooks, the project makes each competition run explicit and recoverable, from downloaded inputs
+              to generated metrics, submissions, and export notebooks.
             </p>
 
             <p class="mb-3">
@@ -83,13 +83,75 @@
 
         <div class="row mt-4">
           <div class="col-12">
-            <h4>What It Demonstrates</h4>
+            <h4>Project Goal</h4>
+            <p>
+              Build a workflow for Kaggle-style experimentation that is <strong>repeatable, inspectable, and export-friendly</strong>.
+              The project is meant to reduce the usual notebook chaos by giving each competition a consistent filesystem layout,
+              a run ledger, and a clean path from baseline training to final notebook export.
+            </p>
+
+            <h4>Run Lifecycle</h4>
+            <p class="mb-2">A typical baseline run follows this sequence:</p>
             <ul>
-              <li><strong>Reproducible ML ops</strong> via structured workspace folders and deterministic run artifacts.</li>
-              <li><strong>SQLite-backed experiment tracking</strong> for competitions, runs, metrics, and outputs.</li>
-              <li><strong>End-to-end export</strong> into a Kaggle-offline notebook suitable for submission workflows.</li>
-              <li><strong>Safety/compliance defaults</strong> for Kaggle content handling (local-first, minimal scraping).</li>
+              <li><strong>Ingest</strong>: download competition files into <code>workspaces/&lt;slug&gt;/raw/</code>.</li>
+              <li><strong>Analyze</strong>: infer and write <code>derived/competition_spec.json</code> from the local files.</li>
+              <li><strong>Train baseline</strong>: create a run directory with artifacts such as <code>oof.parquet</code>, <code>model.joblib</code>, <code>metrics.json</code>, and <code>submission.csv</code>.</li>
+              <li><strong>Track everything</strong>: write runs, metrics, notebook-mining results, and artifacts into <code>agentic_kaggle.db</code>.</li>
+              <li><strong>Export</strong>: generate an offline Kaggle notebook under <code>workspaces/&lt;slug&gt;/exports/&lt;run_id&gt;/final.ipynb</code>.</li>
             </ul>
+
+            <h4>Workspace & Artifact Structure</h4>
+            <p class="mb-2">
+              The framework enforces a predictable per-competition workspace:
+            </p>
+            <ul>
+              <li><strong><code>raw/</code></strong>: downloaded competition inputs</li>
+              <li><strong><code>derived/</code></strong>: inferred specs, ideas, mined notebook metadata, and generated helper outputs</li>
+              <li><strong><code>runs/</code></strong>: per-run models, OOF predictions, submissions, metrics, and reports</li>
+              <li><strong><code>exports/</code></strong>: final notebook packages for Kaggle submission workflows</li>
+            </ul>
+
+            <h4>Experiment Tracking</h4>
+            <ul>
+              <li><strong>SQLite-first tracking</strong>: competitions, runs, artifacts, metrics, and notebook analysis results are persisted locally in SQLite.</li>
+              <li><strong>Optional MLflow</strong>: if <code>MLFLOW_TRACKING_URI</code> is configured, parameters, metrics, and artifacts can also be mirrored to MLflow.</li>
+              <li><strong>Relative path hygiene</strong>: the system avoids leaking unnecessary absolute paths into the tracking timeline.</li>
+            </ul>
+
+            <h4>Workflow Commands & Automation</h4>
+            <ul>
+              <li><strong><code>run</code></strong>: baseline workflow for a competition.</li>
+              <li><strong><code>ingest-notebook</code></strong>: analyze a local notebook file and store structured hints in SQLite.</li>
+              <li><strong><code>ensemble</code></strong>: build a blended run from prior OOF predictions and submission files.</li>
+              <li><strong><code>export</code></strong>: create an offline Kaggle notebook plus copied submission artifacts.</li>
+              <li><strong><code>sop</code>, <code>search</code>, <code>ideate</code>, <code>report</code>, <code>autoresearch</code></strong>: multi-phase helpers for planning, search, writeups, and iteration.</li>
+              <li><strong><code>watch</code>, <code>worker</code>, <code>scheduler</code></strong>: queue and process notebook/dataset mining jobs across competitions.</li>
+            </ul>
+
+            <h4>Modeling & Export Strategy</h4>
+            <ul>
+              <li><strong>Baseline adapters</strong>: the default configuration uses a sklearn-based tabular adapter, with time-series support also present in the codebase.</li>
+              <li><strong>Ensembling</strong>: ridge blending over saved OOF predictions is supported, and diversity metrics are recorded alongside ensemble outputs.</li>
+              <li><strong>Offline notebook export</strong>: exported notebooks are designed to run without internet access inside Kaggle.</li>
+              <li><strong>Forward-looking design</strong>: Hugging Face / LLM-backed pieces are scaffolded so more agentic generation can be added without rewriting the core workflow.</li>
+            </ul>
+
+            <h4>Compliance & Safety Defaults</h4>
+            <p class="mb-2">
+              The project is intentionally conservative about Kaggle content handling.
+            </p>
+            <ul>
+              <li><strong>API-only mode</strong>: default <code>compliance.kaggle_mode=api_only</code> avoids HTML scraping paths.</li>
+              <li><strong>Notebook mining is manual-first</strong>: local <code>.ipynb</code> files can be analyzed, but automated kernel scraping is not the default behavior.</li>
+              <li><strong>Kernel pull guardrails</strong>: source downloads are disabled by default and capped by count/bytes when explicitly enabled.</li>
+              <li><strong>Retention tools</strong>: cleanup helpers can purge old raw notebook pull folders under <code>derived/notebooks/</code>.</li>
+            </ul>
+
+            <h4>Why This Project Is Valuable</h4>
+            <p class="mb-0">
+              This is a strong ML systems project because it treats Kaggle work as an <strong>engineering workflow</strong>, not just a notebook.
+              It combines experiment tracking, artifact discipline, safe data handling, reproducible exports, and room for future agentic automation.
+            </p>
           </div>
         </div>
       </div>
