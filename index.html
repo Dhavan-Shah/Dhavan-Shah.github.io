@@ -449,9 +449,85 @@
 	      border-bottom-left-radius: 6px;
 	    }
 	    
-	    .chatbot-bubble.assistant.has-metrics {
-	      cursor: help;
-	    }
+    .chatbot-bubble.assistant.has-metrics {
+      position: relative;
+      padding-right: 42px;
+    }
+
+    .chatbot-metrics-toggle {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 22px;
+      height: 22px;
+      border: 0;
+      border-radius: 999px;
+      background: #ffffff;
+      color: #5c6773;
+      font-size: 0.76rem;
+      font-weight: 700;
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.12), 0 4px 12px rgba(0, 0, 0, 0.08);
+      transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+    }
+
+    .chatbot-metrics-toggle:hover,
+    .chatbot-metrics-toggle:focus {
+      background: #e9f7ff;
+      color: #0056b3;
+      outline: none;
+      transform: translateY(-1px);
+    }
+
+    .chatbot-metrics-popover {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      display: none;
+      width: min(300px, calc(100vw - 56px));
+      max-width: 300px;
+      padding: 12px;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      border-radius: 10px;
+      background: #ffffff;
+      box-shadow: 0 14px 28px rgba(0, 0, 0, 0.16);
+      z-index: 2;
+      white-space: normal;
+    }
+
+    .chatbot-metrics-popover.is-visible {
+      display: block;
+    }
+
+    .chatbot-metrics-popover.is-above {
+      top: auto;
+      bottom: calc(100% + 8px);
+    }
+
+    .chatbot-metrics-title {
+      margin: 0 0 8px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: #5c6773;
+    }
+
+    .chatbot-metrics-pre {
+      margin: 0;
+      max-height: 220px;
+      overflow: auto;
+      color: #212529;
+      font-size: 0.76rem;
+      line-height: 1.45;
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
 
     .chatbot-links {
       display: flex;
@@ -1508,6 +1584,7 @@
 
       let activeAbortController = null;
       let statusBubbleEl = null;
+      let metricsPopoverCounter = 0;
 
       function scrollToBottom() {
         els.messages.scrollTop = els.messages.scrollHeight;
@@ -1552,7 +1629,7 @@
         const container = document.createElement('div');
         container.className = 'chatbot-links';
 
-        links.slice(0, 2).forEach((link) => {
+        links.slice(0, 3).forEach((link) => {
           if (!link || !link.url || !link.title) return;
           const anchor = document.createElement('a');
           anchor.className = 'chatbot-link-btn';
@@ -1568,6 +1645,47 @@
         if (container.childElementCount) {
           bubbleEl.parentElement.appendChild(container);
           scrollToBottom();
+        }
+      }
+
+      function hideMetricsPopover(popoverEl) {
+        if (!popoverEl) return;
+        popoverEl.classList.remove('is-visible', 'is-above');
+        const bubbleEl = popoverEl.closest('.chatbot-bubble.assistant');
+        const toggleEl = bubbleEl ? bubbleEl.querySelector('.chatbot-metrics-toggle') : null;
+        if (toggleEl) toggleEl.setAttribute('aria-expanded', 'false');
+      }
+
+      function hideAllMetricsPopovers() {
+        document.querySelectorAll('.chatbot-metrics-popover.is-visible').forEach(hideMetricsPopover);
+      }
+
+      function clearMetrics(bubbleEl) {
+        if (!bubbleEl) return;
+        bubbleEl.classList.remove('has-metrics');
+        bubbleEl.removeAttribute('data-metrics');
+        bubbleEl.removeAttribute('title');
+
+        const toggleEl = bubbleEl.querySelector('.chatbot-metrics-toggle');
+        if (toggleEl) toggleEl.remove();
+
+        const popoverEl = bubbleEl.querySelector('.chatbot-metrics-popover');
+        if (popoverEl) popoverEl.remove();
+      }
+
+      function positionMetricsPopover(bubbleEl, popoverEl) {
+        if (!bubbleEl || !popoverEl || !els.messages) return;
+
+        popoverEl.classList.remove('is-above');
+
+        const bubbleRect = bubbleEl.getBoundingClientRect();
+        const panelRect = els.messages.getBoundingClientRect();
+        const popoverHeight = popoverEl.offsetHeight;
+        const spaceBelow = panelRect.bottom - bubbleRect.bottom;
+        const spaceAbove = bubbleRect.top - panelRect.top;
+
+        if (spaceBelow < popoverHeight + 12 && spaceAbove > spaceBelow) {
+          popoverEl.classList.add('is-above');
         }
       }
 
@@ -1632,13 +1750,57 @@
 	        return null;
 	      }
 	
-	      function setMetricsHover(bubbleEl, metrics) {
+	      function setMetricsDetails(bubbleEl, metrics) {
+	        clearMetrics(bubbleEl);
 	        if (!bubbleEl || !metrics) return;
 	        try {
 	          const pretty = JSON.stringify(metrics, null, 2);
+	          const popoverId = 'chatbot-metrics-' + (++metricsPopoverCounter);
+	          const toggleEl = document.createElement('button');
+	          const popoverEl = document.createElement('div');
+	          const titleEl = document.createElement('div');
+	          const metricsEl = document.createElement('pre');
+
 	          bubbleEl.classList.add('has-metrics');
 	          bubbleEl.dataset.metrics = pretty;
-	          bubbleEl.title = 'metrics:\n' + pretty;
+
+	          toggleEl.type = 'button';
+	          toggleEl.className = 'chatbot-metrics-toggle';
+	          toggleEl.textContent = 'i';
+	          toggleEl.setAttribute('aria-label', 'Show response metrics');
+	          toggleEl.setAttribute('aria-controls', popoverId);
+	          toggleEl.setAttribute('aria-expanded', 'false');
+
+	          popoverEl.id = popoverId;
+	          popoverEl.className = 'chatbot-metrics-popover';
+	          popoverEl.setAttribute('role', 'dialog');
+	          popoverEl.setAttribute('aria-label', 'Response metrics');
+
+	          titleEl.className = 'chatbot-metrics-title';
+	          titleEl.textContent = 'Metrics';
+
+	          metricsEl.className = 'chatbot-metrics-pre';
+	          metricsEl.textContent = pretty;
+
+	          popoverEl.appendChild(titleEl);
+	          popoverEl.appendChild(metricsEl);
+
+	          toggleEl.addEventListener('click', function(event) {
+	            event.stopPropagation();
+	            const shouldOpen = !popoverEl.classList.contains('is-visible');
+	            hideAllMetricsPopovers();
+	            if (!shouldOpen) return;
+	            popoverEl.classList.add('is-visible');
+	            positionMetricsPopover(bubbleEl, popoverEl);
+	            toggleEl.setAttribute('aria-expanded', 'true');
+	          });
+
+	          popoverEl.addEventListener('click', function(event) {
+	            event.stopPropagation();
+	          });
+
+	          bubbleEl.appendChild(toggleEl);
+	          bubbleEl.appendChild(popoverEl);
 	        } catch (_) {
 	          // Best-effort only; do nothing.
 	        }
@@ -1688,13 +1850,14 @@
       }
 
 	      async function sendMessage(userMessage) {
-        const clean = (userMessage || '').trim();
-        if (!clean) return;
+	        const clean = (userMessage || '').trim();
+	        if (!clean) return;
 
-        addMessage('user', clean);
-        const assistantBubble = addMessage('assistant', '');
-        setStatus('Connecting...');
-        setLoading(true);
+	        hideAllMetricsPopovers();
+	        addMessage('user', clean);
+	        const assistantBubble = addMessage('assistant', '');
+	        setStatus('Connecting...');
+	        setLoading(true);
 
         // Cancel any previous in-flight request.
         if (activeAbortController) activeAbortController.abort();
@@ -1747,30 +1910,30 @@
               return;
             }
 
-	            if (type === 'final') {
-	              clearStatus();
-	              if (structured && structured.answer != null) {
-	                assistantBubble.textContent = structured.answer.toString();
-	                setMetricsHover(assistantBubble, structured.metrics || lastMetrics);
-                  renderLinks(assistantBubble, structured.links || lastLinks);
-	              } else {
-	                if (text) assistantBubble.textContent += text;
-	                setMetricsHover(assistantBubble, lastMetrics);
-                  renderLinks(assistantBubble, lastLinks);
-	              }
-	              scrollToBottom();
-	              return;
+		            if (type === 'final') {
+		              clearStatus();
+		              if (structured && structured.answer != null) {
+		                assistantBubble.textContent = structured.answer.toString();
+		                setMetricsDetails(assistantBubble, structured.metrics || lastMetrics);
+	                  renderLinks(assistantBubble, structured.links || lastLinks);
+		              } else {
+		                if (text) assistantBubble.textContent += text;
+		                setMetricsDetails(assistantBubble, lastMetrics);
+	                  renderLinks(assistantBubble, lastLinks);
+		              }
+		              scrollToBottom();
+		              return;
 	            }
 
 	            // Default: streamed token/data chunk
-	            if (structured && structured.answer != null && !structured.token && !structured.text) {
-	              // Some servers send the final JSON without an explicit `event: final`.
-	              assistantBubble.textContent = structured.answer.toString();
-	              setMetricsHover(assistantBubble, structured.metrics || lastMetrics);
-                renderLinks(assistantBubble, structured.links || lastLinks);
-	              scrollToBottom();
-	              return;
-	            }
+		            if (structured && structured.answer != null && !structured.token && !structured.text) {
+		              // Some servers send the final JSON without an explicit `event: final`.
+		              assistantBubble.textContent = structured.answer.toString();
+		              setMetricsDetails(assistantBubble, structured.metrics || lastMetrics);
+	                renderLinks(assistantBubble, structured.links || lastLinks);
+		              scrollToBottom();
+		              return;
+		            }
 	
 	            if (text) {
 	              assistantBubble.textContent += text;
@@ -1779,7 +1942,7 @@
 	          });
 
 	          clearStatus();
-	          if (!hadErrorEvent) setMetricsHover(assistantBubble, lastMetrics);
+	          if (!hadErrorEvent) setMetricsDetails(assistantBubble, lastMetrics);
 	          if (!hadErrorEvent && !assistantBubble.textContent.trim()) {
 	            assistantBubble.textContent = 'No response received.';
 	          }
@@ -1819,6 +1982,17 @@
       }
       els.text.addEventListener('input', autoResize);
       autoResize();
+
+      document.addEventListener('click', function(event) {
+        if (event.target.closest('.chatbot-metrics-toggle') || event.target.closest('.chatbot-metrics-popover')) {
+          return;
+        }
+        hideAllMetricsPopovers();
+      });
+
+      document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') hideAllMetricsPopovers();
+      });
     })();
   </script>
 
