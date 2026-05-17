@@ -451,20 +451,20 @@
 	    
     .chatbot-bubble.assistant.has-metrics {
       position: relative;
-      padding-right: 42px;
+      padding-right: 36px;
     }
 
     .chatbot-metrics-toggle {
       position: absolute;
-      top: 8px;
-      right: 8px;
-      width: 22px;
-      height: 22px;
+      top: 7px;
+      right: 7px;
+      width: 18px;
+      height: 18px;
       border: 0;
       border-radius: 999px;
       background: #ffffff;
       color: #5c6773;
-      font-size: 0.76rem;
+      font-size: 0.64rem;
       font-weight: 700;
       line-height: 1;
       display: inline-flex;
@@ -1705,6 +1705,14 @@
         statusBubbleEl.textContent = '';
       }
 
+	      function coerceTextValue(value) {
+	        if (value == null) return '';
+	        if (typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean') {
+	          return value.toString();
+	        }
+	        return '';
+	      }
+
 	      function coerceEventText(data) {
 	        const raw = (data || '').toString();
 	        const trimmed = raw.trim();
@@ -1713,14 +1721,37 @@
         // Be liberal in what we accept: SSE data is often JSON.
         try {
           const obj = JSON.parse(trimmed);
-          return (
-            obj.token ??
-            obj.text ??
-            obj.message ??
-            obj.content ??
-            obj.data ??
-            trimmed
-          ).toString();
+          const candidates = [
+            obj.token,
+            obj.delta,
+            obj.chunk,
+            obj.text,
+            obj.message,
+            obj.content,
+            obj.answer,
+            obj.final_answer,
+            obj.response,
+            obj.data
+          ];
+
+          if (obj.delta && typeof obj.delta === 'object') {
+            candidates.unshift(obj.delta.content, obj.delta.text);
+          }
+
+          if (Array.isArray(obj.choices) && obj.choices.length) {
+            const choice = obj.choices[0] || {};
+            if (choice.delta && typeof choice.delta === 'object') {
+              candidates.unshift(choice.delta.content, choice.delta.text);
+            }
+            candidates.push(choice.text, choice.message && choice.message.content, choice.content);
+          }
+
+          for (const candidate of candidates) {
+            const text = coerceTextValue(candidate);
+            if (text) return text;
+          }
+
+          return trimmed;
         } catch (_) {
 	          return raw;
 	        }
@@ -1806,6 +1837,33 @@
 	        }
 	      }
 
+      function mergeStreamText(currentText, incomingText) {
+        const current = (currentText || '').toString();
+        const next = (incomingText || '').toString();
+        if (!next) return current;
+        if (!current) return next;
+        if (next === current) return current;
+        if (next.startsWith(current)) return next;
+        if (current.endsWith(next)) return current;
+        return current + next;
+      }
+
+      function findSSEBoundary(buffer) {
+        const match = /\r?\n\r?\n/.exec(buffer);
+        if (!match || match.index == null) return -1;
+        return match.index;
+      }
+
+      function waitForNextPaint() {
+        return new Promise(function(resolve) {
+          if (typeof window.requestAnimationFrame === 'function') {
+            window.requestAnimationFrame(function() { resolve(); });
+            return;
+          }
+          window.setTimeout(resolve, 16);
+        });
+      }
+
       function parseSSEBlock(block) {
         // Minimal SSE parser: blocks separated by blank lines.
         const lines = block.split(/\r?\n/);
@@ -1837,35 +1895,38 @@
           buffer += decoder.decode(value, { stream: true });
 
           let idx;
-          while ((idx = buffer.indexOf('\n\n')) !== -1) {
+          while ((idx = findSSEBoundary(buffer)) !== -1) {
             const rawBlock = buffer.slice(0, idx).trim();
-            buffer = buffer.slice(idx + 2);
+            const separatorMatch = /^\r?\n\r?\n/.exec(buffer.slice(idx));
+            const separatorLength = separatorMatch ? separatorMatch[0].length : 2;
+            buffer = buffer.slice(idx + separatorLength);
             if (!rawBlock) continue;
-            onEvent(parseSSEBlock(rawBlock));
+            await onEvent(parseSSEBlock(rawBlock));
           }
         }
 
         const trailing = buffer.trim();
-        if (trailing) onEvent(parseSSEBlock(trailing));
+        if (trailing) await onEvent(parseSSEBlock(trailing));
       }
 
-	      async function sendMessage(userMessage) {
-	        const clean = (userMessage || '').trim();
-	        if (!clean) return;
+      async function sendMessage(userMessage) {
+        const clean = (userMessage || '').trim();
+        if (!clean) return;
 
-	        hideAllMetricsPopovers();
-	        addMessage('user', clean);
-	        const assistantBubble = addMessage('assistant', '');
-	        setStatus('Connecting...');
-	        setLoading(true);
+        hideAllMetricsPopovers();
+        addMessage('user', clean);
+        const assistantBubble = addMessage('assistant', '');
+        setStatus('Connecting...');
+        setLoading(true);
 
         // Cancel any previous in-flight request.
         if (activeAbortController) activeAbortController.abort();
         activeAbortController = new AbortController();
 
-	        let hadErrorEvent = false;
-	        let lastMetrics = null;
+        let hadErrorEvent = false;
+        let lastMetrics = null;
           let lastLinks = null;
+          let streamedText = '';
 
         try {
           const res = await fetch(API_URL, {
@@ -1884,12 +1945,13 @@
 
           clearStatus();
 
-	          await streamSSE(res, (evt) => {
-	            const type = (evt.event || 'message').toLowerCase();
-	            const structured = tryExtractJsonObject(evt.data);
-	            const text = coerceEventText(evt.data);
-	            if (structured && structured.metrics) lastMetrics = structured.metrics;
-              if (structured && Array.isArray(structured.links)) lastLinks = structured.links;
+          await streamSSE(res, async function(evt) {
+            const type = (evt.event || 'message').toLowerCase();
+            const structured = tryExtractJsonObject(evt.data);
+            const text = coerceEventText(evt.data);
+            const isFinalEvent = type === 'final' || type === 'done' || type === 'complete' || type === 'completed';
+            if (structured && structured.metrics) lastMetrics = structured.metrics;
+            if (structured && Array.isArray(structured.links)) lastLinks = structured.links;
 
 	            if (type === 'searching') {
 	              setStatus(text ? ('Searching: ' + text) : 'Searching...');
@@ -1910,39 +1972,34 @@
               return;
             }
 
-		            if (type === 'final') {
-		              clearStatus();
-		              if (structured && structured.answer != null) {
-		                assistantBubble.textContent = structured.answer.toString();
-		                setMetricsDetails(assistantBubble, structured.metrics || lastMetrics);
+            if (isFinalEvent) {
+              clearStatus();
+              if (structured && structured.answer != null) {
+                streamedText = structured.answer.toString();
+                assistantBubble.textContent = streamedText;
+                setMetricsDetails(assistantBubble, structured.metrics || lastMetrics);
 	                  renderLinks(assistantBubble, structured.links || lastLinks);
-		              } else {
-		                if (text) assistantBubble.textContent += text;
-		                setMetricsDetails(assistantBubble, lastMetrics);
+              } else {
+                streamedText = mergeStreamText(streamedText, text);
+                assistantBubble.textContent = streamedText;
+                setMetricsDetails(assistantBubble, lastMetrics);
 	                  renderLinks(assistantBubble, lastLinks);
-		              }
-		              scrollToBottom();
-		              return;
+              }
+              scrollToBottom();
+              return;
 	            }
 
-	            // Default: streamed token/data chunk
-		            if (structured && structured.answer != null && !structured.token && !structured.text) {
-		              // Some servers send the final JSON without an explicit `event: final`.
-		              assistantBubble.textContent = structured.answer.toString();
-		              setMetricsDetails(assistantBubble, structured.metrics || lastMetrics);
-	                renderLinks(assistantBubble, structured.links || lastLinks);
-		              scrollToBottom();
-		              return;
-		            }
-	
-	            if (text) {
-	              assistantBubble.textContent += text;
+            if (text) {
+                streamedText = mergeStreamText(streamedText, text);
+	              assistantBubble.textContent = streamedText;
 	              scrollToBottom();
+                await waitForNextPaint();
 	            }
 	          });
 
 	          clearStatus();
 	          if (!hadErrorEvent) setMetricsDetails(assistantBubble, lastMetrics);
+            if (!hadErrorEvent) renderLinks(assistantBubble, lastLinks);
 	          if (!hadErrorEvent && !assistantBubble.textContent.trim()) {
 	            assistantBubble.textContent = 'No response received.';
 	          }
