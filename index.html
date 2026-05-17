@@ -6,8 +6,8 @@
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
 
   <title>Dhavan Shah — AI Agent Reliability Engineer · KazenAI Founder · UZH MSc</title>
-  <meta content="Data Scientist Portfolio - Dhavan Shah" name="description">
-  <meta content="Data Science, Machine Learning, AI, Portfolio, Dhavan Shah" name="keywords">
+  <meta content="Dhavan Shah — AI agent reliability engineer and KazenAI founder. I help Series A–C teams ship production-grade LLM systems that stay up, stay within budget, and fail gracefully. MSc University of Zurich · Kaggle Expert Top 0.5%." name="description">
+  <meta content="AI reliability engineer, LLM systems, RAG pipelines, agent orchestration, KazenAI, production AI, inference cost optimisation, Dhavan Shah, UZH, Kaggle Expert" name="keywords">
   <meta name="theme-color" content="#007bff">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -445,6 +445,37 @@
 	      cursor: help;
 	    }
 
+    .chatbot-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .chatbot-link-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 34px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(0, 123, 255, 0.18);
+      background: rgba(0, 123, 255, 0.08);
+      color: #0056b3;
+      font-size: 0.86rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .chatbot-link-btn:hover,
+    .chatbot-link-btn:focus {
+      background: rgba(0, 123, 255, 0.15);
+      color: #00408a;
+      text-decoration: none;
+      transform: translateY(-1px);
+    }
+
     .chatbot-bubble.status {
       background: transparent;
       color: var(--chatbot-muted);
@@ -630,6 +661,14 @@
       font-weight: 700;
       font-size: 1.05rem;
       margin-bottom: 0.65rem;
+    }
+
+    .service-price {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #0a9ab8;
+      letter-spacing: 0.03em;
+      margin-bottom: 0.65rem !important;
     }
 
     .service-card p {
@@ -1068,7 +1107,8 @@
               <div class="service-icon"><i class="fa fa-search" aria-hidden="true"></i></div>
               <span class="service-badge">Short Engagement</span>
               <h4>AI Reliability Audit</h4>
-              <p>A focused deep-dive into your LLM stack. I audit failure modes, inference costs, and architecture &mdash; then deliver a prioritised action plan.</p>
+              <p class="service-price">from $3,500 &nbsp;&middot;&nbsp; fixed fee &nbsp;&middot;&nbsp; 1&ndash;2 weeks</p>
+              <p>Failure mode analysis, inference cost breakdown, and a prioritised action plan for your LLM stack. Delivered as a written report with a 30-minute walkthrough.</p>
             </div>
           </div>
           <div class="col-md-4">
@@ -1076,7 +1116,8 @@
               <div class="service-icon"><i class="fa fa-code" aria-hidden="true"></i></div>
               <span class="service-badge">Project</span>
               <h4>AI Implementation Build</h4>
-              <p>End-to-end build of RAG pipelines, agent orchestration systems, or LLM integrations. Scoped deliverables with milestone-based payments.</p>
+              <p class="service-price">milestone-based &nbsp;&middot;&nbsp; scoped per project</p>
+              <p>End-to-end build of RAG pipelines, agent orchestration systems, or LLM integrations. Scoped deliverables, no open-ended billing.</p>
             </div>
           </div>
           <div class="col-md-4">
@@ -1084,7 +1125,8 @@
               <div class="service-icon"><i class="fa fa-line-chart" aria-hidden="true"></i></div>
               <span class="service-badge">Ongoing</span>
               <h4>AI Operations Retainer</h4>
-              <p>Ongoing monitoring, prompt tuning, model upgrades, and cost optimisation for your existing AI systems. Predictable monthly engagement.</p>
+              <p class="service-price">monthly engagement &nbsp;&middot;&nbsp; pricing on request</p>
+              <p>Ongoing monitoring, prompt tuning, model upgrades, and cost optimisation for your existing AI systems.</p>
             </div>
           </div>
         </div>
@@ -1365,7 +1407,34 @@
     (function() {
       // Matches the provided curl example (SSE stream)
       const API_URL = 'https://api.kazenai.com/personal/query-stream';
-      const SESSION_ID = 'sess-01';
+
+      function getSessionId() {
+        const storageKey = 'chatbot:session_id';
+        try {
+          const existing = window.localStorage && window.localStorage.getItem(storageKey);
+          if (existing) return existing;
+        } catch (_) {
+          // Ignore storage failures and fall back to an ephemeral session id.
+        }
+
+        let nextId = '';
+        if (window.crypto && typeof window.crypto.randomUUID === 'function') {
+          nextId = 'sess-' + window.crypto.randomUUID();
+        } else {
+          nextId = 'sess-' + Date.now().toString(36) + Math.random().toString(36).slice(2, 10);
+        }
+
+        try {
+          if (window.localStorage) {
+            window.localStorage.setItem(storageKey, nextId);
+          }
+        } catch (_) {
+          // Ignore storage failures and use the in-memory value.
+        }
+        return nextId;
+      }
+
+      const SESSION_ID = getSessionId();
 
       const els = {
         form: document.getElementById('chatbot-form'),
@@ -1455,6 +1524,42 @@
         els.messages.appendChild(row);
         scrollToBottom();
         return bubble;
+      }
+
+      function clearLinks(bubbleEl) {
+        if (!bubbleEl || !bubbleEl.parentElement) return;
+        const existing = bubbleEl.parentElement.querySelector('.chatbot-links');
+        if (existing) existing.remove();
+      }
+
+      function shouldOpenNewTab(url) {
+        return url && !url.startsWith('#') && !url.startsWith('index.html#');
+      }
+
+      function renderLinks(bubbleEl, links) {
+        clearLinks(bubbleEl);
+        if (!bubbleEl || !bubbleEl.parentElement || !Array.isArray(links) || !links.length) return;
+
+        const container = document.createElement('div');
+        container.className = 'chatbot-links';
+
+        links.slice(0, 2).forEach((link) => {
+          if (!link || !link.url || !link.title) return;
+          const anchor = document.createElement('a');
+          anchor.className = 'chatbot-link-btn';
+          anchor.href = link.url;
+          anchor.textContent = link.title;
+          if (shouldOpenNewTab(link.url)) {
+            anchor.target = '_blank';
+            anchor.rel = 'noopener noreferrer';
+          }
+          container.appendChild(anchor);
+        });
+
+        if (container.childElementCount) {
+          bubbleEl.parentElement.appendChild(container);
+          scrollToBottom();
+        }
       }
 
       function ensureStatusBubble() {
@@ -1588,6 +1693,7 @@
 
 	        let hadErrorEvent = false;
 	        let lastMetrics = null;
+          let lastLinks = null;
 
         try {
           const res = await fetch(API_URL, {
@@ -1611,6 +1717,7 @@
 	            const structured = tryExtractJsonObject(evt.data);
 	            const text = coerceEventText(evt.data);
 	            if (structured && structured.metrics) lastMetrics = structured.metrics;
+              if (structured && Array.isArray(structured.links)) lastLinks = structured.links;
 
 	            if (type === 'searching') {
 	              setStatus(text ? ('Searching: ' + text) : 'Searching...');
@@ -1636,9 +1743,11 @@
 	              if (structured && structured.answer != null) {
 	                assistantBubble.textContent = structured.answer.toString();
 	                setMetricsHover(assistantBubble, structured.metrics || lastMetrics);
+                  renderLinks(assistantBubble, structured.links || lastLinks);
 	              } else {
 	                if (text) assistantBubble.textContent += text;
 	                setMetricsHover(assistantBubble, lastMetrics);
+                  renderLinks(assistantBubble, lastLinks);
 	              }
 	              scrollToBottom();
 	              return;
@@ -1649,6 +1758,7 @@
 	              // Some servers send the final JSON without an explicit `event: final`.
 	              assistantBubble.textContent = structured.answer.toString();
 	              setMetricsHover(assistantBubble, structured.metrics || lastMetrics);
+                renderLinks(assistantBubble, structured.links || lastLinks);
 	              scrollToBottom();
 	              return;
 	            }
