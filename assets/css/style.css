@@ -531,6 +531,11 @@ a:hover {
   color: #fff;
   font-size: 1.6rem;
   font-weight: 600;
+  text-decoration: none;
+}
+
+.navbar-b .nav-link {
+  text-decoration: none;
 }
 
 .navbar-b .navbar-nav .dropdown-item.show .dropdown-menu,
@@ -1051,6 +1056,35 @@ a:hover {
 
   .portfolio-details {
     padding-top: 0;
+  }
+
+  .portfolio-details[style*="margin-top"] {
+    margin-top: 32px !important;
+  }
+
+  .practice-projects .portfolio-mf[style*="margin-top"] {
+    margin-top: 32px !important;
+  }
+
+  body:not(.trust-home):not(.case-studies-page):not(.practice-site) .navbar-b {
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    background: rgba(3, 9, 23, 0.94);
+  }
+
+  body:not(.trust-home):not(.case-studies-page):not(.practice-site) .navbar-b .navbar-collapse {
+    flex-basis: 100%;
+    margin-top: 0.75rem;
+    padding: 0.75rem;
+    border: 1px solid var(--trust-line);
+    border-radius: var(--trust-radius);
+    background: rgba(255, 255, 255, 0.98);
+    box-shadow: var(--trust-shadow);
+  }
+
+  body:not(.trust-home):not(.case-studies-page):not(.practice-site) .navbar-b.navbar-trans .navbar-collapse .nav-link,
+  body:not(.trust-home):not(.case-studies-page):not(.practice-site) .navbar-b.navbar-reduce .navbar-collapse .nav-link {
+    color: var(--trust-blue);
   }
 }
 
@@ -2167,34 +2201,6 @@ body.case-studies-page ol {
   border-bottom-color: #0f766e;
 }
 
-.trust-home .engagement-cta {
-  margin-top: 0.5rem;
-  padding: 1.5rem 1rem 0.25rem;
-}
-
-.trust-home .engagement-cta .btn {
-  margin: 0.25rem 0.35rem;
-}
-
-.trust-home .engagement-cta-sep {
-  display: inline-block;
-  margin: 0 0.15rem;
-  color: var(--trust-muted);
-  font-weight: 700;
-}
-
-@media (max-width: 575px) {
-  .trust-home .engagement-cta-sep {
-    display: none;
-  }
-}
-
-.trust-home .engagement-cta-note {
-  margin: 0.85rem 0 0;
-  color: var(--trust-muted);
-  font-size: 0.86rem;
-}
-
 .trust-home .approach-cta {
   margin-top: 2rem;
   padding-top: 0.5rem;
@@ -2205,6 +2211,19 @@ body.case-studies-page ol {
   color: var(--trust-ink);
   font-size: 1.05rem;
   font-weight: 700;
+}
+
+.trust-home .approach-cta-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.trust-home .approach-cta-note {
+  margin: 0.85rem 0 0;
+  color: var(--trust-muted);
+  font-size: 0.86rem;
 }
 
 .trust-home .hire-form-section .form-label {
