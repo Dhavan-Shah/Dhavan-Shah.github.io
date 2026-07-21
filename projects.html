@@ -5,37 +5,188 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Projects - Dhavan Shah</title>
-  <meta content="" name="descriptison">
-  <meta content="" name="keywords">
+  <title>Selected Proof · Agent FinOps, Brain, Lens &amp; Systems · Dhavan Shah</title>
+  <meta name="description" content="Systems behind Dhavan Shah's independent agent-reliability practice: Agent FinOps, Agent Brain, Agent Lens, gated Agent Builder, production RAG, and technical depth projects.">
+  <meta name="keywords" content="Agent FinOps, Agent Brain, Agent Lens, KazenAI, agent reliability, Dhavan Shah">
 
-  <!-- Favicons -->
   <link href="assets/img/favicon.png" rel="icon">
   <link href="assets/img/favicon.png" rel="apple-touch-icon">
 
-  <!-- Vendor CSS Files -->
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
   <link href="assets/vendor/ionicons/css/ionicons.min.css" rel="stylesheet">
   <link href="assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
   <link href="assets/vendor/venobox/venobox.css" rel="stylesheet">
-
-  <!-- Template Main CSS File -->
-  <link href="assets/css/style.css?v=20260516" rel="stylesheet">
+  <link href="assets/css/style.css?v=20260722c" rel="stylesheet">
 
   <style>
-    .work-box:hover { transform: translateY(-4px); transition: .2s; }
-    .search-container { position: relative; }
-    .no-results { text-align: center; padding: 20px; color: #6c757d; font-style: italic; }
+    /* Nav: brand + links on one baseline inside the container */
+    body.practice-projects .navbar-b > .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: nowrap;
+    }
+    body.practice-projects .navbar-b .navbar-brand {
+      margin: 0;
+      padding-top: 0.65rem;
+      padding-bottom: 0.65rem;
+      line-height: 1.2;
+      float: none;
+    }
+    body.practice-projects .navbar-b .navbar-collapse {
+      flex-grow: 0;
+    }
+    body.practice-projects .navbar-b .navbar-nav {
+      align-items: center;
+    }
+    body.practice-projects .navbar-b .nav-link {
+      line-height: 1.2;
+      padding-top: 0.75rem;
+      padding-bottom: 0.75rem;
+    }
+
+    /* Hero: centered block with even readable measure */
+    body.practice-projects .intro-single .intro-content .container,
+    body.practice-projects .intro-single .projects-hero-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      max-width: 720px;
+      margin-left: auto;
+      margin-right: auto;
+      width: 100%;
+    }
+    body.practice-projects .intro-single .intro-title {
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+      width: 100%;
+    }
+    body.practice-projects .projects-hero-lead {
+      max-width: 34rem;
+      width: 100%;
+      margin: 0.85rem auto 0;
+      color: rgba(255, 255, 255, 0.88);
+      font-size: 1.05rem;
+      line-height: 1.55;
+      text-align: center;
+      text-wrap: balance;
+    }
+    body.practice-projects .intro-single .breadcrumb {
+      justify-content: center;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Index header: same centered measure as hero */
+    body.practice-projects .title-box {
+      max-width: 40rem;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    body.practice-projects .title-box .subtitle-a {
+      max-width: 34rem;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.55;
+      text-wrap: balance;
+    }
+
+    /* Tier labels: left-align with card grid columns */
+    body.practice-projects .project-tier-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #5f6b7a;
+      margin: 2.75rem 0 1rem;
+      text-align: left;
+      padding-left: 15px; /* match Bootstrap col gutter */
+    }
+
+    /* Cards: match home proof layout; allow multi-line blurbs */
+    body.practice-projects .work-box {
+      overflow: hidden;
+      background: #fff;
+    }
+    body.practice-projects .work-box:hover {
+      transform: translateY(-3px);
+      transition: 0.2s;
+    }
+    body.practice-projects .work-img {
+      aspect-ratio: 16 / 10;
+      background: #0f172a;
+      overflow: hidden;
+    }
+    body.practice-projects .work-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    body.practice-projects .work-content {
+      flex: 1 1 auto;
+      padding: 1.15rem 1.2rem 1.25rem;
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+    }
+    body.practice-projects .w-title {
+      margin: 0;
+      font-size: 1.05rem;
+      line-height: 1.35;
+      color: #121826;
+      text-align: left;
+    }
+    body.practice-projects .project-card-blurb {
+      margin: 0.5rem 0 0;
+      color: #5f6b7a;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      text-align: left;
+      white-space: normal;
+      overflow: visible;
+      text-overflow: unset;
+      min-height: 0;
+    }
+    body.practice-projects .w-more {
+      margin-top: auto;
+      padding-top: 0.75rem;
+      color: #5f6b7a;
+      font-size: 0.8rem;
+      line-height: 1.4;
+      text-align: left;
+    }
+
+    body.practice-projects .projects-cta {
+      text-align: center;
+      padding: 2.75rem 1rem 4rem;
+    }
+    body.practice-projects .projects-cta p {
+      color: #5f6b7a;
+      max-width: 32rem;
+      margin: 0.5rem auto 1.25rem;
+      line-height: 1.55;
+      text-wrap: balance;
+    }
+
+    @media (max-width: 767px) {
+      body.practice-projects .project-tier-label {
+        text-align: left;
+        padding-left: 15px;
+      }
+      body.practice-projects .navbar-b > .container {
+        flex-wrap: wrap;
+      }
+    }
   </style>
 </head>
 
-<body id="page-top">
+<body id="page-top" class="practice-projects trust-home">
 
-  <!-- ======= Header/ Navbar ======= -->
   <nav class="navbar navbar-b navbar-trans navbar-expand-md fixed-top" id="mainNav">
     <div class="container">
-      <a class="navbar-brand js-scroll" href="index.html">Portfolio</a>
+      <a class="navbar-brand js-scroll" href="index.html">Dhavan Shah</a>
       <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarDefault" aria-controls="navbarDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span></span>
         <span></span>
@@ -43,31 +194,30 @@
       </button>
       <div class="navbar-collapse collapse justify-content-end" id="navbarDefault">
         <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link js-scroll" href="index.html">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link js-scroll" href="index.html#about">About</a>
-          </li>
-	          <li class="nav-item">
-	            <a class="nav-link js-scroll active" href="projects.html">Projects</a>
-	          </li>
-	        </ul>
-	      </div>
-	    </div>
-	  </nav>
+          <li class="nav-item"><a class="nav-link js-scroll" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link js-scroll" href="index.html#hire">Engagements</a></li>
+          <li class="nav-item"><a class="nav-link js-scroll" href="index.html#proof">Proof</a></li>
+          <li class="nav-item"><a class="nav-link js-scroll active" href="projects.html">All projects</a></li>
+          <li class="nav-item"><a class="nav-link js-scroll" href="index.html#about">About</a></li>
+          <li class="nav-item"><a class="nav-link js-scroll" href="index.html#hire-form-anchor">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
   <div class="intro intro-single route bg-image" style="background-image: url(assets/img/project_bg.png)">
     <div class="overlay-mf"></div>
     <div class="intro-content display-table">
       <div class="table-cell">
-        <div class="container">
-          <h2 class="intro-title mb-4">Projects</h2>
-          <ol class="breadcrumb d-flex justify-content-center">
-            <li class="breadcrumb-item">
-              <a href="index.html">Home</a>
-            </li>
-            <li class="breadcrumb-item active">Projects</li>
+        <div class="container projects-hero-inner">
+          <h2 class="intro-title mb-0">Selected proof</h2>
+          <p class="projects-hero-lead">
+            Systems behind audits, pilots, and retainers. Led by Agent FinOps, Agent Brain, and Agent Lens.
+            Each card is a case study: the problem, the mechanism, and what an engagement would install in your stack.
+          </p>
+          <ol class="breadcrumb d-flex mt-3 mb-0">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active">All projects</li>
           </ol>
         </div>
       </div>
@@ -75,204 +225,203 @@
   </div>
 
   <main id="main">
-
-    <!-- ======= Portfolio Section (All Projects) ======= -->
     <section class="portfolio-mf sect-pt4 route" style="margin-top: 80px;">
       <div class="container">
-	        <div class="row">
+
+        <div class="row">
           <div class="col-sm-12">
             <div class="title-box text-center">
-              <h3 class="title-a">Portfolio</h3>
+              <h3 class="title-a">Full project index</h3>
+              <p class="subtitle-a mb-0">
+                Commercial reliability first. Technical depth second. Personal tooling last.
+                Same systems as the home page, expanded for review.
+              </p>
               <div class="line-mf"></div>
             </div>
           </div>
         </div>
 
-		        <div class="row project-grid">
-		          <div class="col-md-4 d-flex align-items-stretch">
-			            <div class="work-box h-100 w-100 d-flex flex-column" data-title="Master's Project" data-category="Deep Learning, Outlier Detection">
-		              <a href="assets/img/Visual_Outlier_Detection.png?v=20260516" data-gall="portfolioGallery" class="venobox">
-		                <div class="work-img">
-		                  <img src="assets/img/Visual_Outlier_Detection.png?v=20260516" alt="" class="img-fluid">
-		                </div>
-		              </a>
-	              <div class="work-content">
-	                <div class="row">
-	                  <div class="col-sm-8">
-	                    <h2 class="w-title">Visualizing Outlier Detection using Deep Isolation Forest</h2>
-	                    <div class="w-more">
-	                      <span class="w-ctegory">Deep Learning, Outlier Detection</span> / <span class="w-date">Mar 2023</span>
-	                    </div>
-	                  </div>
-	                  <div class="col-sm-4">
-	                    <div class="w-like">
-	                      <a href="project-visual-outliers.html"> <span class="ion-ios-plus-outline"></span></a>
-	                    </div>
-	                  </div>
-	                </div>
-	              </div>
-	            </div>
-	          </div>
+        <!-- Tier A: Commercial reliability -->
+        <p class="project-tier-label" id="reliability">Commercial reliability</p>
+        <div class="row project-grid">
 
-		          <div class="col-md-4 d-flex align-items-stretch">
-			            <div class="work-box h-100 w-100 d-flex flex-column" data-title="Visual Understanding on RNN-Based High-Dimensional Time-Series Forecasting" data-category="Deep Learning, Time-Series Forecasting, Visualization">
-		              <a href="assets/img/Visual_Understanding_on_RNN.png?v=20260516" data-gall="portfolioGallery" class="venobox">
-		                <div class="work-img">
-		                  <img src="assets/img/Visual_Understanding_on_RNN.png?v=20260516" alt="" class="img-fluid">
-		                </div>
-		              </a>
-	              <div class="work-content">
-	                <div class="row">
-	                  <div class="col-sm-8">
-	                    <h2 class="w-title">DeepGLO for High-Dimensional Time-Series Forecasting</h2>
-	                    <div class="w-more">
-	                      <span class="w-ctegory">Deep Learning, Time-Series Forecasting</span> / <span class="w-date">May 2024</span>
-	                    </div>
-	                  </div>
-	                  <div class="col-sm-4">
-	                    <div class="w-like">
-	                      <a href="project-visual-understanding-on-rnn-based-high-dimensional-time-series-forecasting.html"> <span class="ion-ios-plus-outline"></span></a>
-	                    </div>
-	                  </div>
-	                </div>
-	              </div>
-	            </div>
-	          </div>
+          <div class="col-md-4 d-flex align-items-stretch">
+            <a class="work-box project-card-click h-100 w-100 d-flex flex-column" href="project-kazenai-agent-finops.html" aria-label="Agent FinOps case study" data-title="Agent FinOps" data-category="FinOps, Fail-closed">
+              <div class="work-img">
+                <img src="assets/img/KazenAI_Agent_FinOps.png?v=20260722" alt="Agent FinOps" class="img-fluid">
+              </div>
+              <div class="work-content">
+                <h2 class="w-title">Agent FinOps</h2>
+                <p class="project-card-blurb">Most cost tools show the invoice. This one can refuse the call when the budget is gone. Fail-closed if enforcement is down.</p>
+                <div class="w-more">
+                  <span class="w-ctegory">FinOps · Fail-closed · Spend attribution</span> / <span class="w-date">2026</span>
+                </div>
+              </div>
+            </a>
+          </div>
 
-		          <div class="col-md-4 d-flex align-items-stretch">
-			            <div class="work-box h-100 w-100 d-flex flex-column" data-title="RAG LLM Systems: Dhavan’s Personal Assistant" data-category="LLM, RAG, Systems Engineering, AWS">
-		              <a href="assets/img/RAG_LLM_Systems.png?v=20260516" data-gall="portfolioGallery" class="venobox">
-		                <div class="work-img">
-		                  <img src="assets/img/RAG_LLM_Systems.png?v=20260516" alt="" class="img-fluid">
-		                </div>
-		              </a>
-	              <div class="work-content">
-	                <div class="row">
-	                  <div class="col-sm-8">
-	                    <h2 class="w-title">RAG LLM Systems: Dhavan’s Personal Assistant</h2>
-	                    <div class="w-more">
-	                      <span class="w-ctegory">LLM, RAG, Systems Engineering, AWS</span> / <span class="w-date">Mar 2026</span>
-	                    </div>
-	                  </div>
-	                  <div class="col-sm-4">
-	                    <div class="w-like">
-	                      <a href="project-rag-llm-systems.html"> <span class="ion-ios-plus-outline"></span></a>
-	                    </div>
-	                  </div>
-	                </div>
-	              </div>
-	            </div>
-	          </div>
+          <div class="col-md-4 d-flex align-items-stretch">
+            <a class="work-box project-card-click h-100 w-100 d-flex flex-column" href="project-kazenai-agent-brain.html" aria-label="Agent Brain case study" data-title="Agent Brain" data-category="Company memory, Think, ACL">
+              <div class="work-img">
+                <img src="assets/img/KazenAI_Agent_Brain.png?v=20260722" alt="Agent Brain" class="img-fluid">
+              </div>
+              <div class="work-content">
+                <h2 class="w-title">Agent Brain</h2>
+                <p class="project-card-blurb">Retrieve, deliberate, cite. Or say there is not enough evidence. Access rules filter what can enter an answer.</p>
+                <div class="w-more">
+                  <span class="w-ctegory">Company memory · Cite / abstain · ACL</span> / <span class="w-date">2026</span>
+                </div>
+              </div>
+            </a>
+          </div>
 
-		          <div class="col-md-4 d-flex align-items-stretch">
-			            <div class="work-box h-100 w-100 d-flex flex-column" data-title="AI Agent Orchestration Platform" data-category="Multi-Agent, Workflow Orchestration, AWS">
-			              <a href="assets/img/KazenAI_Agent_Orchestration_Platform.png?v=20260516" data-gall="portfolioGallery" class="venobox">
-			                <div class="work-img">
-			                  <img src="assets/img/KazenAI_Agent_Orchestration_Platform.png?v=20260516" alt="" class="img-fluid">
-			                </div>
-			              </a>
-	              <div class="work-content">
-	                <div class="row">
-	                  <div class="col-sm-8">
-	                    <h2 class="w-title">AI Agent Orchestration Platform</h2>
-	                    <div class="w-more">
-	                      <span class="w-ctegory">Multi-Agent, Workflow Orchestration, AWS</span> / <span class="w-date">May 2026</span>
-	                    </div>
-	                  </div>
-	                  <div class="col-sm-4">
-	                    <div class="w-like">
-	                      <a href="project-kazenai-agent-orchestration-platform.html"> <span class="ion-ios-plus-outline"></span></a>
-	                    </div>
-	                  </div>
-	                </div>
-	              </div>
-	            </div>
-	          </div>
+          <div class="col-md-4 d-flex align-items-stretch">
+            <a class="work-box project-card-click h-100 w-100 d-flex flex-column" href="project-kazenai-agent-lens.html" aria-label="Agent Lens case study" data-title="Agent Lens" data-category="Traces, Drift, Replay">
+              <div class="work-img">
+                <img src="assets/img/KazenAI_Agent_Lens.png?v=20260722" alt="Agent Lens" class="img-fluid">
+              </div>
+              <div class="work-content">
+                <h2 class="w-title">Agent Lens</h2>
+                <p class="project-card-blurb">Run timelines and drift checks you can trust. Default “replay” analyzes what already happened; it does not silently re-run the model.</p>
+                <div class="w-more">
+                  <span class="w-ctegory">Traces · Drift · Replay analysis</span> / <span class="w-date">2026</span>
+                </div>
+              </div>
+            </a>
+          </div>
 
-		          <div class="col-md-4 d-flex align-items-stretch">
-			            <div class="work-box h-100 w-100 d-flex flex-column" data-title="Agent Builder" data-category="AI Coding Agents, VS Code Extension, FinOps">
-	              <a href="assets/img/KazenAI_Orchestrator_VSCode.png?v=20260516" data-gall="portfolioGallery" class="venobox">
-	                <div class="work-img">
-	                  <img src="assets/img/KazenAI_Orchestrator_VSCode.png?v=20260516" alt="" class="img-fluid">
-	                </div>
-	              </a>
-	              <div class="work-content">
-	                <div class="row">
-	                  <div class="col-sm-8">
-	                    <h2 class="w-title">Agent Builder</h2>
-	                    <div class="w-more">
-	                      <span class="w-ctegory">AI Coding Agents, VS Code Extension, FinOps</span> / <span class="w-date">May 2026</span>
-	                    </div>
-	                  </div>
-	                  <div class="col-sm-4">
-	                    <div class="w-like">
-	                      <a href="project-kazenai-orchestrator-vscode.html"> <span class="ion-ios-plus-outline"></span></a>
-	                    </div>
-	                  </div>
-	                </div>
-	              </div>
-	            </div>
-	          </div>
+          <div class="col-md-4 d-flex align-items-stretch">
+            <a class="work-box project-card-click h-100 w-100 d-flex flex-column" href="project-kazenai-orchestrator-vscode.html" aria-label="Agent Builder case study" data-title="Agent Builder" data-category="Gates, DevAgent, FinOps">
+              <div class="work-img">
+                <img src="assets/img/KazenAI_Orchestrator_VSCode.png?v=20260516" alt="Agent Builder" class="img-fluid">
+              </div>
+              <div class="work-content">
+                <h2 class="w-title">Agent Builder</h2>
+                <p class="project-card-blurb">Plan-to-code workflow with human gates and FinOps pause. Assisted coding that stays under spend control.</p>
+                <div class="w-more">
+                  <span class="w-ctegory">Gates · DevAgent · Cost control</span> / <span class="w-date">2026</span>
+                </div>
+              </div>
+            </a>
+          </div>
 
-		          <div class="col-md-4 d-flex align-items-stretch">
-			            <div class="work-box h-100 w-100 d-flex flex-column" data-title="Agentic Kaggle" data-category="MLOps, Reproducibility, SQLite, Kaggle">
-	              <a href="assets/img/Agentic_Kaggle.png?v=20260516" data-gall="portfolioGallery" class="venobox">
-	                <div class="work-img">
-	                  <img src="assets/img/Agentic_Kaggle.png?v=20260516" alt="" class="img-fluid">
-	                </div>
-	              </a>
-	              <div class="work-content">
-	                <div class="row">
-	                  <div class="col-sm-8">
-	                    <h2 class="w-title">Agentic Kaggle</h2>
-	                    <div class="w-more">
-	                      <span class="w-ctegory">MLOps, Reproducibility, SQLite, Kaggle</span> / <span class="w-date">May 2026</span>
-	                    </div>
-	                  </div>
-	                  <div class="col-sm-4">
-	                    <div class="w-like">
-	                      <a href="project-agentic-kaggle.html"> <span class="ion-ios-plus-outline"></span></a>
-	                    </div>
-	                  </div>
-	                </div>
-	              </div>
-	            </div>
-	          </div>
+          <div class="col-md-4 d-flex align-items-stretch">
+            <a class="work-box project-card-click h-100 w-100 d-flex flex-column" href="project-rag-llm-systems.html" aria-label="RAG LLM Systems case study" data-title="RAG LLM Systems" data-category="Live RAG, AWS">
+              <div class="work-img">
+                <img src="assets/img/RAG_LLM_Systems.png?v=20260516" alt="RAG LLM Systems" class="img-fluid">
+              </div>
+              <div class="work-content">
+                <h2 class="w-title">RAG LLM Systems</h2>
+                <p class="project-card-blurb">Live assistant on the home page: retrieval, SSE streaming, rate limits, and cost guardrails on AWS.</p>
+                <div class="w-more">
+                  <span class="w-ctegory">Live demo · Latency · Tokens · Cost</span> / <span class="w-date">2026</span>
+                </div>
+              </div>
+            </a>
+          </div>
 
-		          <div class="col-md-4 d-flex align-items-stretch">
-			            <div class="work-box h-100 w-100 d-flex flex-column" data-title="Personal Career Ops" data-category="Automation, LLM Apps, Pipelines">
-	              <a href="assets/img/Personal_Career_Ops.png?v=20260516" data-gall="portfolioGallery" class="venobox">
-	                <div class="work-img">
-	                  <img src="assets/img/Personal_Career_Ops.png?v=20260516" alt="" class="img-fluid">
-	                </div>
-	              </a>
-	              <div class="work-content">
-	                <div class="row">
-	                  <div class="col-sm-8">
-	                    <h2 class="w-title">Personal Career Ops</h2>
-	                    <div class="w-more">
-	                      <span class="w-ctegory">Automation, LLM Apps, Pipelines</span> / <span class="w-date">May 2026</span>
-	                    </div>
-	                  </div>
-	                  <div class="col-sm-4">
-	                    <div class="w-like">
-	                      <a href="project-personal-career-ops.html"> <span class="ion-ios-plus-outline"></span></a>
-	                    </div>
-	                  </div>
-	                </div>
-	              </div>
-	            </div>
-	          </div>
-	        </div>
-	      </div>
-	    </section><!-- End Portfolio Section -->
+          <div class="col-md-4 d-flex align-items-stretch">
+            <a class="work-box project-card-click h-100 w-100 d-flex flex-column" href="project-kazenai-agent-orchestration-platform.html" aria-label="Workflow Runtime case study" data-title="Workflow Runtime" data-category="Orchestration">
+              <div class="work-img">
+                <img src="assets/img/KazenAI_Agent_Orchestration_Platform.png?v=20260516" alt="Workflow Runtime" class="img-fluid">
+              </div>
+              <div class="work-content">
+                <h2 class="w-title">Workflow Runtime</h2>
+                <p class="project-card-blurb">Graph workflows, async runs, and operator visibility. Pairs with FinOps when spend authority matters.</p>
+                <div class="w-more">
+                  <span class="w-ctegory">Orchestration · Monitoring</span> / <span class="w-date">2026</span>
+                </div>
+              </div>
+            </a>
+          </div>
 
-  </main><!-- End #main -->
+        </div>
+
+        <!-- Tier B: Technical depth -->
+        <p class="project-tier-label" id="depth">Technical depth</p>
+        <div class="row project-grid">
+
+          <div class="col-md-4 d-flex align-items-stretch">
+            <a class="work-box project-card-click h-100 w-100 d-flex flex-column" href="project-agentic-kaggle.html" aria-label="Agentic Kaggle case study" data-title="Agentic Kaggle">
+              <div class="work-img">
+                <img src="assets/img/Agentic_Kaggle.png?v=20260516" alt="Agentic Kaggle" class="img-fluid">
+              </div>
+              <div class="work-content">
+                <h2 class="w-title">Agentic Kaggle</h2>
+                <p class="project-card-blurb">Reproducible experiment tracking and competition workflows. Evaluation discipline under pressure.</p>
+                <div class="w-more">
+                  <span class="w-ctegory">MLOps · Reproducibility</span> / <span class="w-date">2026</span>
+                </div>
+              </div>
+            </a>
+          </div>
+
+          <div class="col-md-4 d-flex align-items-stretch">
+            <a class="work-box project-card-click h-100 w-100 d-flex flex-column" href="project-visual-understanding-on-rnn-based-high-dimensional-time-series-forecasting.html" aria-label="DeepGLO case study" data-title="DeepGLO">
+              <div class="work-img">
+                <img src="assets/img/Visual_Understanding_on_RNN.png?v=20260516" alt="DeepGLO forecasting" class="img-fluid">
+              </div>
+              <div class="work-content">
+                <h2 class="w-title">DeepGLO forecasting</h2>
+                <p class="project-card-blurb">MSc thesis: high-dimensional time-series with interactive exploration (University of Zurich).</p>
+                <div class="w-more">
+                  <span class="w-ctegory">Deep learning · Time series</span> / <span class="w-date">2024</span>
+                </div>
+              </div>
+            </a>
+          </div>
+
+          <div class="col-md-4 d-flex align-items-stretch">
+            <a class="work-box project-card-click h-100 w-100 d-flex flex-column" href="project-visual-outliers.html" aria-label="Outlier detection case study" data-title="Outlier detection">
+              <div class="work-img">
+                <img src="assets/img/Visual_Outlier_Detection.png?v=20260516" alt="Visual outlier detection" class="img-fluid">
+              </div>
+              <div class="work-content">
+                <h2 class="w-title">Visual outlier detection</h2>
+                <p class="project-card-blurb">Deep Isolation Forest with human-in-the-loop monitoring UI on streaming data.</p>
+                <div class="w-more">
+                  <span class="w-ctegory">Anomaly detection · Visualization</span> / <span class="w-date">2023</span>
+                </div>
+              </div>
+            </a>
+          </div>
+
+        </div>
+
+        <!-- Tier C: Personal tooling -->
+        <p class="project-tier-label" id="tooling">Personal tooling</p>
+        <div class="row project-grid">
+          <div class="col-md-4 d-flex align-items-stretch">
+            <a class="work-box project-card-click h-100 w-100 d-flex flex-column" href="project-personal-career-ops.html" aria-label="Personal Career Ops case study" data-title="Personal Career Ops">
+              <div class="work-img">
+                <img src="assets/img/Personal_Career_Ops.png?v=20260516" alt="Personal Career Ops" class="img-fluid">
+              </div>
+              <div class="work-content">
+                <h2 class="w-title">Personal Career Ops</h2>
+                <p class="project-card-blurb">Internal automation pipelines. Useful systems work; not a client engagement surface.</p>
+                <div class="w-more">
+                  <span class="w-ctegory">Automation · Pipelines</span> / <span class="w-date">2026</span>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <div class="projects-cta">
+          <h4 style="font-weight:700;">Ready to apply this in your stack?</h4>
+          <p>Start with an Agent Reliability Audit, or a Fail-Closed Pilot on one production workflow.</p>
+          <a class="btn btn-primary btn-lg px-4" href="index.html#hire">View engagements</a>
+          &nbsp;
+          <a class="btn btn-outline-secondary btn-lg px-4" href="index.html#hire-form-anchor">Request a fit call</a>
+        </div>
+
+      </div>
+    </section>
+  </main>
 
   <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
   <div id="preloader"></div>
 
-  <!-- Vendor JS Files -->
   <script src="assets/vendor/jquery/jquery.min.js"></script>
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="assets/vendor/jquery.easing/jquery.easing.min.js"></script>
@@ -282,19 +431,7 @@
   <script src="assets/vendor/owl.carousel/owl.carousel.min.js"></script>
   <script src="assets/vendor/typed.js/typed.min.js"></script>
   <script src="assets/vendor/venobox/venobox.min.js"></script>
-
-  <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
-
-  <script>
-    // Optional: add basic client-side search/filter for projects on this page
-    $(document).ready(function() {
-      // initialize venobox if present
-      if ($.fn.venobox) {
-        $('.venobox').venobox();
-      }
-    });
-  </script>
 
 </body>
 
