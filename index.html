@@ -20,7 +20,7 @@
   <link href="assets/vendor/ionicons/css/ionicons.min.css" rel="stylesheet">
   <link href="assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
   <link href="assets/vendor/venobox/venobox.css" rel="stylesheet">
-  <link href="assets/css/style.css?v=20260722d" rel="stylesheet">
+  <link href="assets/css/style.css?v=20260722e" rel="stylesheet">
 </head>
 
 <body id="page-top" class="trust-home practice-home">
@@ -61,13 +61,16 @@
     <span></span>
   </button>
 
-  <!-- Live RAG: production assistant; each reply shows latency, tokens, and cost -->
-  <aside class="chatbot-sidebar is-minimized" aria-label="Live profile RAG demo">
+  <!-- Dhavan's Assistant: grounded portfolio Q&A with optional response details -->
+  <aside class="chatbot-sidebar is-minimized" aria-label="Dhavan's Assistant">
     <div class="chatbot-header">
       <div class="chatbot-header-text">
-        <p class="chatbot-title">Live demo: profile RAG</p>
-        <p class="chatbot-min-label">Ask the evidence assistant</p>
-        <p class="chatbot-subtitle">Streamed answers from this site’s corpus. Latency, tokens, and cost on every turn.</p>
+        <div class="chatbot-title-row">
+          <p class="chatbot-title">Dhavan's Assistant</p>
+          <span class="chatbot-status-pill">Site-grounded</span>
+        </div>
+        <p class="chatbot-min-label">Dhavan's Assistant</p>
+        <p class="chatbot-subtitle">Ask about Dhavan's work, agent reliability audits, and whether a scoped engagement is a fit.</p>
       </div>
 
       <button id="chatbot-toggle" class="chatbot-toggle" type="button" aria-label="Minimize chat" aria-expanded="true">
@@ -78,20 +81,25 @@
     <div id="chatbot-messages" class="chatbot-messages" role="log" aria-live="polite" aria-relevant="additions text">
       <div class="chatbot-messages-spacer"></div>
       <div class="chatbot-msg assistant">
-        <div class="chatbot-bubble assistant">Ask about audits, FinOps, Brain, Lens, or how pre-call budgets deny spend. Each reply shows latency, tokens, and cost.</div>
+        <div class="chatbot-bubble assistant">Hi, I can help you understand Dhavan's audit process, Agent FinOps, Agent Brain, Agent Lens, and the best next step for a potential engagement.</div>
+        <div class="chatbot-context-note" aria-label="Assistant context">
+          <span>Uses this site as context</span>
+          <span>Shares proof links when available</span>
+        </div>
       </div>
       <div class="chatbot-prompt-chips" aria-label="Suggested questions">
-        <button type="button" class="chatbot-prompt" data-prompt="What is included in an Agent Reliability Audit?">Audit scope</button>
-        <button type="button" class="chatbot-prompt" data-prompt="How does Agent FinOps fail-closed pre-call budget reservation work?">FinOps proof</button>
-        <button type="button" class="chatbot-prompt" data-prompt="What is Agent Brain think, cite, and abstain?">Brain proof</button>
-        <button type="button" class="chatbot-prompt" data-prompt="What does Agent Lens replay actually do by default?">Lens honesty</button>
+        <button type="button" class="chatbot-prompt" data-prompt="What is included in an Agent Reliability Audit, and when is it a good fit?">Audit fit</button>
+        <button type="button" class="chatbot-prompt" data-prompt="How does Agent FinOps control spend before model calls?">FinOps</button>
+        <button type="button" class="chatbot-prompt" data-prompt="How does Agent Brain keep answers grounded?">Agent Brain</button>
+        <button type="button" class="chatbot-prompt" data-prompt="What does Agent Lens monitor and replay?">Agent Lens</button>
+        <button type="button" class="chatbot-prompt" data-prompt="How do I start a scoped engagement with Dhavan?">Start</button>
       </div>
     </div>
 
     <div class="chatbot-input">
-      <form id="chatbot-form" class="chatbot-form" autocomplete="off">
+      <form id="chatbot-form" class="chatbot-form" autocomplete="off" aria-label="Ask Dhavan's Assistant">
         <label for="chatbot-text" class="sr-only">Message</label>
-        <textarea id="chatbot-text" class="form-control chatbot-textarea" placeholder="Ask about audits, FinOps, Brain, Lens…" rows="1"></textarea>
+        <textarea id="chatbot-text" class="form-control chatbot-textarea" placeholder="Ask about audits, FinOps, Brain, or Lens" rows="1" enterkeyhint="send" spellcheck="true"></textarea>
         <button id="chatbot-stop" type="button" class="btn btn-outline-secondary chatbot-stop" hidden>Stop</button>
         <button id="chatbot-send" type="submit" class="btn btn-primary chatbot-send">
           <span class="chatbot-send-label">Send</span>
@@ -137,8 +145,8 @@
                 <span class="trust-proof-label">Agent Brain think</span>
               </div>
               <div class="trust-proof-item">
-                <span class="trust-proof-value">Live RAG</span>
-                <span class="trust-proof-label">Latency · tokens · cost</span>
+                <span class="trust-proof-value">Assistant</span>
+                <span class="trust-proof-label">Grounded site Q&amp;A</span>
               </div>
               <div class="trust-proof-item">
                 <span class="trust-proof-value">From $3.5k</span>
@@ -254,7 +262,7 @@
             <div class="title-box text-center">
               <h3 class="title-a">Selected proof</h3>
               <p class="subtitle-a">
-                Systems behind the practice, including a <strong>live RAG assistant on this page</strong> that reports latency, tokens, and cost on each turn.
+                Systems behind the practice, including <strong>Dhavan's Assistant on this page</strong> with grounded retrieval, streaming answers, and optional response details.
                 Engagements install the same patterns in your stack.
               </p>
               <div class="line-mf"></div>
@@ -332,9 +340,9 @@
               </div>
               <div class="work-content">
                 <h2 class="w-title">RAG LLM Systems</h2>
-                <p class="project-card-blurb">The live assistant on this site: retrieval, streaming, rate limits, and cost guardrails on AWS.</p>
+                <p class="project-card-blurb">Dhavan's Assistant on this site: retrieval, streaming, rate limits, and cost guardrails on AWS.</p>
                 <div class="w-more">
-                  <span class="w-ctegory">Live demo · Latency · Tokens · Cost</span>
+                  <span class="w-ctegory">Grounded assistant · Streaming · Guardrails</span>
                 </div>
               </div>
             </a>
@@ -534,7 +542,7 @@
   <script src="assets/vendor/owl.carousel/owl.carousel.min.js"></script>
   <script src="assets/vendor/typed.js/typed.min.js"></script>
   <script src="assets/vendor/venobox/venobox.min.js"></script>
-  <script src="assets/js/main.js?v=20260722d"></script>
+  <script src="assets/js/main.js?v=20260722e"></script>
 
 </body>
 </html>

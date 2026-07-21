@@ -720,17 +720,17 @@
         toggleEl.type = "button";
         toggleEl.className = "chatbot-metrics-toggle";
         setText(toggleEl, "i");
-        toggleEl.setAttribute("aria-label", "Show response metrics");
+        toggleEl.setAttribute("aria-label", "Show response details");
         toggleEl.setAttribute("aria-controls", popoverId);
         toggleEl.setAttribute("aria-expanded", "false");
 
         popoverEl.id = popoverId;
         popoverEl.className = "chatbot-metrics-popover";
         popoverEl.setAttribute("role", "dialog");
-        popoverEl.setAttribute("aria-label", "Response metrics");
+        popoverEl.setAttribute("aria-label", "Response details");
 
         titleEl.className = "chatbot-metrics-title";
-        setText(titleEl, "Metrics");
+        setText(titleEl, "Response details");
 
         metricsEl.className = "chatbot-metrics-pre";
         setText(metricsEl, pretty);
@@ -836,7 +836,7 @@
       hideAllMetricsPopovers();
       addMessage("user", clean);
       currentAssistantBubble = addMessage("assistant", "");
-      setStatus("Connecting to assistant...");
+      setStatus("Connecting to Dhavan's Assistant...");
       setLoading(true);
       userStopped = false;
 
@@ -867,7 +867,7 @@
         });
 
         if (!res.ok) throw new Error("Request failed (HTTP " + res.status + ").");
-        setStatus("Connected. Drafting response...");
+        setStatus("Checking site context...");
 
         await streamSSE(res, async function(evt) {
           var type = (evt.event || "message").toLowerCase();
@@ -879,12 +879,12 @@
           if (structured && Array.isArray(structured.links)) lastLinks = structured.links;
 
           if (type === "searching") {
-            setStatus(eventText ? "Searching evidence: " + eventText : "Searching evidence...");
+            setStatus(eventText ? "Checking site context: " + eventText : "Checking site context...");
             return;
           }
 
           if (type === "thinking") {
-            setStatus(eventText ? "Reasoning: " + eventText : "Reasoning over evidence...");
+            setStatus(eventText ? "Drafting answer: " + eventText : "Drafting a grounded answer...");
             return;
           }
 
