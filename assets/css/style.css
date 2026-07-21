@@ -2352,7 +2352,7 @@ body.case-studies-page ol {
   position: fixed;
   top: var(--chatbot-top);
   right: 16px;
-  height: min(640px, calc(100vh - var(--chatbot-top) - 16px));
+  height: calc(100vh - var(--chatbot-top) - 16px);
   max-height: calc(100vh - var(--chatbot-top) - 16px);
   z-index: 1030;
   display: flex;
@@ -2376,31 +2376,12 @@ body.case-studies-page ol {
   flex: 1 1 auto;
 }
 
-.trust-home .chatbot-title-row {
-  display: flex;
-  align-items: center;
-  gap: 0.45rem;
-  min-width: 0;
-}
-
 .trust-home .chatbot-title {
   margin: 0;
   color: var(--trust-ink);
   font-size: 0.95rem;
   font-weight: 700;
   line-height: 1.25;
-}
-
-.trust-home .chatbot-status-pill {
-  flex: 0 0 auto;
-  padding: 0.18rem 0.42rem;
-  border: 1px solid #bae6fd;
-  border-radius: 999px;
-  background: #ecfeff;
-  color: var(--trust-accent);
-  font-size: 0.66rem;
-  font-weight: 700;
-  line-height: 1.2;
 }
 
 .trust-home .chatbot-min-label {
@@ -2500,26 +2481,6 @@ body.case-studies-page ol {
   color: var(--trust-red);
   background: #fff1f2;
   border: 1px solid #fecdd3;
-}
-
-.trust-home .chatbot-context-note {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.35rem;
-  margin-top: 0.5rem;
-  color: var(--trust-muted);
-  font-size: 0.72rem;
-  line-height: 1.35;
-}
-
-.trust-home .chatbot-context-note span {
-  display: inline-flex;
-  align-items: center;
-  min-height: 26px;
-  padding: 0.22rem 0.45rem;
-  border: 1px solid var(--trust-line);
-  border-radius: var(--trust-radius);
-  background: #ffffff;
 }
 
 .trust-home .chatbot-prompt-chips {
@@ -2677,8 +2638,7 @@ body.case-studies-page ol {
 .trust-home .chatbot-sidebar.is-minimized .chatbot-messages,
 .trust-home .chatbot-sidebar.is-minimized .chatbot-input,
 .trust-home .chatbot-sidebar.is-minimized .chatbot-subtitle,
-.trust-home .chatbot-sidebar.is-minimized .chatbot-title,
-.trust-home .chatbot-sidebar.is-minimized .chatbot-title-row {
+.trust-home .chatbot-sidebar.is-minimized .chatbot-title {
   display: none;
 }
 
@@ -2834,7 +2794,7 @@ body.case-studies-page ol {
     top: auto;
     bottom: 12px;
     width: auto;
-    height: min(66vh, 560px);
+    height: calc(100vh - 96px);
     max-height: calc(100vh - 96px);
   }
 
