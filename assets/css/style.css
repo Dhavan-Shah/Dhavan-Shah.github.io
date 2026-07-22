@@ -318,47 +318,95 @@ a:hover {
 /* Remove back-to-top button */
 .back-to-top { display: none !important; }
 
-/*------/ Prelaoder /------*/
-#preloader {
+/*------/ Branded entrance (replaces spinner preloader) /------*/
+#preloader,
+.brand-entrance {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  inset: 0;
   z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   overflow: hidden;
-  background: #fff;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 40%, rgba(14, 116, 144, 0.28), transparent 55%),
+    linear-gradient(165deg, #031525 0%, #062033 45%, #0a1a28 100%);
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.35s ease, visibility 0.35s ease;
 }
 
 #preloader:before {
-  content: "";
-  position: fixed;
-  top: calc(50% - 30px);
-  left: calc(50% - 30px);
-  border: 6px solid #f2f2f2;
-  border-top: 6px solid #0e7490;
-  border-radius: 50%;
-  width: 60px;
-  height: 60px;
-  -webkit-animation: animate-preloader 1s linear infinite;
-  animation: animate-preloader 1s linear infinite;
+  display: none;
 }
 
-@-webkit-keyframes animate-preloader {
-  0% {
-    transform: rotate(0deg);
+.brand-entrance-inner {
+  text-align: center;
+  padding: 1.5rem;
+  animation: brand-entrance-in 0.55s ease both;
+}
+
+.brand-entrance-name {
+  margin: 0;
+  font-family: "Newsreader", Georgia, "Times New Roman", serif;
+  font-size: clamp(1.85rem, 4vw, 2.65rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: #f8fafc;
+  line-height: 1.15;
+}
+
+.brand-entrance-tag {
+  margin: 0.65rem 0 0;
+  font-family: "Outfit", system-ui, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(165, 243, 252, 0.78);
+}
+
+.brand-entrance-bar {
+  width: 88px;
+  height: 1px;
+  margin: 1.5rem auto 0;
+  background: rgba(255, 255, 255, 0.12);
+  overflow: hidden;
+  border-radius: 1px;
+}
+
+.brand-entrance-bar span {
+  display: block;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, #67e8f9, transparent);
+  animation: brand-entrance-bar 1.1s ease-in-out infinite;
+}
+
+#preloader.is-done,
+.brand-entrance.is-done {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+@keyframes brand-entrance-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
   }
-  100% {
-    transform: rotate(360deg);
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-@keyframes animate-preloader {
+@keyframes brand-entrance-bar {
   0% {
-    transform: rotate(0deg);
+    transform: translateX(-120%);
   }
   100% {
-    transform: rotate(360deg);
+    transform: translateX(280%);
   }
 }
 
@@ -1789,8 +1837,8 @@ body.case-studies-page ol {
 .trust-hero {
   position: relative;
   height: auto;
-  min-height: 86vh;
-  padding: 8rem 0 4.5rem;
+  min-height: 100vh;
+  padding: 7.5rem 0 5rem;
   display: flex;
   align-items: center;
   overflow: hidden;
@@ -1835,9 +1883,19 @@ body.case-studies-page ol {
 }
 
 .trust-hero-copy {
-  max-width: 760px;
+  max-width: 640px;
   color: #ffffff;
   text-align: left;
+}
+
+.trust-hero-brand {
+  margin: 0 0 1.15rem;
+  font-family: "Newsreader", Georgia, "Times New Roman", serif;
+  font-size: clamp(1.65rem, 3.2vw, 2.15rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  line-height: 1.15;
 }
 
 .trust-eyebrow {
@@ -1852,17 +1910,21 @@ body.case-studies-page ol {
 .trust-hero-title {
   margin: 0;
   color: #ffffff;
-  font-size: 3.55rem;
-  line-height: 1.04;
-  font-weight: 800;
+  font-family: "Newsreader", Georgia, "Times New Roman", serif;
+  font-size: clamp(2.35rem, 5vw, 3.35rem);
+  line-height: 1.08;
+  font-weight: 600;
+  letter-spacing: -0.02em;
 }
 
 .trust-hero-subtitle {
-  max-width: 680px;
-  margin: 1.25rem 0 0;
-  color: rgba(255, 255, 255, 0.86);
-  font-size: 1.12rem;
-  line-height: 1.7;
+  max-width: 34rem;
+  margin: 1.15rem 0 0;
+  color: rgba(255, 255, 255, 0.82);
+  font-family: "Outfit", system-ui, sans-serif;
+  font-size: 1.05rem;
+  font-weight: 400;
+  line-height: 1.65;
 }
 
 .trust-hero-actions {
@@ -1879,6 +1941,17 @@ body.case-studies-page ol {
   align-items: center;
   gap: 0.5rem;
   text-decoration: none;
+  font-family: "Outfit", system-ui, sans-serif;
+  font-weight: 600;
+}
+
+.trust-hero-proof-line {
+  margin: 1.5rem 0 0;
+  color: rgba(255, 255, 255, 0.62);
+  font-family: "Outfit", system-ui, sans-serif;
+  font-size: 0.88rem;
+  letter-spacing: 0.02em;
+  line-height: 1.5;
 }
 
 .trust-proof-grid {
@@ -3733,6 +3806,225 @@ body.practice-site .trust-mobile-menu-toggle span {
   .practice-footer,
   .practice-proof-card {
     animation: none;
+    transition: none;
+  }
+}
+
+/* === Exclusive practice polish (trust-home) === */
+body.practice-home,
+body.trust-home {
+  font-family: "Outfit", system-ui, sans-serif;
+  color: var(--trust-ink);
+  background:
+    radial-gradient(ellipse 90% 50% at 10% -10%, rgba(14, 116, 144, 0.07), transparent 50%),
+    radial-gradient(ellipse 70% 40% at 100% 20%, rgba(8, 47, 73, 0.05), transparent 45%),
+    linear-gradient(180deg, #f4f7f9 0%, #eef2f5 48%, #f7f9fb 100%);
+}
+
+body.practice-home h1,
+body.practice-home h2,
+body.practice-home h3,
+body.practice-home h4,
+body.practice-home h5,
+body.practice-home .title-a,
+body.practice-home .title-left,
+body.trust-home h1,
+body.trust-home h2,
+body.trust-home h3,
+body.trust-home h4,
+body.trust-home h5,
+body.trust-home .title-a,
+body.trust-home .title-left {
+  font-family: "Newsreader", Georgia, "Times New Roman", serif;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+
+body.practice-home .navbar-brand,
+body.trust-home .navbar-brand {
+  font-family: "Newsreader", Georgia, "Times New Roman", serif;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+body.practice-home .nav-link,
+body.trust-home .nav-link,
+body.practice-home .btn,
+body.trust-home .btn,
+body.practice-home .subtitle-a,
+body.trust-home .subtitle-a {
+  font-family: "Outfit", system-ui, sans-serif;
+}
+
+.credentials-eyebrow {
+  margin: 0 0 1.25rem;
+  font-family: "Outfit", system-ui, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--trust-muted);
+}
+
+.proof-more a {
+  font-family: "Outfit", system-ui, sans-serif;
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-decoration: none;
+  color: var(--trust-blue);
+}
+
+.proof-more a:hover {
+  color: var(--trust-accent);
+}
+
+.hire-form-title {
+  margin: 0 0 0.5rem;
+  font-family: "Newsreader", Georgia, "Times New Roman", serif;
+  font-weight: 600;
+  font-size: 1.65rem;
+}
+
+.hire-form-panel .hire-response-note {
+  max-width: 36rem;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 1.5rem;
+  color: var(--trust-muted);
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+/* Progressive reveal */
+.reveal-section {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+
+.reveal-section.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Image skeletons */
+.img-skeleton {
+  position: relative;
+  background: #e8eef2;
+  overflow: hidden;
+}
+
+.img-skeleton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(110deg, transparent 25%, rgba(255, 255, 255, 0.55) 40%, transparent 55%);
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.35s ease-in-out infinite;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.img-skeleton img {
+  position: relative;
+  z-index: 0;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  display: block;
+  width: 100%;
+}
+
+.img-skeleton.is-loaded {
+  background: transparent;
+}
+
+.img-skeleton.is-loaded::after {
+  opacity: 0;
+  animation: none;
+}
+
+.img-skeleton.is-loaded img {
+  opacity: 1;
+}
+
+.about-img-skeleton {
+  display: inline-block;
+  border-radius: var(--trust-radius);
+  max-width: 220px;
+}
+
+.about-img-skeleton img {
+  width: auto;
+  max-width: 220px;
+}
+
+@keyframes skeleton-shimmer {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+}
+
+/* Hire submit loading skeleton */
+#hire-submit {
+  position: relative;
+  min-width: 12.5rem;
+}
+
+#hire-submit .hire-submit-skeleton {
+  display: none;
+  width: 5.5rem;
+  height: 0.85rem;
+  margin: 0 auto;
+  border-radius: 4px;
+  background: linear-gradient(110deg, rgba(255, 255, 255, 0.25) 25%, rgba(255, 255, 255, 0.55) 40%, rgba(255, 255, 255, 0.25) 55%);
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.1s ease-in-out infinite;
+}
+
+#hire-submit.is-loading .hire-submit-label {
+  display: none;
+}
+
+#hire-submit.is-loading .hire-submit-skeleton {
+  display: block;
+}
+
+@media (max-width: 767px) {
+  .trust-hero {
+    min-height: auto;
+    padding: 6.5rem 0 3.75rem;
+  }
+
+  .trust-hero-proof-line {
+    font-size: 0.82rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .brand-entrance-inner,
+  .brand-entrance-bar span,
+  .reveal-section,
+  .img-skeleton,
+  #hire-submit .hire-submit-skeleton {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .reveal-section {
+    opacity: 1;
+    transform: none;
+  }
+
+  .img-skeleton img {
+    opacity: 1;
+  }
+
+  #preloader,
+  .brand-entrance {
     transition: none;
   }
 }

@@ -15,12 +15,16 @@
   <link href="assets/img/favicon.png" rel="icon">
   <link href="assets/img/favicon.png" rel="apple-touch-icon">
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
   <link href="assets/vendor/ionicons/css/ionicons.min.css" rel="stylesheet">
   <link href="assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
   <link href="assets/vendor/venobox/venobox.css" rel="stylesheet">
-  <link href="assets/css/style.css?v=20260722g" rel="stylesheet">
+  <link href="assets/css/style.css?v=20260722j" rel="stylesheet">
 </head>
 
 <body id="page-top" class="trust-home practice-home">
@@ -112,40 +116,19 @@
       <div class="table-cell">
         <div class="container">
           <div class="trust-hero-copy">
-            <p class="trust-eyebrow" style="color:#a5f3fc; letter-spacing:0.08em; text-transform:uppercase; font-size:0.75rem; margin-bottom:0.75rem;">Independent practice · Agent reliability</p>
+            <p class="trust-hero-brand">Dhavan Shah</p>
             <h1 class="trust-hero-title">Production AI agents, under control.</h1>
             <p class="trust-hero-subtitle">
-              I work with funded teams to put fail-closed budgets, approval gates, evaluations, and grounded company memory on agents before those agents run unsupervised.
+              Fail-closed budgets, approval gates, evaluations, and grounded company memory — installed before agents run unsupervised.
             </p>
             <div class="trust-hero-actions" aria-label="Primary actions">
               <a class="btn btn-outline-light btn-lg js-scroll" href="#hire">
                 Request an Agent Reliability Audit
               </a>
-              <a class="btn btn-outline-light btn-lg js-scroll" href="#proof">
-                See selected proof
-              </a>
             </div>
-            <p class="mt-3 mb-0" style="color:rgba(255,255,255,0.75); font-size:0.9rem;">
-              UZH MSc · Kaggle Top 0.5% · Shipped LLM systems at DevRev · Building KazenAI (FinOps, Brain, Lens)
+            <p class="trust-hero-proof-line">
+              UZH MSc · Kaggle Top 0.5% · DevRev · Independent practice
             </p>
-            <div class="trust-proof-grid" aria-label="Proof points">
-              <div class="trust-proof-item">
-                <span class="trust-proof-value">Pre-call</span>
-                <span class="trust-proof-label">FinOps reserve / deny</span>
-              </div>
-              <div class="trust-proof-item">
-                <span class="trust-proof-value">Cite / abstain</span>
-                <span class="trust-proof-label">Agent Brain think</span>
-              </div>
-              <div class="trust-proof-item">
-                <span class="trust-proof-value">Assistant</span>
-                <span class="trust-proof-label">Grounded site Q&amp;A</span>
-              </div>
-              <div class="trust-proof-item">
-                <span class="trust-proof-value">From $3.5k</span>
-                <span class="trust-proof-label">Scoped engagements</span>
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -155,7 +138,7 @@
   <main id="main">
 
     <!-- ======= Engagements ======= -->
-    <section id="hire" class="hire-mf sect-pt4 route">
+    <section id="hire" class="hire-mf sect-pt4 route reveal-section">
       <div class="container">
         <div class="row">
           <div class="col-sm-12">
@@ -207,7 +190,7 @@
     </section>
 
     <!-- ======= Approach ======= -->
-    <section id="approach" class="trust-architecture route">
+    <section id="approach" class="trust-architecture route reveal-section">
       <div class="container">
         <div class="trust-section-header">
           <p class="trust-eyebrow">Approach</p>
@@ -248,28 +231,26 @@
     </section>
 
     <!-- ======= Proof ======= -->
-    <section id="proof" class="portfolio-mf sect-pt4 route">
+    <section id="proof" class="portfolio-mf sect-pt4 route reveal-section">
       <div class="container">
         <div class="row">
           <div class="col-sm-12">
             <div class="title-box text-center">
               <h3 class="title-a">Selected proof</h3>
               <p class="subtitle-a">
-                Systems behind the practice, including <strong>Dhavan's Assistant on this page</strong> with grounded retrieval, streaming answers, and optional response details.
-                Engagements install the same patterns in your stack.
+                Three reference systems behind the practice. Engagements install the same patterns in your stack.
               </p>
               <div class="line-mf"></div>
             </div>
           </div>
         </div>
 
-        <p class="text-center text-muted mb-4" style="font-size:0.85rem; letter-spacing:0.06em; text-transform:uppercase;">Commercial reliability</p>
-        <div class="row project-grid">
+        <div class="row project-grid proof-flagships">
 
           <div class="col-md-4 d-flex align-items-stretch">
             <a class="work-box project-card-click h-100 w-100 d-flex flex-column" href="project-kazenai-agent-finops.html" aria-label="View Agent FinOps case study" data-title="Agent FinOps" data-category="FinOps, Budgets, Fail-closed">
-              <div class="work-img">
-                <img src="assets/img/KazenAI_Agent_FinOps.png?v=20260722" alt="Agent FinOps" class="img-fluid">
+              <div class="work-img img-skeleton">
+                <img src="assets/img/KazenAI_Agent_FinOps.png?v=20260722" alt="Agent FinOps" class="img-fluid" loading="lazy">
               </div>
               <div class="work-content">
                 <h2 class="w-title">Agent FinOps</h2>
@@ -283,8 +264,8 @@
 
           <div class="col-md-4 d-flex align-items-stretch">
             <a class="work-box project-card-click h-100 w-100 d-flex flex-column" href="project-kazenai-agent-brain.html" aria-label="View Agent Brain case study" data-title="Agent Brain" data-category="RAG, Think, ACL">
-              <div class="work-img">
-                <img src="assets/img/KazenAI_Agent_Brain.png?v=20260722" alt="Agent Brain" class="img-fluid">
+              <div class="work-img img-skeleton">
+                <img src="assets/img/KazenAI_Agent_Brain.png?v=20260722" alt="Agent Brain" class="img-fluid" loading="lazy">
               </div>
               <div class="work-content">
                 <h2 class="w-title">Agent Brain</h2>
@@ -298,8 +279,8 @@
 
           <div class="col-md-4 d-flex align-items-stretch">
             <a class="work-box project-card-click h-100 w-100 d-flex flex-column" href="project-kazenai-agent-lens.html" aria-label="View Agent Lens case study" data-title="Agent Lens" data-category="Observability, Drift, Replay">
-              <div class="work-img">
-                <img src="assets/img/KazenAI_Agent_Lens.png?v=20260722" alt="Agent Lens" class="img-fluid">
+              <div class="work-img img-skeleton">
+                <img src="assets/img/KazenAI_Agent_Lens.png?v=20260722" alt="Agent Lens" class="img-fluid" loading="lazy">
               </div>
               <div class="work-content">
                 <h2 class="w-title">Agent Lens</h2>
@@ -311,97 +292,18 @@
             </a>
           </div>
 
-          <div class="col-md-4 d-flex align-items-stretch">
-            <a class="work-box project-card-click h-100 w-100 d-flex flex-column" href="project-kazenai-orchestrator-vscode.html" aria-label="View Agent Builder case study" data-title="Agent Builder" data-category="AI Coding Agents, Gates, FinOps">
-              <div class="work-img">
-                <img src="assets/img/KazenAI_Orchestrator_VSCode.png?v=20260516" alt="Agent Builder" class="img-fluid">
-              </div>
-              <div class="work-content">
-                <h2 class="w-title">Agent Builder</h2>
-                <p class="project-card-blurb">Plan-to-code workflow with human gates and FinOps pause. Assisted coding that stays under spend control.</p>
-                <div class="w-more">
-                  <span class="w-ctegory">Gates · DevAgent · Cost control</span>
-                </div>
-              </div>
-            </a>
-          </div>
-
-          <div class="col-md-4 d-flex align-items-stretch">
-            <a class="work-box project-card-click h-100 w-100 d-flex flex-column" href="project-rag-llm-systems.html" aria-label="View RAG LLM Systems case study" data-title="RAG LLM Systems" data-category="LLM, RAG, AWS">
-              <div class="work-img">
-                <img src="assets/img/RAG_LLM_Systems.png?v=20260516" alt="RAG LLM Systems" class="img-fluid">
-              </div>
-              <div class="work-content">
-                <h2 class="w-title">RAG LLM Systems</h2>
-                <p class="project-card-blurb">Dhavan's Assistant on this site: retrieval, streaming, rate limits, and cost guardrails on AWS.</p>
-                <div class="w-more">
-                  <span class="w-ctegory">Grounded assistant · Streaming · Guardrails</span>
-                </div>
-              </div>
-            </a>
-          </div>
-
-          <div class="col-md-4 d-flex align-items-stretch">
-            <a class="work-box project-card-click h-100 w-100 d-flex flex-column" href="project-kazenai-agent-orchestration-platform.html" aria-label="View orchestration platform case study" data-title="Workflow Runtime" data-category="Multi-Agent, Workflows">
-              <div class="work-img">
-                <img src="assets/img/KazenAI_Agent_Orchestration_Platform.png?v=20260516" alt="Workflow orchestration" class="img-fluid">
-              </div>
-              <div class="work-content">
-                <h2 class="w-title">Workflow Runtime</h2>
-                <p class="project-card-blurb">Graph workflows, async runs, and operator visibility. Pairs with FinOps when spend authority matters.</p>
-                <div class="w-more">
-                  <span class="w-ctegory">Orchestration · Monitoring</span>
-                </div>
-              </div>
-            </a>
-          </div>
-
         </div>
 
-        <p class="text-center text-muted mt-5 mb-4" style="font-size:0.85rem; letter-spacing:0.06em; text-transform:uppercase;">Technical depth</p>
-        <div class="row project-grid">
-          <div class="col-md-4 d-flex align-items-stretch">
-            <a class="work-box project-card-click h-100 w-100 d-flex flex-column" href="project-agentic-kaggle.html" data-title="Agentic Kaggle">
-              <div class="work-img">
-                <img src="assets/img/Agentic_Kaggle.png?v=20260516" alt="" class="img-fluid">
-              </div>
-              <div class="work-content">
-                <h2 class="w-title">Agentic Kaggle</h2>
-                <p class="project-card-blurb">Reproducible experiment tracking and competition workflows.</p>
-              </div>
-            </a>
-          </div>
-          <div class="col-md-4 d-flex align-items-stretch">
-            <a class="work-box project-card-click h-100 w-100 d-flex flex-column" href="project-visual-understanding-on-rnn-based-high-dimensional-time-series-forecasting.html" data-title="DeepGLO">
-              <div class="work-img">
-                <img src="assets/img/Visual_Understanding_on_RNN.png?v=20260516" alt="" class="img-fluid">
-              </div>
-              <div class="work-content">
-                <h2 class="w-title">DeepGLO forecasting</h2>
-                <p class="project-card-blurb">MSc thesis: high-dimensional time-series with interactive exploration.</p>
-              </div>
-            </a>
-          </div>
-          <div class="col-md-4 d-flex align-items-stretch">
-            <a class="work-box project-card-click h-100 w-100 d-flex flex-column" href="project-visual-outliers.html" data-title="Outlier detection">
-              <div class="work-img">
-                <img src="assets/img/Visual_Outlier_Detection.png?v=20260516" alt="" class="img-fluid">
-              </div>
-              <div class="work-content">
-                <h2 class="w-title">Visual outlier detection</h2>
-                <p class="project-card-blurb">Deep Isolation Forest with a human-in-the-loop monitoring UI.</p>
-              </div>
-            </a>
-          </div>
-        </div>
-
-        <p class="text-center mt-4"><a href="projects.html">Full project index →</a></p>
+        <p class="proof-more text-center mt-5 mb-0">
+          <a href="projects.html">Additional systems &amp; technical depth →</a>
+        </p>
       </div>
     </section>
 
     <!-- ======= Credentials ======= -->
-    <section id="credentials" class="sect-pt4 route" style="padding-bottom:2rem;">
+    <section id="credentials" class="sect-pt4 route reveal-section credentials-stage" style="padding-bottom:2rem;">
       <div class="container">
+        <p class="credentials-eyebrow text-center">Why teams trust this work</p>
         <div class="row about-stats justify-content-center">
           <div class="col-6 col-md-3 stat-card">
             <span class="stat-number">Top 0.5%</span>
@@ -424,14 +326,16 @@
     </section>
 
     <!-- ======= About ======= -->
-    <section id="about" class="about-mf sect-pt4 route">
+    <section id="about" class="about-mf sect-pt4 route reveal-section">
       <div class="container">
         <div class="row">
           <div class="col-sm-12">
             <div class="box-shadow-full">
               <div class="row align-items-center">
                 <div class="col-md-4 text-center mb-4 mb-md-0">
-                  <img src="assets/img/Dhavan.jpeg" class="img-fluid rounded b-shadow-a about-profile-img" alt="Dhavan Shah" style="max-width:220px;">
+                  <div class="img-skeleton about-img-skeleton">
+                    <img src="assets/img/Dhavan.jpeg" class="img-fluid rounded b-shadow-a about-profile-img" alt="Dhavan Shah" style="max-width:220px;" loading="lazy">
+                  </div>
                 </div>
                 <div class="col-md-8">
                   <div class="title-box-2">
@@ -462,13 +366,13 @@
     </section>
 
     <!-- ======= Contact form ======= -->
-    <section id="hire-form-anchor" class="hire-mf route" style="padding-top:1rem; padding-bottom:4rem;">
+    <section id="hire-form-anchor" class="hire-mf route reveal-section" style="padding-top:1rem; padding-bottom:4rem;">
       <div class="container">
         <div class="row justify-content-center hire-form-section">
           <div class="col-md-8">
-            <div class="box-shadow-full">
-              <h4 class="text-center mb-1" style="font-weight:700;">Start a conversation</h4>
-              <p class="text-center hire-response-note">I reply within one business day. Typical first step: a 30-minute fit call.</p>
+            <div class="box-shadow-full hire-form-panel">
+              <h4 class="text-center hire-form-title">Request a fit call</h4>
+              <p class="text-center hire-response-note">I take a small number of engagements. Typical first step: a 30-minute fit call. I reply within one business day.</p>
 
               <form id="hire-form" action="https://formspree.io/f/xqenrlyk" method="POST" novalidate>
                 <input type="hidden" name="_subject" value="Engagement inquiry: Audit / Pilot / Retainer">
@@ -506,7 +410,10 @@
                 </div>
 
                 <div class="text-center mt-3">
-                  <button type="submit" id="hire-submit" class="btn btn-primary btn-lg px-5">Request a fit call →</button>
+                  <button type="submit" id="hire-submit" class="btn btn-primary btn-lg px-5">
+                    <span class="hire-submit-label">Request a fit call →</span>
+                    <span class="hire-submit-skeleton" aria-hidden="true"></span>
+                  </button>
                 </div>
 
                 <div id="hire-success" class="mt-3">
@@ -524,7 +431,13 @@
 
   </main>
 
-  <div id="preloader"></div>
+  <div id="preloader" class="brand-entrance" aria-hidden="true">
+    <div class="brand-entrance-inner">
+      <p class="brand-entrance-name">Dhavan Shah</p>
+      <p class="brand-entrance-tag">Agent reliability · Independent practice</p>
+      <div class="brand-entrance-bar" aria-hidden="true"><span></span></div>
+    </div>
+  </div>
 
   <script src="assets/vendor/jquery/jquery.min.js"></script>
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -535,7 +448,7 @@
   <script src="assets/vendor/owl.carousel/owl.carousel.min.js"></script>
   <script src="assets/vendor/typed.js/typed.min.js"></script>
   <script src="assets/vendor/venobox/venobox.min.js"></script>
-  <script src="assets/js/main.js?v=20260722i"></script>
+  <script src="assets/js/main.js?v=20260722j"></script>
 
 </body>
 </html>

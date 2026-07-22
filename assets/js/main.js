@@ -16,14 +16,25 @@
     }
   })
 
-  // Preloader
-  $(window).on('load', function() {
-    if ($('#preloader').length) {
-      $('#preloader').delay(100).fadeOut('slow', function() {
-        $(this).remove();
-      });
-    }
+  // Branded entrance — dismiss as soon as the page is interactive
+  function dismissPreloader() {
+    var el = document.getElementById('preloader');
+    if (!el || el.classList.contains('is-done')) return;
+    el.classList.add('is-done');
+    window.setTimeout(function() {
+      if (el && el.parentNode) el.parentNode.removeChild(el);
+    }, 400);
+  }
+
+  $(function() {
+    // Prefer a composed exit shortly after DOM ready; do not wait on every asset
+    window.setTimeout(dismissPreloader, 280);
   });
+  $(window).on('load', function() {
+    dismissPreloader();
+  });
+  // Hard cap so a hung asset never leaves visitors on the entrance
+  window.setTimeout(dismissPreloader, 1400);
 
   // Back to top button
   $(window).scroll(function() {
@@ -1139,7 +1150,8 @@
       }
 
       button.disabled = true;
-      setText(button, "Sending...");
+      button.classList.add("is-loading");
+      button.setAttribute("aria-busy", "true");
       successEl.style.display = "none";
       errorEl.style.display = "none";
 
@@ -1164,8 +1176,60 @@
         })
         .finally(function() {
           button.disabled = false;
-          button.innerHTML = "Request a fit call &rarr;";
+          button.classList.remove("is-loading");
+          button.removeAttribute("aria-busy");
         });
+    });
+  }
+
+  function initImageSkeletons() {
+    document.querySelectorAll(".img-skeleton").forEach(function(wrap) {
+      var img = wrap.querySelector("img");
+      if (!img) {
+        wrap.classList.add("is-loaded");
+        return;
+      }
+      function markLoaded() {
+        wrap.classList.add("is-loaded");
+      }
+      if (img.complete && img.naturalWidth > 0) {
+        markLoaded();
+      } else {
+        img.addEventListener("load", markLoaded);
+        img.addEventListener("error", markLoaded);
+      }
+    });
+  }
+
+  function initRevealSections() {
+    var sections = document.querySelectorAll(".reveal-section");
+    if (!sections.length) return;
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      sections.forEach(function(section) {
+        section.classList.add("is-visible");
+      });
+      return;
+    }
+
+    if (!("IntersectionObserver" in window)) {
+      sections.forEach(function(section) {
+        section.classList.add("is-visible");
+      });
+      return;
+    }
+
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { rootMargin: "0px 0px -8% 0px", threshold: 0.12 });
+
+    sections.forEach(function(section) {
+      observer.observe(section);
     });
   }
 
@@ -1174,5 +1238,7 @@
     initProjectSearch();
     initTrustChatbot();
     initHireForm();
+    initImageSkeletons();
+    initRevealSections();
   });
 })();
