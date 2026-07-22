@@ -840,108 +840,146 @@
       setLoading(true);
       userStopped = false;
 
-      if (activeAbortController) activeAbortController.abort();
-      activeAbortController = new AbortController();
+      var reachabilityRetriesLeft = 1;
 
-      var hadErrorEvent = false;
-      var lastMetrics = null;
-      var lastLinks = null;
-      var streamedText = "";
+      async function runAttempt() {
+        if (activeAbortController) activeAbortController.abort();
+        activeAbortController = new AbortController();
 
-      function renderAssistantText(rawText) {
-        var extracted = extractInlineMetrics(rawText);
-        if (extracted.metrics) lastMetrics = extracted.metrics;
-        setText(currentAssistantBubble, extracted.text);
-        return extracted;
+        var hadErrorEvent = false;
+        var lastMetrics = null;
+        var lastLinks = null;
+        var streamedText = "";
+        var sawStreamActivity = false;
+
+        function renderAssistantText(rawText) {
+          var extracted = extractInlineMetrics(rawText);
+          if (extracted.metrics) lastMetrics = extracted.metrics;
+          setText(currentAssistantBubble, extracted.text);
+          return extracted;
+        }
+
+        try {
+          var res = await fetch(API_URL, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Accept": "text/event-stream"
+            },
+            body: JSON.stringify({ message: clean, session_id: SESSION_ID }),
+            signal: activeAbortController.signal
+          });
+
+          if (!res.ok) throw new Error("Request failed (HTTP " + res.status + ").");
+          setStatus("Checking site context...");
+
+          await streamSSE(res, async function(evt) {
+            var type = (evt.event || "message").toLowerCase();
+            var structured = tryExtractJsonObject(evt.data);
+            var eventText = coerceEventText(evt.data);
+            var isFinalEvent = type === "final" || type === "done" || type === "complete" || type === "completed";
+
+            if (structured && structured.metrics) lastMetrics = structured.metrics;
+            if (structured && Array.isArray(structured.links)) lastLinks = structured.links;
+
+            if (type === "searching") {
+              sawStreamActivity = true;
+              setStatus(eventText ? "Checking site context: " + eventText : "Checking site context...");
+              return;
+            }
+
+            if (type === "thinking") {
+              sawStreamActivity = true;
+              setStatus(eventText ? "Drafting answer: " + eventText : "Drafting a grounded answer...");
+              return;
+            }
+
+            if (type === "error") {
+              hadErrorEvent = true;
+              clearStatus();
+              setText(currentAssistantBubble, "");
+              addMessage("assistant", eventText || "The assistant hit an error. Please try again.", { error: true });
+              if (activeAbortController) activeAbortController.abort();
+              return;
+            }
+
+            if (isFinalEvent) {
+              sawStreamActivity = true;
+              clearStatus();
+              if (structured && structured.answer != null) {
+                streamedText = structured.answer.toString();
+                var finalAnswer = renderAssistantText(streamedText);
+                setMetricsDetails(currentAssistantBubble, structured.metrics || finalAnswer.metrics || lastMetrics);
+                renderLinks(currentAssistantBubble, structured.links || lastLinks);
+              } else {
+                streamedText = mergeStreamText(streamedText, eventText);
+                var finalText = renderAssistantText(streamedText);
+                setMetricsDetails(currentAssistantBubble, finalText.metrics || lastMetrics);
+                renderLinks(currentAssistantBubble, lastLinks);
+              }
+              scrollToBottom();
+              return;
+            }
+
+            if (eventText) {
+              sawStreamActivity = true;
+              streamedText = mergeStreamText(streamedText, eventText);
+              renderAssistantText(streamedText);
+              scrollToBottom();
+              await waitForNextPaint();
+            }
+          });
+
+          clearStatus();
+          if (!hadErrorEvent) {
+            renderAssistantText(streamedText);
+            setMetricsDetails(currentAssistantBubble, lastMetrics);
+            renderLinks(currentAssistantBubble, lastLinks);
+          }
+          if (!hadErrorEvent && currentAssistantBubble && !currentAssistantBubble.textContent.trim()) {
+            setText(currentAssistantBubble, "No response received. Please try again.");
+          }
+          return true;
+        } catch (err) {
+          clearStatus();
+          if (err && err.name === "AbortError" && userStopped) {
+            if (currentAssistantBubble && !currentAssistantBubble.textContent.trim()) {
+              setText(currentAssistantBubble, "Stopped before completion.");
+            }
+            return true;
+          }
+          if (err && err.name === "AbortError") return true;
+
+          var canRetry =
+            reachabilityRetriesLeft > 0 &&
+            !userStopped &&
+            !hadErrorEvent &&
+            !sawStreamActivity &&
+            !(streamedText && streamedText.trim());
+
+          if (canRetry) {
+            reachabilityRetriesLeft -= 1;
+            if (currentAssistantBubble) setText(currentAssistantBubble, "");
+            setStatus("Connection slow. Retrying once...");
+            await new Promise(function(resolve) {
+              window.setTimeout(resolve, 600);
+            });
+            if (userStopped) return true;
+            return runAttempt();
+          }
+
+          if (currentAssistantBubble) setText(currentAssistantBubble, "");
+          addMessage(
+            "assistant",
+            "I could not reach the assistant. Please try again, or email Dhavan directly at shah.dhavan09@gmail.com.",
+            { error: true }
+          );
+          return false;
+        }
       }
 
       try {
-        var res = await fetch(API_URL, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Accept": "text/event-stream"
-          },
-          body: JSON.stringify({ message: clean, session_id: SESSION_ID }),
-          signal: activeAbortController.signal
-        });
-
-        if (!res.ok) throw new Error("Request failed (HTTP " + res.status + ").");
-        setStatus("Checking site context...");
-
-        await streamSSE(res, async function(evt) {
-          var type = (evt.event || "message").toLowerCase();
-          var structured = tryExtractJsonObject(evt.data);
-          var eventText = coerceEventText(evt.data);
-          var isFinalEvent = type === "final" || type === "done" || type === "complete" || type === "completed";
-
-          if (structured && structured.metrics) lastMetrics = structured.metrics;
-          if (structured && Array.isArray(structured.links)) lastLinks = structured.links;
-
-          if (type === "searching") {
-            setStatus(eventText ? "Checking site context: " + eventText : "Checking site context...");
-            return;
-          }
-
-          if (type === "thinking") {
-            setStatus(eventText ? "Drafting answer: " + eventText : "Drafting a grounded answer...");
-            return;
-          }
-
-          if (type === "error") {
-            hadErrorEvent = true;
-            clearStatus();
-            setText(currentAssistantBubble, "");
-            addMessage("assistant", eventText || "The assistant hit an error. Please try again.", { error: true });
-            if (activeAbortController) activeAbortController.abort();
-            return;
-          }
-
-          if (isFinalEvent) {
-            clearStatus();
-            if (structured && structured.answer != null) {
-              streamedText = structured.answer.toString();
-              var finalAnswer = renderAssistantText(streamedText);
-              setMetricsDetails(currentAssistantBubble, structured.metrics || finalAnswer.metrics || lastMetrics);
-              renderLinks(currentAssistantBubble, structured.links || lastLinks);
-            } else {
-              streamedText = mergeStreamText(streamedText, eventText);
-              var finalText = renderAssistantText(streamedText);
-              setMetricsDetails(currentAssistantBubble, finalText.metrics || lastMetrics);
-              renderLinks(currentAssistantBubble, lastLinks);
-            }
-            scrollToBottom();
-            return;
-          }
-
-          if (eventText) {
-            streamedText = mergeStreamText(streamedText, eventText);
-            renderAssistantText(streamedText);
-            scrollToBottom();
-            await waitForNextPaint();
-          }
-        });
-
-        clearStatus();
-        if (!hadErrorEvent) {
-          renderAssistantText(streamedText);
-          setMetricsDetails(currentAssistantBubble, lastMetrics);
-          renderLinks(currentAssistantBubble, lastLinks);
-        }
-        if (!hadErrorEvent && currentAssistantBubble && !currentAssistantBubble.textContent.trim()) {
-          setText(currentAssistantBubble, "No response received. Please try again.");
-        }
-      } catch (err) {
-        clearStatus();
-        if (err && err.name === "AbortError" && userStopped) {
-          if (currentAssistantBubble && !currentAssistantBubble.textContent.trim()) {
-            setText(currentAssistantBubble, "Stopped before completion.");
-          }
-          return;
-        }
-        if (err && err.name === "AbortError") return;
-        if (currentAssistantBubble) setText(currentAssistantBubble, "");
-        addMessage("assistant", "I could not reach the assistant. Please try again, or email Dhavan directly at shah.dhavan09@gmail.com.", { error: true });
+        await runAttempt();
       } finally {
         setLoading(false);
         if (!panel.classList.contains("is-minimized")) text.focus();
