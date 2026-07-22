@@ -4014,16 +4014,22 @@ body.project-detail-page .intro-single .overlay-mf {
   line-height: 1.55;
 }
 
-/* Progressive reveal */
+/* Progressive reveal — visible by default; JS only hides off-screen sections */
 .reveal-section {
+  opacity: 1;
+  transform: none;
+}
+
+html.js-reveal .reveal-section:not(.is-visible) {
   opacity: 0;
   transform: translateY(14px);
   transition: opacity 0.55s ease, transform 0.55s ease;
 }
 
-.reveal-section.is-visible {
+html.js-reveal .reveal-section.is-visible {
   opacity: 1;
   transform: translateY(0);
+  transition: opacity 0.55s ease, transform 0.55s ease;
 }
 
 /* Image skeletons */
@@ -4133,13 +4139,19 @@ body.project-detail-page .intro-single .overlay-mf {
     transition: none !important;
   }
 
+  html.js-reveal .reveal-section:not(.is-visible),
+  html.js-reveal .reveal-section.is-visible,
   .reveal-section {
-    opacity: 1;
-    transform: none;
+    opacity: 1 !important;
+    transform: none !important;
   }
 
   .img-skeleton img {
     opacity: 1;
+  }
+
+  .img-skeleton::after {
+    display: none;
   }
 
   #preloader,

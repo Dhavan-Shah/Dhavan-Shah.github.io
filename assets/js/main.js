@@ -59,10 +59,12 @@
   });
 
   /*--/ Star Counter /--*/
-  $('.counter').counterUp({
-    delay: 15,
-    time: 2000
-  });
+  if ($.fn.counterUp && $('.counter').length) {
+    $('.counter').counterUp({
+      delay: 15,
+      time: 2000
+    });
+  }
 
   /*--/ Star Scrolling nav /--*/
   var mainNav_height = $('#mainNav').outerHeight() - 22;
@@ -137,31 +139,37 @@
   }
 
   /*--/ Testimonials owl /--*/
-  $('#testimonial-mf').owlCarousel({
-    margin: 20,
-    autoplay: true,
-    autoplayTimeout: 4000,
-    autoplayHoverPause: true,
-    responsive: {
-      0: {
-        items: 1,
+  if ($.fn.owlCarousel && $('#testimonial-mf').length) {
+    $('#testimonial-mf').owlCarousel({
+      margin: 20,
+      autoplay: true,
+      autoplayTimeout: 4000,
+      autoplayHoverPause: true,
+      responsive: {
+        0: {
+          items: 1,
+        }
       }
-    }
-  });
+    });
+  }
 
   // Portfolio details carousel
-  $(".portfolio-details-carousel").owlCarousel({
-    autoplay: true,
-    dots: true,
-    loop: true,
-    items: 1
-  });
+  if ($.fn.owlCarousel && $(".portfolio-details-carousel").length) {
+    $(".portfolio-details-carousel").owlCarousel({
+      autoplay: true,
+      dots: true,
+      loop: true,
+      items: 1
+    });
+  }
 
   // Initiate venobox (lightbox feature used in portofilo)
   $(document).ready(function() {
-    $('.venobox').venobox({
-      'share': false
-    });
+    if ($.fn.venobox && $('.venobox').length) {
+      $('.venobox').venobox({
+        'share': false
+      });
+    }
   });
 
 })(jQuery);
@@ -1254,6 +1262,8 @@
       } else {
         img.addEventListener("load", markLoaded);
         img.addEventListener("error", markLoaded);
+        // Never leave media permanently hidden if load events are missed
+        window.setTimeout(markLoaded, 4000);
       }
     });
   }
@@ -1262,31 +1272,45 @@
     var sections = document.querySelectorAll(".reveal-section");
     if (!sections.length) return;
 
+    function show(section) {
+      section.classList.add("is-visible");
+    }
+
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      sections.forEach(function(section) {
-        section.classList.add("is-visible");
-      });
+      sections.forEach(show);
       return;
     }
 
+    function isNearViewport(section) {
+      var rect = section.getBoundingClientRect();
+      var vh = window.innerHeight || document.documentElement.clientHeight || 0;
+      // Any overlap with the viewport (plus a small lead) counts as visible
+      return rect.top < vh + 80 && rect.bottom > -40;
+    }
+
+    // Mark in-view sections visible BEFORE enabling hide-for-animation,
+    // so tall project pages never flash blank / stay stuck at opacity 0.
+    sections.forEach(function(section) {
+      if (isNearViewport(section)) show(section);
+    });
+    document.documentElement.classList.add("js-reveal");
+
     if (!("IntersectionObserver" in window)) {
-      sections.forEach(function(section) {
-        section.classList.add("is-visible");
-      });
+      sections.forEach(show);
       return;
     }
 
     var observer = new IntersectionObserver(function(entries) {
       entries.forEach(function(entry) {
         if (entry.isIntersecting) {
-          entry.target.classList.add("is-visible");
+          show(entry.target);
           observer.unobserve(entry.target);
         }
       });
-    }, { rootMargin: "0px 0px -8% 0px", threshold: 0.12 });
+    }, { rootMargin: "80px 0px 80px 0px", threshold: 0 });
 
     sections.forEach(function(section) {
-      observer.observe(section);
+      if (!section.classList.contains("is-visible")) observer.observe(section);
     });
   }
 
