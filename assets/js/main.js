@@ -570,6 +570,34 @@
       return bubble;
     }
 
+    var softStatusTimer = null;
+
+    function clearSoftStatusTimer() {
+      if (softStatusTimer) {
+        window.clearTimeout(softStatusTimer);
+        softStatusTimer = null;
+      }
+    }
+
+    function showThinking(bubble) {
+      if (!bubble) return;
+      bubble.classList.add("is-thinking");
+      bubble.setAttribute("aria-busy", "true");
+      bubble.innerHTML =
+        '<span class="chatbot-typing" aria-hidden="true">' +
+        "<span></span><span></span><span></span>" +
+        "</span>";
+    }
+
+    function clearThinking(bubble) {
+      if (!bubble || !bubble.classList.contains("is-thinking")) return;
+      bubble.classList.remove("is-thinking");
+      bubble.removeAttribute("aria-busy");
+      if (bubble.querySelector(".chatbot-typing")) {
+        bubble.innerHTML = "";
+      }
+    }
+
     function ensureStatusBubble() {
       if (statusBubbleEl && statusBubbleEl.isConnected) return statusBubbleEl;
       statusBubbleEl = addMessage("status", "");
@@ -582,10 +610,22 @@
     }
 
     function clearStatus() {
+      clearSoftStatusTimer();
       if (statusBubbleEl && statusBubbleEl.parentElement) {
         statusBubbleEl.parentElement.remove();
       }
       statusBubbleEl = null;
+    }
+
+    function scheduleSoftStatus(message, delayMs) {
+      clearSoftStatusTimer();
+      softStatusTimer = window.setTimeout(function() {
+        softStatusTimer = null;
+        if (!currentAssistantBubble || !currentAssistantBubble.classList.contains("is-thinking")) {
+          return;
+        }
+        setStatus(message);
+      }, delayMs || 1200);
     }
 
     function coerceTextValue(value) {
@@ -891,7 +931,9 @@
       hideAllMetricsPopovers();
       addMessage("user", clean);
       currentAssistantBubble = addMessage("assistant", "");
-      setStatus("Connecting to Dhavan's Assistant...");
+      showThinking(currentAssistantBubble);
+      // Soft status only if first token is still pending after a beat — keep it calm.
+      scheduleSoftStatus("Looking this up…", 1200);
       setLoading(true);
       userStopped = false;
 
@@ -908,7 +950,15 @@
         var streamedText = "";
         var sawStreamActivity = false;
 
+        function markStreamActive() {
+          if (sawStreamActivity) return;
+          sawStreamActivity = true;
+          clearThinking(currentAssistantBubble);
+          clearStatus();
+        }
+
         function renderAssistantText(rawText) {
+          clearThinking(currentAssistantBubble);
           var extracted = extractInlineMetrics(rawText);
           if (extracted.metrics) lastMetrics = extracted.metrics;
           setText(currentAssistantBubble, extracted.text);
@@ -927,7 +977,6 @@
           });
 
           if (!res.ok) throw new Error("Request failed (HTTP " + res.status + ").");
-          setStatus("Checking site context...");
 
           await streamSSE(res, async function(evt) {
             var type = (evt.event || "message").toLowerCase();
@@ -939,20 +988,19 @@
             if (structured && Array.isArray(structured.links)) lastLinks = structured.links;
 
             if (type === "searching") {
-              sawStreamActivity = true;
-              setStatus(eventText ? "Checking site context: " + eventText : "Checking site context...");
+              // Stay in thinking state; no infra-sounding status copy.
               return;
             }
 
             if (type === "thinking") {
-              sawStreamActivity = true;
-              setStatus(eventText ? "Drafting answer: " + eventText : "Drafting a grounded answer...");
+              // Model is drafting — keep soft typing indicator, no loud status.
               return;
             }
 
             if (type === "error") {
               hadErrorEvent = true;
               clearStatus();
+              clearThinking(currentAssistantBubble);
               setText(currentAssistantBubble, "");
               addMessage("assistant", eventText || "The assistant hit an error. Please try again.", { error: true });
               if (activeAbortController) activeAbortController.abort();
@@ -960,8 +1008,7 @@
             }
 
             if (isFinalEvent) {
-              sawStreamActivity = true;
-              clearStatus();
+              markStreamActive();
               if (structured && structured.answer != null) {
                 streamedText = structured.answer.toString();
                 var finalAnswer = renderAssistantText(streamedText);
@@ -978,7 +1025,7 @@
             }
 
             if (eventText) {
-              sawStreamActivity = true;
+              markStreamActive();
               streamedText = mergeStreamText(streamedText, eventText);
               renderAssistantText(streamedText);
               scrollToBottom();
@@ -987,18 +1034,25 @@
           });
 
           clearStatus();
+          clearThinking(currentAssistantBubble);
           if (!hadErrorEvent) {
             renderAssistantText(streamedText);
             setMetricsDetails(currentAssistantBubble, lastMetrics);
             renderLinks(currentAssistantBubble, lastLinks);
           }
-          if (!hadErrorEvent && currentAssistantBubble && !currentAssistantBubble.textContent.trim()) {
+          if (
+            !hadErrorEvent &&
+            currentAssistantBubble &&
+            !currentAssistantBubble.classList.contains("is-thinking") &&
+            !currentAssistantBubble.textContent.trim()
+          ) {
             setText(currentAssistantBubble, "No response received. Please try again.");
           }
           return true;
         } catch (err) {
           clearStatus();
           if (err && err.name === "AbortError" && userStopped) {
+            clearThinking(currentAssistantBubble);
             if (currentAssistantBubble && !currentAssistantBubble.textContent.trim()) {
               setText(currentAssistantBubble, "Stopped before completion.");
             }
@@ -1015,8 +1069,8 @@
 
           if (canRetry) {
             reachabilityRetriesLeft -= 1;
-            if (currentAssistantBubble) setText(currentAssistantBubble, "");
-            setStatus("Connection issue. Trying once more...");
+            showThinking(currentAssistantBubble);
+            scheduleSoftStatus("Still working on that…", 800);
             warmAssistant(true);
             // Wait for the failed attempt to fully settle; do not abort anything mid-flight.
             await new Promise(function(resolve) {
@@ -1026,6 +1080,7 @@
             return runAttempt();
           }
 
+          clearThinking(currentAssistantBubble);
           if (currentAssistantBubble) setText(currentAssistantBubble, "");
           addMessage(
             "assistant",
@@ -1039,6 +1094,8 @@
       try {
         await runAttempt();
       } finally {
+        clearSoftStatusTimer();
+        clearThinking(currentAssistantBubble);
         setLoading(false);
         if (!panel.classList.contains("is-minimized")) text.focus();
         scrollToBottom();
