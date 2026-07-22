@@ -3861,9 +3861,12 @@ body.practice-site .trust-mobile-menu-toggle span {
   }
 }
 
-/* === Exclusive practice polish (trust-home) === */
+/* === Exclusive practice polish (site-wide) === */
 body.practice-home,
-body.trust-home {
+body.trust-home,
+body.practice-projects,
+body.project-detail-page,
+body.case-studies-page {
   font-family: "Outfit", system-ui, sans-serif;
   color: var(--trust-ink);
   background:
@@ -3885,14 +3888,33 @@ body.trust-home h3,
 body.trust-home h4,
 body.trust-home h5,
 body.trust-home .title-a,
-body.trust-home .title-left {
+body.trust-home .title-left,
+body.practice-projects h1,
+body.practice-projects h2,
+body.practice-projects h3,
+body.practice-projects h4,
+body.practice-projects h5,
+body.practice-projects .title-a,
+body.project-detail-page h1,
+body.project-detail-page h2,
+body.project-detail-page h3,
+body.project-detail-page h4,
+body.project-detail-page h5,
+body.case-studies-page h1,
+body.case-studies-page h2,
+body.case-studies-page h3,
+body.case-studies-page h4,
+body.case-studies-page h5 {
   font-family: "Newsreader", Georgia, "Times New Roman", serif;
   font-weight: 600;
   letter-spacing: -0.015em;
 }
 
 body.practice-home .navbar-brand,
-body.trust-home .navbar-brand {
+body.trust-home .navbar-brand,
+body.practice-projects .navbar-brand,
+body.project-detail-page .navbar-brand,
+body.case-studies-page .navbar-brand {
   font-family: "Newsreader", Georgia, "Times New Roman", serif;
   font-weight: 600;
   letter-spacing: -0.02em;
@@ -3903,8 +3925,54 @@ body.trust-home .nav-link,
 body.practice-home .btn,
 body.trust-home .btn,
 body.practice-home .subtitle-a,
-body.trust-home .subtitle-a {
+body.trust-home .subtitle-a,
+body.practice-projects .nav-link,
+body.practice-projects .btn,
+body.practice-projects .subtitle-a,
+body.project-detail-page .nav-link,
+body.project-detail-page .btn,
+body.case-studies-page .nav-link,
+body.case-studies-page .btn {
   font-family: "Outfit", system-ui, sans-serif;
+}
+
+body.project-detail-page .intro-title,
+body.practice-projects .intro-title {
+  font-family: "Newsreader", Georgia, "Times New Roman", serif;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+body.project-detail-page .portfolio-details {
+  padding-bottom: 2rem;
+}
+
+body.project-detail-page .portfolio-details .btn {
+  border-radius: var(--trust-radius);
+  text-decoration: none;
+}
+
+body.project-detail-page .project-detail-media {
+  border-radius: var(--trust-radius);
+  overflow: hidden;
+  background: #0f172a;
+}
+
+body.project-detail-page .project-detail-media img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+body.project-detail-page .intro-single {
+  background-size: cover;
+  background-position: center;
+}
+
+body.project-detail-page .intro-single .overlay-mf {
+  background:
+    linear-gradient(180deg, rgba(3, 15, 28, 0.82), rgba(3, 15, 28, 0.88));
+  opacity: 1;
 }
 
 .credentials-eyebrow {
