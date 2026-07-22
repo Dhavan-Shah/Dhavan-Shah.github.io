@@ -417,11 +417,50 @@
     if (!panel || !form || !text || !send || !messages) return;
 
     var API_URL = "https://api.kazenai.com/personal/query-stream";
+    var HEALTH_URL = API_URL.replace(/query-stream\/?$/, "health");
+    var WARM_DEDUP_MS = 4 * 60 * 1000;
+    var warmInFlight = false;
     var activeAbortController = null;
     var statusBubbleEl = null;
     var metricsPopoverCounter = 0;
     var currentAssistantBubble = null;
     var userStopped = false;
+
+    function sessionGet(key) {
+      try {
+        return window.sessionStorage ? window.sessionStorage.getItem(key) : null;
+      } catch (_) {
+        return null;
+      }
+    }
+
+    function sessionSet(key, value) {
+      try {
+        if (window.sessionStorage) window.sessionStorage.setItem(key, value);
+      } catch (_) {}
+    }
+
+    function warmAssistant(force) {
+      var now = Date.now();
+      var last = Number(sessionGet("chatbot:last_warm_at") || 0);
+      if (warmInFlight) return;
+      if (!force && last && now - last < WARM_DEDUP_MS) return;
+
+      warmInFlight = true;
+      fetch(HEALTH_URL, {
+        method: "GET",
+        mode: "cors",
+        cache: "no-store",
+        credentials: "omit"
+      })
+        .then(function(res) {
+          if (res && res.ok) sessionSet("chatbot:last_warm_at", String(Date.now()));
+        })
+        .catch(function() {})
+        .finally(function() {
+          warmInFlight = false;
+        });
+    }
 
     function storageGet(key) {
       try {
@@ -471,12 +510,17 @@
       }
       updateChatTopOffset();
       if (remember !== false) storageSet("chatbot:minimized", isMinimized ? "1" : "0");
-      if (!isMinimized) window.setTimeout(function() { text.focus(); }, 80);
+      if (!isMinimized) {
+        warmAssistant();
+        window.setTimeout(function() { text.focus(); }, 80);
+      }
     }
 
     var savedMinimized = storageGet("chatbot:minimized");
     var mobileDefault = window.matchMedia && window.matchMedia("(max-width: 991px)").matches;
     setMinimized(savedMinimized == null ? mobileDefault : savedMinimized === "1", false);
+    // Page-open warm: start cold start while the visitor reads the hero.
+    warmAssistant();
 
     if (toggle) {
       toggle.addEventListener("click", function() {
@@ -840,10 +884,11 @@
       setLoading(true);
       userStopped = false;
 
+      // At most one recovery attempt after a completed network failure.
+      // Never abort an in-flight warm/query just to retry — that caused double cold starts.
       var reachabilityRetriesLeft = 1;
 
       async function runAttempt() {
-        if (activeAbortController) activeAbortController.abort();
         activeAbortController = new AbortController();
 
         var hadErrorEvent = false;
@@ -960,9 +1005,11 @@
           if (canRetry) {
             reachabilityRetriesLeft -= 1;
             if (currentAssistantBubble) setText(currentAssistantBubble, "");
-            setStatus("Connection slow. Retrying once...");
+            setStatus("Connection issue. Trying once more...");
+            warmAssistant(true);
+            // Wait for the failed attempt to fully settle; do not abort anything mid-flight.
             await new Promise(function(resolve) {
-              window.setTimeout(resolve, 600);
+              window.setTimeout(resolve, 2500);
             });
             if (userStopped) return true;
             return runAttempt();
