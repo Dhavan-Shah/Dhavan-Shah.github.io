@@ -50,6 +50,20 @@
       padding-bottom: 0.75rem;
     }
 
+    body.practice-projects .projects-hero-bg {
+      background-image: url(assets/img/projects-hero-bg-1280.webp);
+      background-position: center center;
+    }
+    body.practice-projects .projects-hero-bg .overlay-mf {
+      background: linear-gradient(90deg, rgba(6, 20, 28, 0.76), rgba(15, 30, 38, 0.62), rgba(6, 20, 28, 0.76));
+      opacity: 1;
+    }
+    @media (min-width: 1200px) {
+      body.practice-projects .projects-hero-bg {
+        background-image: url(assets/img/projects-hero-bg-1980.webp);
+      }
+    }
+
     /* Hero: centered block with even readable measure */
     body.practice-projects .intro-single .intro-content .container,
     body.practice-projects .intro-single .projects-hero-inner {
@@ -216,7 +230,7 @@
     <span></span>
   </button>
 
-  <div class="intro intro-single route bg-image" style="background-image: url(assets/img/project_bg.png)">
+  <div class="intro intro-single route bg-image projects-hero-bg">
     <div class="overlay-mf"></div>
     <div class="intro-content display-table">
       <div class="table-cell">
