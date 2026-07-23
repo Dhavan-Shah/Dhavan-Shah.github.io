@@ -6,6 +6,16 @@
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
   <title>Visualizing Outlier Detection — Dhavan Shah</title>
+  <meta name="description" content="Visual outlier detection: streaming Deep Isolation Forest monitoring with React, D3, Flask, and human-in-the-loop feedback.">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Visualizing Outlier Detection · Dhavan Shah">
+  <meta property="og:description" content="Streaming Deep Isolation Forest monitoring with React, D3, Flask, and human-in-the-loop feedback.">
+  <meta property="og:url" content="https://dhavan-shah.github.io/project-visual-outliers.html">
+  <meta property="og:image" content="https://dhavan-shah.github.io/assets/img/Visual_Outlier_Detection.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Visualizing Outlier Detection · Dhavan Shah">
+  <meta name="twitter:description" content="Streaming Deep Isolation Forest monitoring with React, D3, Flask, and human-in-the-loop feedback.">
+  <meta name="twitter:image" content="https://dhavan-shah.github.io/assets/img/Visual_Outlier_Detection.png">
 
   <link href="assets/img/favicon.png" rel="icon">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,7 +23,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-  <link href="assets/css/style.css?v=20260723c" rel="stylesheet">
+  <link href="assets/css/style.css?v=20260723d" rel="stylesheet">
 </head>
 
 <body id="page-top" class="project-detail-page">
@@ -33,7 +43,7 @@
           <li class="nav-item"><a class="nav-link js-scroll" href="projects.html">Projects</a></li>
         </ul>
       </div>
-
+    </div>
   </nav>
 
   <div class="intro intro-single route bg-image" style="background-image: url(assets/img/Visual_Outlier_Detection.png?v=20260516)">
@@ -68,7 +78,7 @@
               <li><strong>Category</strong>: Deep Learning, Outlier Detection</li>
               <li><strong>Project date</strong>: Mar 2023</li>
               <li><strong>System</strong>: Streaming outlier detection + monitoring + human feedback (semi-supervised DIF)</li>
-              <li><strong>Backend API</strong>: Flask (CORS)
+              <li><strong>Backend API</strong>: Flask (CORS)</li>
               <li><strong>Datasets</strong>: HR diagram (binary); arXiv UMAP (categorical); generated variants</li>
             </ul>
 
@@ -111,6 +121,30 @@
               <a class="btn btn-primary" href="projects.html">Back to Projects</a>
             </p>
           </div>
+        </div>
+
+        <div class="case-study-map" aria-label="Case study summary">
+          <article class="case-study-block">
+            <h4>Problem</h4>
+            <p>Streaming anomaly detection drifts when thresholds, feedback, and operator judgment are disconnected from the model loop.</p>
+          </article>
+          <article class="case-study-block">
+            <h4>Mechanism</h4>
+            <p>Deep Isolation Forest scoring runs over moving windows, while the UI supports parameter tuning and human feedback.</p>
+          </article>
+          <article class="case-study-block">
+            <h4>What It Proves</h4>
+            <p>Monitoring gets stronger when human corrections are part of the operating workflow, not a separate annotation chore.</p>
+          </article>
+          <article class="case-study-block">
+            <h4>Engagement Relevance</h4>
+            <p>Demonstrates operator-loop design for model monitoring, which maps cleanly to agent trace review and drift workflows.</p>
+          </article>
+          <article class="case-study-block case-study-cta">
+            <h4>CTA</h4>
+            <p>Use this as technical proof while reviewing reliability engagement options.</p>
+            <a class="btn btn-primary btn-sm" href="index.html#hire-form-anchor">Request a fit call</a>
+          </article>
         </div>
 
         <div class="row mt-4">

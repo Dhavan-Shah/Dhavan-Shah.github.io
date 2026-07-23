@@ -8,6 +8,15 @@
   <title>Selected Proof · Agent FinOps, Brain, Lens &amp; Systems · Dhavan Shah </title>
   <meta name="description" content="Systems behind Dhavan Shah's independent agent-reliability practice: Agent FinOps, Agent Brain, Agent Lens, gated Agent Builder, production RAG, and technical depth projects.">
   <meta name="keywords" content="Agent FinOps, Agent Brain, Agent Lens, KazenAI, agent reliability, Dhavan Shah">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Selected Proof · Dhavan Shah">
+  <meta property="og:description" content="A curated index of agent reliability systems: budget gates, grounded memory, trace replay, workflow orchestration, RAG, and technical depth.">
+  <meta property="og:url" content="https://dhavan-shah.github.io/projects.html">
+  <meta property="og:image" content="https://dhavan-shah.github.io/assets/img/projects-hero-bg-1980.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Selected Proof · Dhavan Shah">
+  <meta name="twitter:description" content="A curated index of agent reliability systems: budget gates, grounded memory, trace replay, workflow orchestration, RAG, and technical depth.">
+  <meta name="twitter:image" content="https://dhavan-shah.github.io/assets/img/projects-hero-bg-1980.webp">
 
   <link href="assets/img/favicon.png" rel="icon">
   <link href="assets/img/favicon.png" rel="apple-touch-icon">
@@ -21,184 +30,8 @@
   <link href="assets/vendor/ionicons/css/ionicons.min.css" rel="stylesheet">
   <link href="assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
   <link href="assets/vendor/venobox/venobox.css" rel="stylesheet">
-  <link href="assets/css/style.css?v=20260723c" rel="stylesheet">
+  <link href="assets/css/style.css?v=20260723d" rel="stylesheet">
 
-  <style>
-    /* Nav: brand + links on one baseline inside the container */
-    body.practice-projects .navbar-b > .container {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: nowrap;
-    }
-    body.practice-projects .navbar-b .navbar-brand {
-      margin: 0;
-      padding-top: 0.65rem;
-      padding-bottom: 0.65rem;
-      line-height: 1.2;
-      float: none;
-    }
-    body.practice-projects .navbar-b .navbar-collapse {
-      flex-grow: 0;
-    }
-    body.practice-projects .navbar-b .navbar-nav {
-      align-items: center;
-    }
-    body.practice-projects .navbar-b .nav-link {
-      line-height: 1.2;
-      padding-top: 0.75rem;
-      padding-bottom: 0.75rem;
-    }
-
-    body.practice-projects .projects-hero-bg {
-      background-image: url(assets/img/projects-hero-bg-1280.webp);
-      background-position: center center;
-    }
-    body.practice-projects .projects-hero-bg .overlay-mf {
-      background: linear-gradient(90deg, rgba(6, 20, 28, 0.76), rgba(15, 30, 38, 0.62), rgba(6, 20, 28, 0.76));
-      opacity: 1;
-    }
-    @media (min-width: 1200px) {
-      body.practice-projects .projects-hero-bg {
-        background-image: url(assets/img/projects-hero-bg-1980.webp);
-      }
-    }
-
-    /* Hero: centered block with even readable measure */
-    body.practice-projects .intro-single .intro-content .container,
-    body.practice-projects .intro-single .projects-hero-inner {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      max-width: 720px;
-      margin-left: auto;
-      margin-right: auto;
-      width: 100%;
-    }
-    body.practice-projects .intro-single .intro-title {
-      margin-left: auto;
-      margin-right: auto;
-      text-align: center;
-      width: 100%;
-    }
-    body.practice-projects .projects-hero-lead {
-      max-width: 34rem;
-      width: 100%;
-      margin: 0.85rem auto 0;
-      color: rgba(255, 255, 255, 0.88);
-      font-family: "Outfit", system-ui, sans-serif;
-      font-size: 1.05rem;
-      line-height: 1.55;
-      text-align: center;
-      text-wrap: balance;
-    }
-    body.practice-projects .intro-single .breadcrumb {
-      justify-content: center;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    /* Index header: same centered measure as hero */
-    body.practice-projects .title-box {
-      max-width: 40rem;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    body.practice-projects .title-box .subtitle-a {
-      max-width: 34rem;
-      margin-left: auto;
-      margin-right: auto;
-      line-height: 1.55;
-      text-wrap: balance;
-    }
-
-    /* Tier labels: left-align with card grid columns */
-    body.practice-projects .project-tier-label {
-      font-size: 0.75rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: #5f6b7a;
-      margin: 2.75rem 0 1rem;
-      text-align: left;
-      padding-left: 15px; /* match Bootstrap col gutter */
-    }
-
-    /* Cards: match home proof layout; allow multi-line blurbs */
-    body.practice-projects .work-box {
-      overflow: hidden;
-      background: #fff;
-    }
-    body.practice-projects .work-box:hover {
-      transform: translateY(-3px);
-      transition: 0.2s;
-    }
-    body.practice-projects .work-img {
-      aspect-ratio: 16 / 10;
-      background: #0f172a;
-      overflow: hidden;
-    }
-    body.practice-projects .work-img img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    body.practice-projects .work-content {
-      flex: 1 1 auto;
-      padding: 1.15rem 1.2rem 1.25rem;
-      display: flex;
-      flex-direction: column;
-      text-align: left;
-    }
-    body.practice-projects .w-title {
-      margin: 0;
-      font-size: 1.05rem;
-      line-height: 1.35;
-      color: #121826;
-      text-align: left;
-    }
-    body.practice-projects .project-card-blurb {
-      margin: 0.5rem 0 0;
-      color: #5f6b7a;
-      font-size: 0.9rem;
-      line-height: 1.5;
-      text-align: left;
-      white-space: normal;
-      overflow: visible;
-      text-overflow: unset;
-      min-height: 0;
-    }
-    body.practice-projects .w-more {
-      margin-top: auto;
-      padding-top: 0.75rem;
-      color: #5f6b7a;
-      font-size: 0.8rem;
-      line-height: 1.4;
-      text-align: left;
-    }
-
-    body.practice-projects .projects-cta {
-      text-align: center;
-      padding: 2.75rem 1rem 4rem;
-    }
-    body.practice-projects .projects-cta p {
-      color: #5f6b7a;
-      max-width: 32rem;
-      margin: 0.5rem auto 1.25rem;
-      line-height: 1.55;
-      text-wrap: balance;
-    }
-
-    @media (max-width: 767px) {
-      body.practice-projects .project-tier-label {
-        text-align: left;
-        padding-left: 15px;
-      }
-      body.practice-projects .navbar-b > .container {
-        flex-wrap: wrap;
-      }
-    }
-  </style>
 </head>
 
 <body id="page-top" class="practice-projects trust-home">
@@ -250,7 +83,7 @@
   </div>
 
   <main id="main">
-    <section class="portfolio-mf sect-pt4 route reveal-section" style="margin-top: 80px;">
+    <section class="portfolio-mf sect-pt4 route reveal-section projects-index-section">
       <div class="container">
 
         <div class="row">
@@ -433,11 +266,12 @@
         </div>
 
         <div class="projects-cta reveal-section">
-          <h4 style="font-weight:700;">Ready to apply this in your stack?</h4>
+          <h4 class="projects-cta-title">Ready to apply this in your stack?</h4>
           <p>Start with an Agent Reliability Audit, or a Fail-Closed Pilot on one production workflow.</p>
-          <a class="btn btn-primary btn-lg px-4" href="index.html#hire">View engagements</a>
-          &nbsp;
-          <a class="btn btn-outline-secondary btn-lg px-4" href="index.html#hire-form-anchor">Request a fit call</a>
+          <div class="projects-cta-actions">
+            <a class="btn btn-primary btn-lg px-4" href="index.html#hire">View engagements</a>
+            <a class="btn btn-outline-secondary btn-lg px-4" href="index.html#hire-form-anchor">Request a fit call</a>
+          </div>
         </div>
 
       </div>

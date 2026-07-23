@@ -11,6 +11,15 @@
   <meta name="theme-color" content="#0e7490">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Dhavan Shah · Agent Reliability &amp; Cost Control">
+  <meta property="og:description" content="A selective independent practice for production AI agent reliability: fail-closed budgets, approval gates, evaluations, and grounded company memory.">
+  <meta property="og:url" content="https://dhavan-shah.github.io/">
+  <meta property="og:image" content="https://dhavan-shah.github.io/assets/img/projects-hero-bg-1980.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Dhavan Shah · Agent Reliability &amp; Cost Control">
+  <meta name="twitter:description" content="A selective independent practice for production AI agent reliability: fail-closed budgets, approval gates, evaluations, and grounded company memory.">
+  <meta name="twitter:image" content="https://dhavan-shah.github.io/assets/img/projects-hero-bg-1980.webp">
 
   <link href="assets/img/favicon.png" rel="icon">
   <link href="assets/img/favicon.png" rel="apple-touch-icon">
@@ -24,7 +33,7 @@
   <link href="assets/vendor/ionicons/css/ionicons.min.css" rel="stylesheet">
   <link href="assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
   <link href="assets/vendor/venobox/venobox.css" rel="stylesheet">
-  <link href="assets/css/style.css?v=20260723c" rel="stylesheet">
+  <link href="assets/css/style.css?v=20260723d" rel="stylesheet">
 </head>
 
 <body id="page-top" class="trust-home practice-home">
@@ -110,7 +119,7 @@
 
   <!-- ======= Hero ======= -->
   <div id="home" class="intro route bg-image trust-hero">
-    <div class="overlay-itro trust-hero-overlay" style="background-image: url(assets/img/Background.jpeg); background-size: cover; background-position: center;"></div>
+    <div class="trust-hero-bg" aria-hidden="true"></div>
     <div class="overlay-itro trust-hero-overlay"></div>
     <div class="intro-content display-table trust-hero-content">
       <div class="table-cell">
@@ -186,6 +195,32 @@
           </div>
         </div>
 
+        <div class="fit-panel reveal-section" aria-labelledby="fit-panel-title">
+          <div class="fit-panel-copy">
+            <p class="fit-eyebrow">Fit check</p>
+            <h4 id="fit-panel-title">Best when the agent risk is already real.</h4>
+            <p>Scoped work is strongest when there is a production or near-production workflow, a technical owner, and enough signal to audit behavior.</p>
+          </div>
+          <div class="fit-grid" aria-label="Engagement fit">
+            <article>
+              <h5>Good fit</h5>
+              <ul>
+                <li>Agents are touching spend, customer-facing answers, internal memory, or operational workflows.</li>
+                <li>You can share architecture, traces, prompts, policies, or failure examples under an agreed scope.</li>
+                <li>You want a written audit, one hardened workflow, or a small reliability retainer.</li>
+              </ul>
+            </article>
+            <article>
+              <h5>Not a fit</h5>
+              <ul>
+                <li>Idea-stage demos with no workflow owner or production path.</li>
+                <li>Open-ended staff augmentation without a defined reliability outcome.</li>
+                <li>Requests that need invented client logos, compliance claims, or inflated impact numbers.</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+
       </div>
     </section>
 
@@ -248,45 +283,45 @@
         <div class="row project-grid proof-flagships">
 
           <div class="col-md-4 d-flex align-items-stretch">
-            <a class="work-box project-card-click h-100 w-100 d-flex flex-column" href="project-kazenai-agent-finops.html" aria-label="View Agent FinOps case study" data-title="Agent FinOps" data-category="FinOps, Budgets, Fail-closed">
+            <a class="work-box project-card-click h-100 w-100 d-flex flex-column" href="project-kazenai-agent-finops.html" aria-label="View Agent FinOps case study: pre-call budget gate" data-title="Pre-call budget gate" data-category="Agent FinOps, Budgets, Fail-closed">
               <div class="work-img img-skeleton">
-                <img src="assets/img/KazenAI_Agent_FinOps.png?v=20260722" alt="Agent FinOps" class="img-fluid" loading="lazy">
+                <img src="assets/img/thumbs/KazenAI_Agent_FinOps-800.webp?v=20260723" srcset="assets/img/thumbs/KazenAI_Agent_FinOps-480.webp?v=20260723 480w, assets/img/thumbs/KazenAI_Agent_FinOps-800.webp?v=20260723 800w" sizes="(min-width: 1200px) 350px, (min-width: 768px) 30vw, 100vw" alt="Agent FinOps" class="img-fluid" loading="lazy" decoding="async" width="800" height="500">
               </div>
               <div class="work-content">
-                <h2 class="w-title">Agent FinOps</h2>
-                <p class="project-card-blurb">Most cost tools show the invoice. This one can refuse the call when the budget is gone. Fail-closed if enforcement is down.</p>
+                <h2 class="w-title">Pre-call budget gate</h2>
+                <p class="project-card-blurb">Spend authority is checked before model calls, with fail-closed behavior if enforcement is unavailable.</p>
                 <div class="w-more">
-                  <span class="w-ctegory">FinOps · Fail-closed · Spend attribution</span>
+                  <span class="w-ctegory">Agent FinOps · Budget authority</span>
                 </div>
               </div>
             </a>
           </div>
 
           <div class="col-md-4 d-flex align-items-stretch">
-            <a class="work-box project-card-click h-100 w-100 d-flex flex-column" href="project-kazenai-agent-brain.html" aria-label="View Agent Brain case study" data-title="Agent Brain" data-category="RAG, Think, ACL">
+            <a class="work-box project-card-click h-100 w-100 d-flex flex-column" href="project-kazenai-agent-brain.html" aria-label="View Agent Brain case study: cite-or-abstain memory" data-title="Cite-or-abstain memory" data-category="Agent Brain, RAG, Think, ACL">
               <div class="work-img img-skeleton">
-                <img src="assets/img/KazenAI_Agent_Brain.png?v=20260722" alt="Agent Brain" class="img-fluid" loading="lazy">
+                <img src="assets/img/thumbs/KazenAI_Agent_Brain-800.webp?v=20260723" srcset="assets/img/thumbs/KazenAI_Agent_Brain-480.webp?v=20260723 480w, assets/img/thumbs/KazenAI_Agent_Brain-800.webp?v=20260723 800w" sizes="(min-width: 1200px) 350px, (min-width: 768px) 30vw, 100vw" alt="Agent Brain" class="img-fluid" loading="lazy" decoding="async" width="800" height="500">
               </div>
               <div class="work-content">
-                <h2 class="w-title">Agent Brain</h2>
-                <p class="project-card-blurb">Retrieve, deliberate, cite. Or say there is not enough evidence. Access rules filter what can enter an answer.</p>
+                <h2 class="w-title">Cite-or-abstain memory</h2>
+                <p class="project-card-blurb">Company memory retrieves, deliberates, cites sources, or refuses when the corpus cannot support a claim.</p>
                 <div class="w-more">
-                  <span class="w-ctegory">Company memory · Cite / abstain · ACL</span>
+                  <span class="w-ctegory">Agent Brain · Grounded recall</span>
                 </div>
               </div>
             </a>
           </div>
 
           <div class="col-md-4 d-flex align-items-stretch">
-            <a class="work-box project-card-click h-100 w-100 d-flex flex-column" href="project-kazenai-agent-lens.html" aria-label="View Agent Lens case study" data-title="Agent Lens" data-category="Observability, Drift, Replay">
+            <a class="work-box project-card-click h-100 w-100 d-flex flex-column" href="project-kazenai-agent-lens.html" aria-label="View Agent Lens case study: replay without re-running models" data-title="Replay without re-running models" data-category="Agent Lens, Observability, Drift, Replay">
               <div class="work-img img-skeleton">
-                <img src="assets/img/KazenAI_Agent_Lens.png?v=20260722" alt="Agent Lens" class="img-fluid" loading="lazy">
+                <img src="assets/img/thumbs/KazenAI_Agent_Lens-800.webp?v=20260723" srcset="assets/img/thumbs/KazenAI_Agent_Lens-480.webp?v=20260723 480w, assets/img/thumbs/KazenAI_Agent_Lens-800.webp?v=20260723 800w" sizes="(min-width: 1200px) 350px, (min-width: 768px) 30vw, 100vw" alt="Agent Lens" class="img-fluid" loading="lazy" decoding="async" width="800" height="500">
               </div>
               <div class="work-content">
-                <h2 class="w-title">Agent Lens</h2>
-                <p class="project-card-blurb">Run timelines and drift checks you can trust. Default “replay” analyzes what already happened; it does not silently re-run the model.</p>
+                <h2 class="w-title">Replay without re-running models</h2>
+                <p class="project-card-blurb">Run timelines and drift checks explain what happened without silently spending more tokens.</p>
                 <div class="w-more">
-                  <span class="w-ctegory">Traces · Drift · Replay analysis</span>
+                  <span class="w-ctegory">Agent Lens · Post-run evidence</span>
                 </div>
               </div>
             </a>
